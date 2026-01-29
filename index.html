@@ -182,7 +182,7 @@ footer{
 
 footer span{color:var(--muted);font-size:.9rem}
 
-/* VIN PANEL */
+/* VIN PANEL — BASE */
 #vin-panel{
   position:fixed;
   left:50%;
@@ -197,6 +197,15 @@ footer span{color:var(--muted);font-size:.9rem}
   box-shadow:0 30px 60px rgba(0,0,0,.7);
   z-index:998;
 }
+
+/* VIN RESULTS SCROLL */
+#vin-panel #results{
+  max-height:40vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+
 
 #vin-panel input{
   width:100%;padding:10px;
