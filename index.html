@@ -59,6 +59,7 @@ header{
   align-items:center;
   justify-content:space-between;
   gap:12px;
+  flex-wrap:wrap;
 }
 
 .logo{
@@ -235,13 +236,20 @@ footer span{color:var(--muted);font-size:.9rem}
 
 /* PRINT */
 #print-sheet{display:none}
-@media print{
-  body{visibility:hidden}
-  #print-sheet,#print-sheet *{visibility:visible}
-  #print-sheet{
-    display:block;position:absolute;
-    top:0;left:0;width:100%;
-    padding:20px;background:#fff;color:#000;
+@media(max-width:600px){
+  .stats,.sell-grid{grid-template-columns:1fr}
+  .btn.secondary{margin:10px 0 0;display:block}
+  #vin-panel{left:0;right:0;bottom:0;width:100%;border-radius:18px 18px 0 0}
+
+  nav{
+    width:100%;
+    justify-content:center;
+    overflow-x:auto;
+    padding-top:8px;
+  }
+
+  nav a{
+    flex-shrink:0;
   }
 }
 
