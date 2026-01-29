@@ -27,107 +27,197 @@ body{
   min-height:100vh;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(11,15,20,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px 32px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  background:rgba(11,15,20,.9);
-  backdrop-filter:blur(8px);
-  position:sticky;
-  top:0;
-  z-index:10;
+  gap:16px;
+  flex-wrap:wrap;
 }
 
-.logo{display:flex;align-items:center;gap:12px;font-weight:900}
-.bee{
-  width:38px;height:38px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:grid;place-items:center;color:#000;
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:900;
 }
 
-nav a{color:var(--muted);text-decoration:none;margin-left:24px;font-weight:700}
+.logo img{height:40px}
+
+nav{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+nav a{
+  text-decoration:none;
+  font-weight:800;
+  padding:8px 14px;
+  border-radius:999px;
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,.12);
+}
+
 nav a.cta{
-  color:#000;background:linear-gradient(135deg,var(--accent),var(--accent2));
-  padding:8px 14px;border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;
+  border:none;
 }
 
-/* HERO */
+/* ================= HERO ================= */
 .hero{
-  max-width:1200px;margin:auto;padding:56px 32px;
-  display:grid;grid-template-columns:1.1fr .9fr;gap:40px;
+  max-width:1200px;
+  margin:auto;
+  padding:48px 20px 32px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:36px;
 }
 
-.hero h1{font-size:clamp(2.2rem,4vw,3.2rem);line-height:1.1}
-.trust{color:var(--accent);font-weight:800;margin:16px 0}
-.hero p{color:var(--muted);max-width:520px;margin-bottom:28px}
+.hero h1{
+  font-size:clamp(2rem,4vw,3.2rem);
+  line-height:1.1;
+}
 
-.btn{padding:14px 22px;border-radius:12px;font-weight:900;text-decoration:none}
+.trust{
+  color:var(--accent);
+  font-weight:800;
+  margin:16px 0;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:520px;
+  margin-bottom:24px;
+}
+
+.btn{
+  display:inline-block;
+  padding:14px 22px;
+  border-radius:12px;
+  font-weight:900;
+  text-decoration:none;
+}
+
 .btn.primary{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#000;
 }
+
 .btn.secondary{
   border:1px solid rgba(255,255,255,.2);
-  color:var(--text);margin-left:12px;
+  color:var(--text);
+  margin-left:10px;
 }
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+/* ================= STATS ================= */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:26px;
+}
+
 .stat{
   background:var(--panel-soft);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;padding:16px;text-align:center;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
 }
+
 .stat h3{color:var(--accent)}
 .stat span{color:var(--muted);font-size:.9rem}
 
-/* CARD */
+/* ================= CARD ================= */
 .card{
   background:var(--panel);
   border:1px solid rgba(255,255,255,.18);
   border-radius:18px;
-  padding:26px;
+  padding:24px;
   box-shadow:0 30px 60px rgba(0,0,0,.55);
 }
 
-.sell-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.sell-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
 .sell-item{
-  display:flex;gap:12px;align-items:center;
+  display:flex;
+  align-items:center;
+  gap:10px;
   background:var(--panel-soft);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:12px;padding:14px;
-  color:var(--muted);font-weight:700;
-}
-.sell-item span{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;width:22px;height:22px;border-radius:50%;
-  display:grid;place-items:center;font-size:.75rem;font-weight:900;
+  border-radius:12px;
+  padding:12px;
+  color:var(--muted);
+  font-weight:700;
 }
 
-/* FOOTER */
+.sell-item span{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#000;
+  font-size:.75rem;
+  font-weight:900;
+}
+
+/* ================= FOOTER ================= */
 footer{
   border-top:1px solid rgba(255,255,255,.08);
-  padding:32px;display:flex;flex-wrap:wrap;
-  justify-content:space-between;gap:16px;
+  padding:28px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:16px;
 }
-footer span{color:var(--muted);font-size:.9rem}
 
-/* FLOATING ACTIONS */
+footer span{
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* ================= FLOATING BUTTONS ================= */
 .fab{
-  position:fixed;right:18px;width:64px;height:64px;
-  border-radius:50%;display:grid;place-items:center;
-  font-size:26px;color:#000;
+  position:fixed;
+  right:18px;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  color:#000;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   box-shadow:0 20px 40px rgba(0,0,0,.6);
   z-index:999;
 }
+
 .call-btn{bottom:96px}
 .gps-btn{bottom:18px}
 
-/* ===== GOLD VIN BUTTON ===== */
+/* ================= VIN ================= */
 #vin-toggle{
   position:fixed;
   left:18px;
@@ -145,7 +235,6 @@ footer span{color:var(--muted);font-size:.9rem}
   z-index:998;
 }
 
-/* VIN PANEL */
 #vin-panel{
   position:fixed;
   left:18px;
@@ -155,50 +244,51 @@ footer span{color:var(--muted);font-size:.9rem}
   background:#0b1210;
   border-radius:18px;
   padding:14px;
-  color:#e9fff4;
   display:none;
   box-shadow:0 30px 60px rgba(0,0,0,.7);
   z-index:998;
-  
 }
 
 #vin-panel input{
-  width:100%;padding:10px;border-radius:12px;
+  width:100%;
+  padding:10px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,.15);
-  background:#0c1612;color:#fff;text-transform:uppercase;
+  background:#0c1612;
+  color:#fff;
+  text-transform:uppercase;
 }
 
 #vin-panel button{
-  width:100%;margin-top:8px;padding:10px;
-  border-radius:12px;border:0;font-weight:900;
+  width:100%;
+  margin-top:8px;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+  font-weight:900;
 }
 
-.primary{
-  background:linear-gradient(180deg,var(--accent),var(--accent2));
-  color:#000;
-}
-
+.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
 .secondary{background:#1a1a1a;color:#fff}
 
 .row{
-  display:flex;justify-content:space-between;
-  background:#0f1714;padding:8px 10px;
-  border-radius:10px;margin-top:6px;font-size:12px;
+  display:flex;
+  justify-content:space-between;
+  background:#0f1714;
+  padding:8px 10px;
+  border-radius:10px;
+  margin-top:6px;
+  font-size:12px;
 }
+
 .k{color:#9bb0a6}
 .v{font-weight:800}
 .vehicle{text-align:center;font-weight:900;margin-top:8px}
 
-/* ===== PRINT VIN SHEET ===== */
-@media print{
-  body *{display:none!important}
-  #vin-panel,#vin-panel *{display:block!important}
-  #vin-panel{
-    position:static;width:100%;
-    background:#fff;color:#000;
-    box-shadow:none;
-  }
-  .row{background:#f3f4f6}
+/* ================= MOBILE FIX ================= */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -206,20 +296,22 @@ footer span{color:var(--muted);font-size:.9rem}
 <body>
 
 <header>
-  <div class="logo">
-    <img src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/logo.png?raw=true" alt="Two Little Bees Auto Parts Logo" style="height:42px;">
-    <span>Two Little Bees Auto Parts</span>
+  <div class="header-inner">
+    <div class="logo">
+      <img src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/logo.png?raw=true">
+      <span>Two Little Bees Auto Parts</span>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a class="cta" href="https://twolittlebeesautoparts.github.io/">Enter Inventory</a>
+    </nav>
   </div>
-  <nav>
-    <a href="#">Home</a>
-    <a class="cta" href="https://twolittlebeesautoparts.github.io/">Enter Inventory</a>
-  </nav>
 </header>
 
 <main>
 <section class="hero">
   <div>
-    <h1>Quality Used Auto Parts.<br>Fast. Honest. Nationwide.</h1>
+    <h1>Parts.<br>Fast. Honest.<br>friendly.</h1>
     <div class="trust">📍 Established in Indianapolis</div>
     <p>Live inventory tied to real vehicles. Call or search — we move fast.</p>
 
@@ -269,89 +361,45 @@ footer span{color:var(--muted);font-size:.9rem}
 </div>
 
 <script>
-const vinInput   = document.getElementById("vin");
-const resultsEl  = document.getElementById("results");
-const vehicleEl  = document.getElementById("vehicle");
-const vinPanel   = document.getElementById("vin-panel");
+const vinInput=document.getElementById("vin");
+const resultsEl=document.getElementById("results");
+const vehicleEl=document.getElementById("vehicle");
+const vinPanel=document.getElementById("vin-panel");
 
 function toggleVin(){
-  vinPanel.style.display =
-    vinPanel.style.display === "block" ? "none" : "block";
+  vinPanel.style.display=vinPanel.style.display==="block"?"none":"block";
 }
 
-function clean(v){
-  return v.toUpperCase().replace(/[^A-Z0-9]/g,"");
-}
-
-function valid(v){
-  return v.length === 17 && !/[IOQ]/.test(v);
-}
-
-function section(title){
-  resultsEl.innerHTML += `<div class="section">${title}</div>`;
-}
+function clean(v){return v.toUpperCase().replace(/[^A-Z0-9]/g,"")}
+function valid(v){return v.length===17&&!/[IOQ]/.test(v)}
 
 function row(k,v){
-  if(!v || v==="Not Applicable") return;
-  resultsEl.innerHTML +=
-    `<div class="row">
-      <div class="k">${k}</div>
-      <div class="v">${v}</div>
-    </div>`;
+  if(!v||v==="Not Applicable")return;
+  resultsEl.innerHTML+=`
+  <div class="row">
+    <div class="k">${k}</div>
+    <div class="v">${v}</div>
+  </div>`;
 }
 
 async function decode(){
-  let v = clean(vinInput.value);
-  vinInput.value = v;
-  if(!valid(v)) return;
+  let v=clean(vinInput.value);
+  vinInput.value=v;
+  if(!valid(v))return;
 
-  resultsEl.innerHTML = "";
+  resultsEl.innerHTML="";
+  const r=await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/${v}?format=json`);
+  const d=(await r.json()).Results[0];
 
-  const r = await fetch(
-    `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/${v}?format=json`
-  );
-  const d = (await r.json()).Results[0];
+  vehicleEl.textContent=`${d.ModelYear} ${d.Make} ${d.Model}`;
 
-  vehicleEl.textContent = `${d.ModelYear} ${d.Make} ${d.Model}`;
-
-  // ===== VEHICLE =====
-  section("Vehicle");
-  row("Make", d.Make);
-  row("Model", d.Model);
-  row("Year", d.ModelYear);
-  row("Trim", d.Trim);
-  row("Series", d.Series);
-  row("Body Style", d.BodyClass);
-  row("Doors", d.Doors);
-  row("Vehicle Type", d.VehicleType);
-  row("GVWR", d.GVWR);
-
-  // ===== ENGINE & DRIVETRAIN =====
-  section("Engine & Drivetrain");
-  row("Engine Size", d.DisplacementL ? `${d.DisplacementL} L` : "");
-  row("Cylinders", d.EngineCylinders);
-  row("Configuration", d.EngineConfiguration);
-  row("Horsepower", d.EngineHP ? `${d.EngineHP} HP` : "");
-  row("Fuel Type", d.FuelTypePrimary);
-  row("Transmission", d.TransmissionStyle);
-  row("Drive", d.DriveType);
-
-  // ===== MANUFACTURING =====
-  section("Manufacturing");
-  row("Manufacturer", d.Manufacturer);
-  row("Plant City", d.PlantCity);
-  row("Plant State", d.PlantState);
-  row("Plant Country", d.PlantCountry);
-
-  // ===== SAFETY =====
-  section("Safety");
-  row("ABS", d.ABS);
-  row("Traction Control", d.TractionControl);
-  row("ESC", d.ESC);
-  row("Front Airbags", d.AirBagLocFront);
-  row("Side Airbags", d.AirBagLocSide);
-  row("Curtain Airbags", d.AirBagLocCurtain);
+  row("Engine",d.DisplacementL?`${d.DisplacementL}L`:"");
+  row("Cylinders",d.EngineCylinders);
+  row("Transmission",d.TransmissionStyle);
+  row("Drive",d.DriveType);
+  row("Fuel",d.FuelTypePrimary);
 }
 </script>
+
 </body>
 </html>
