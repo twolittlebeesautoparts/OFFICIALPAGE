@@ -275,7 +275,37 @@ footer span{color:var(--muted);font-size:.9rem}
   outline:2px dashed var(--accent);
   padding:8px;border-radius:10px;
 }
-</style>
+
+/* ================================
+   PRINT SHEET (HIDE ON SCREEN)
+   ================================ */
+#print-sheet{
+  display:none;
+}
+
+@media print{
+  body *{
+    visibility:hidden;
+  }
+
+  #print-sheet,
+  #print-sheet *{
+    visibility:visible;
+  }
+
+  #print-sheet{
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    padding:20px;
+    background:#fff;
+    color:#000;
+  }
+}
+</style>  
+   
 </head>
 
 <body>
