@@ -188,7 +188,7 @@ main{display:block}
   transition:transform .12s ease, filter .12s ease;
 }
 .btn:active{transform:scale(.99)}
-.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none}
 .btn.secondary{border:1px solid rgba(255,255,255,.18);color:var(--text);background:rgba(0,0,0,.12)}
 
 .card{
@@ -290,6 +290,12 @@ main{display:block}
   justify-content:center;
   color:var(--muted);
   font-weight:900;
+}
+.galleryItem img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
 /* Footer */
@@ -462,6 +468,101 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
   box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
+/* ====== Admin Login Modal ====== */
+#adminModalBackdrop{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.62);
+  display:none;
+  z-index:2000;
+}
+#adminModal{
+  position:fixed;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:min(420px, calc(100% - 24px));
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+  padding:16px;
+  display:none;
+  z-index:2001;
+}
+.modalHead{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-bottom:10px;
+}
+.modalHead strong{font-size:1rem}
+.iconBtn{
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.12);
+  color:#fff;
+  border-radius:12px;
+  padding:8px 10px;
+  font-weight:950;
+  cursor:pointer;
+}
+.field{
+  margin-top:10px;
+}
+.field label{
+  display:block;
+  font-size:.85rem;
+  color:var(--muted);
+  font-weight:900;
+  margin-bottom:6px;
+}
+.field input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.15);
+  background:#0c121a;
+  color:#fff;
+  font-weight:800;
+}
+.modalActions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+.modalActions button{flex:1}
+.helper{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:.85rem;
+  line-height:1.35;
+}
+#adminBar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+#adminBar .left{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(15,23,42,.55);
+  color:var(--text);
+  font-weight:900;
+  font-size:.85rem;
+}
+.pill .tinyDot{
+  width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.25);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+.pill.ok .tinyDot{background:var(--ok);box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.pill.bad .tinyDot{background:var(--bad);box-shadow:0 0 0 3px rgba(239,68,68,.18)}
+
 /* Mobile */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr}
@@ -489,12 +590,15 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
 /* ================================
    PRINT SHEET (LOGO + VIN RESULTS)
    ================================ */
-#print-sheet{display:none}
+
+/* ✅ FIX: hard-hide print sheet on screen so it never shows as a giant logo */
+#print-sheet{display:none !important;}
+
 @media print{
   body *{visibility:hidden}
   #print-sheet, #print-sheet *{visibility:visible}
   #print-sheet{
-    display:block;
+    display:block !important;
     position:absolute;
     top:0; left:0;
     width:100%;
@@ -603,13 +707,29 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
     <div class="card">
       <div class="sectionTitleRow">
         <h3>Gallery</h3>
-        <small>Coming soon</small>
+        <small id="galleryHint">Firebase Gallery</small>
       </div>
+
+      <!-- Admin bar -->
+      <div id="adminBar">
+        <div class="left">
+          <button class="btn secondary" id="adminLoginOpen" type="button">Admin Login</button>
+          <button class="btn secondary" id="adminLogout" type="button" style="display:none">Logout</button>
+
+          <label class="btn primary" id="uploadWrap" style="display:none; cursor:pointer;">
+            Upload Photos
+            <input id="galleryUpload" type="file" accept="image/*" multiple style="display:none">
+          </label>
+        </div>
+
+        <div class="pill bad" id="authPill">
+          <span class="tinyDot"></span>
+          <span id="authText">Not signed in</span>
+        </div>
+      </div>
+
       <div id="galleryGrid">
-        <div class="galleryItem">Photos soon</div>
-        <div class="galleryItem">Photos soon</div>
-        <div class="galleryItem">Photos soon</div>
-        <div class="galleryItem">Photos soon</div>
+        <div class="galleryItem" id="galleryLoading">Loading gallery…</div>
       </div>
     </div>
   </section>
@@ -670,13 +790,37 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
   <div id="print-results"></div>
 </div>
 
+<!-- Admin Login Modal -->
+<div id="adminModalBackdrop"></div>
+<div id="adminModal" role="dialog" aria-modal="true" aria-label="Admin Login">
+  <div class="modalHead">
+    <strong>Admin Login</strong>
+    <button class="iconBtn" id="adminModalClose" type="button">Close</button>
+  </div>
+
+  <div class="field">
+    <label for="adminEmail">Email</label>
+    <input id="adminEmail" type="email" placeholder="admin@twolittlebees.com" autocomplete="username">
+  </div>
+
+  <div class="field">
+    <label for="adminPass">Password</label>
+    <input id="adminPass" type="password" placeholder="(6+ characters)" autocomplete="current-password">
+  </div>
+
+  <div class="modalActions">
+    <button class="btn secondary" id="adminCancel" type="button">Cancel</button>
+    <button class="btn primary" id="adminLoginDo" type="button">Login</button>
+  </div>
+
+  <div class="helper" id="adminMsg">
+    Tip: Firebase won’t allow a 4-digit password. Use something like <b>152000</b>.
+  </div>
+</div>
+
 <script>
 /* ======================
-   QUICK FIXES + UPGRADES
-   - VIN panel: backdrop + close button + ESC support
-   - VIN decode: validation + CORS fallback + status
-   - Copy on tap: tap a row to copy the value
-   - Admin mode: fixes crash (adminBtn used before defined) + safer toggle
+   YOUR EXISTING VIN + ADMIN EDIT MODE (UNCHANGED)
 ====================== */
 
 /* ===== VIN PANEL STATE ===== */
@@ -696,7 +840,7 @@ let lastVinCache = { vin:"", d:null, ts:0 };
 function setVinStatus(msg, type=""){
   vinStatusText.textContent = msg || "";
   vinStatus.className = type ? type : "";
-  vinStatus.id = "vin-status"; // keep id stable
+  vinStatus.id = "vin-status";
 }
 
 function toggleVin(force){
@@ -848,14 +992,12 @@ function renderVin(d, v){
   const line = `${d.ModelYear || ""} ${d.Make || ""} ${d.Model || ""}`.trim() || "Vehicle";
   vehicleEl.textContent = line;
 
-  // core basics
   row("VIN", v);
   row("Year", d.ModelYear);
   row("Make", d.Make);
   row("Model", d.Model);
   row("Trim", d.Trim);
 
-  // powertrain
   row("Engine", d.EngineModel || (d.DisplacementL ? `${d.DisplacementL}L` : ""));
   row("Displacement", d.DisplacementL ? `${d.DisplacementL} L` : "");
   row("Cylinders", d.EngineCylinders);
@@ -865,7 +1007,6 @@ function renderVin(d, v){
   row("Trans Speeds", d.TransmissionSpeeds);
   row("Drive", d.DriveType);
 
-  // body
   row("Body", d.BodyClass);
   row("Doors", d.Doors);
   row("Vehicle Type", d.VehicleType);
@@ -879,20 +1020,14 @@ function printSheet(){
   window.print();
 }
 
-/* ======================
-   ADMIN EDIT MODE
-   Fix: original code referenced adminBtn before it existed.
-====================== */
+/* ===== LOCAL ADMIN EDIT MODE (localStorage only) ===== */
 let admin = false;
 const adminBtn = document.getElementById("adminToggle");
 const editable = document.querySelectorAll(".admin-edit");
 
-/* SECRET TOGGLE: Ctrl + Shift + A */
 document.addEventListener("keydown", (e)=>{
   if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a"){
     admin = !admin;
-
-    // show/hide admin pill
     if(adminBtn) adminBtn.style.display = admin ? "block" : "none";
 
     editable.forEach(el=>{
@@ -904,7 +1039,6 @@ document.addEventListener("keydown", (e)=>{
   }
 });
 
-/* LOAD + SAVE CONTENT */
 editable.forEach(el=>{
   const saved = localStorage.getItem(el.id);
   if(saved) el.innerHTML = saved;
@@ -917,6 +1051,7 @@ editable.forEach(el=>{
 });
 </script>
 
+<!-- Your existing admin toggle pill -->
 <button id="adminToggle" style="
   position:fixed;
   bottom:16px;
@@ -935,5 +1070,193 @@ editable.forEach(el=>{
   ADMIN
 </button>
 
+<!-- Firebase Gallery (module) -->
+<script type="module">
+  // Firebase v10 modular CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
+
+  // ============================
+  // 1) PASTE YOUR FIREBASE CONFIG HERE
+  // Firebase Console -> Project settings -> Your apps -> Web app config
+  // ============================
+  const firebaseConfig = {
+    apiKey: "PASTE_YOURS",
+    authDomain: "PASTE_YOURS",
+    projectId: "PASTE_YOURS",
+    storageBucket: "PASTE_YOURS",
+    messagingSenderId: "PASTE_YOURS",
+    appId: "PASTE_YOURS"
+  };
+
+  const ADMIN_EMAIL_HINT = "admin@twolittlebees.com";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+
+  // UI
+  const galleryGrid = document.getElementById("galleryGrid");
+  const galleryLoading = document.getElementById("galleryLoading");
+
+  const adminLoginOpen = document.getElementById("adminLoginOpen");
+  const adminLogout = document.getElementById("adminLogout");
+  const uploadWrap = document.getElementById("uploadWrap");
+  const galleryUpload = document.getElementById("galleryUpload");
+
+  const authPill = document.getElementById("authPill");
+  const authText = document.getElementById("authText");
+  const galleryHint = document.getElementById("galleryHint");
+
+  const adminModalBackdrop = document.getElementById("adminModalBackdrop");
+  const adminModal = document.getElementById("adminModal");
+  const adminModalClose = document.getElementById("adminModalClose");
+  const adminCancel = document.getElementById("adminCancel");
+  const adminLoginDo = document.getElementById("adminLoginDo");
+  const adminEmail = document.getElementById("adminEmail");
+  const adminPass = document.getElementById("adminPass");
+  const adminMsg = document.getElementById("adminMsg");
+
+  adminEmail.placeholder = ADMIN_EMAIL_HINT;
+
+  function openModal(){
+    adminModalBackdrop.style.display = "block";
+    adminModal.style.display = "block";
+    adminMsg.textContent = "Sign in with your Firebase admin email/password.";
+    setTimeout(()=> adminEmail.focus(), 50);
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    adminModalBackdrop.style.display = "none";
+    adminModal.style.display = "none";
+    document.body.style.overflow = "";
+  }
+
+  adminLoginOpen.addEventListener("click", openModal);
+  adminModalClose.addEventListener("click", closeModal);
+  adminCancel.addEventListener("click", closeModal);
+  adminModalBackdrop.addEventListener("click", closeModal);
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && adminModal.style.display === "block") closeModal();
+  });
+
+  async function safeLoadGallery(){
+    try{
+      await loadGallery();
+    }catch(e){
+      if(galleryLoading) galleryLoading.textContent = "Gallery not loaded (check Firebase config).";
+    }
+  }
+
+  function makeEmpty(msg){
+    galleryGrid.innerHTML = "";
+    const d = document.createElement("div");
+    d.className = "galleryItem";
+    d.textContent = msg;
+    galleryGrid.appendChild(d);
+  }
+
+  function addImg(url){
+    const wrap = document.createElement("div");
+    wrap.className = "galleryItem";
+    wrap.style.padding = "0";
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "Gallery photo";
+    wrap.appendChild(img);
+    galleryGrid.appendChild(wrap);
+  }
+
+  async function loadGallery(){
+    const listRef = ref(storage, "gallery");
+    const res = await listAll(listRef);
+
+    const items = [...res.items].sort((a,b)=> (b.name || "").localeCompare(a.name || ""));
+
+    if(items.length === 0){
+      makeEmpty("No photos yet.");
+      return;
+    }
+
+    galleryGrid.innerHTML = "";
+    for(const item of items){
+      const url = await getDownloadURL(item);
+      addImg(url);
+    }
+  }
+
+  async function doLogin(){
+    const email = (adminEmail.value || "").trim();
+    const pass = adminPass.value || "";
+
+    if(!email || !pass){
+      adminMsg.textContent = "Enter email and password.";
+      return;
+    }
+
+    adminLoginDo.disabled = true;
+    adminMsg.textContent = "Signing in…";
+    try{
+      await signInWithEmailAndPassword(auth, email, pass);
+      closeModal();
+    }catch(e){
+      adminMsg.textContent = "Login failed: " + (e?.message || e);
+    }finally{
+      adminLoginDo.disabled = false;
+    }
+  }
+
+  adminLoginDo.addEventListener("click", doLogin);
+  adminPass.addEventListener("keydown", (e)=>{
+    if(e.key === "Enter") doLogin();
+  });
+
+  adminLogout.addEventListener("click", async ()=>{
+    try{ await signOut(auth); }catch{}
+  });
+
+  galleryUpload.addEventListener("change", async ()=>{
+    const files = [...(galleryUpload.files || [])];
+    if(!files.length) return;
+
+    uploadWrap.style.pointerEvents = "none";
+    uploadWrap.style.opacity = "0.75";
+
+    try{
+      for(const file of files){
+        const safeName = `${Date.now()}-${file.name}`.replace(/[^\w.\-]/g, "_");
+        const fileRef = ref(storage, `gallery/${safeName}`);
+        await uploadBytes(fileRef, file);
+      }
+      galleryUpload.value = "";
+      await loadGallery();
+      alert("Uploaded!");
+    }catch(e){
+      alert("Upload failed (admin-only): " + (e?.message || e));
+    }finally{
+      uploadWrap.style.pointerEvents = "";
+      uploadWrap.style.opacity = "";
+    }
+  });
+
+  onAuthStateChanged(auth, (user)=>{
+    const signedIn = !!user;
+
+    adminLoginOpen.style.display = signedIn ? "none" : "inline-flex";
+    adminLogout.style.display = signedIn ? "inline-flex" : "none";
+    uploadWrap.style.display = signedIn ? "inline-flex" : "none";
+
+    authPill.classList.remove("ok","bad");
+    authPill.classList.add(signedIn ? "ok" : "bad");
+    authText.textContent = signedIn ? `Signed in: ${user.email || "admin"}` : "Not signed in";
+
+    galleryHint.textContent = signedIn ? "Admin can upload" : "Public view";
+  });
+
+  safeLoadGallery();
+</script>
+
 </body>
 </html>
+
