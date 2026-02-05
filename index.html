@@ -9,6 +9,8 @@
 <meta name="theme-color" content="#0b0f14">
 <meta name="description" content="Two Little Bees Auto Parts — VIN-verified OEM used parts in Indianapolis. Engines, transmissions, modules, and more.">
 <link rel="preconnect" href="https://vpic.nhtsa.dot.gov">
+<link rel="preconnect" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://identitytoolkit.googleapis.com">
 <link rel="preconnect" href="https://github.com">
 
 <style>
@@ -16,20 +18,15 @@
   --bg:#0b0f14;
   --panel:#111827;
   --panel-soft:#0f172a;
-
   --accent:#f4c430;
   --accent2:#ffb703;
-
   --text:#f9fafb;
   --muted:#9ca3af;
-
   --border:rgba(255,255,255,.10);
   --border2:rgba(255,255,255,.14);
   --shadow:0 30px 60px rgba(0,0,0,.55);
-
   --radius:18px;
   --radius2:14px;
-
   --ok:#22c55e;
   --bad:#ef4444;
   --warn:#f59e0b;
@@ -85,11 +82,7 @@ header{
   box-shadow:0 14px 28px rgba(0,0,0,.28);
   background:#0f172a;
 }
-.logo span{
-  font-size:1rem;
-  letter-spacing:.2px;
-}
-
+.logo span{font-size:1rem;letter-spacing:.2px;}
 nav{display:flex;gap:8px;align-items:center}
 nav a{
   text-decoration:none;
@@ -99,21 +92,14 @@ nav a{
   color:var(--muted);
   border:1px solid rgba(255,255,255,.12);
   font-size:.85rem;
-  transition:transform .12s ease, filter .12s ease, opacity .12s ease;
+  transition:transform .12s ease, filter .12s ease;
   user-select:none;
   -webkit-tap-highlight-color: transparent;
 }
 nav a:hover{filter:brightness(1.05)}
 nav a:active{transform:scale(.99)}
-nav a.cta{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;
-  border:none;
-}
-nav a.vin-btn{
-  background:#0f172a;
-  color:#fff;
-}
+nav a.cta{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none}
+nav a.vin-btn{background:#0f172a;color:#fff}
 
 /* ====== Main Layout ====== */
 main{display:block}
@@ -138,23 +124,13 @@ main{display:block}
   font-size:1rem;
   line-height:1.5;
 }
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin:14px 0 6px;
-}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px;}
 .badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:999px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(15,23,42,.55);
-  color:var(--text);
-  font-weight:900;
-  font-size:.85rem;
+  color:var(--text);font-weight:900;font-size:.85rem;
 }
 .badge .dot{
   width:8px;height:8px;border-radius:999px;background:var(--accent);
@@ -163,16 +139,9 @@ main{display:block}
 
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:14px 18px;
-  border-radius:14px;
-  font-weight:950;
-  text-decoration:none;
-  user-select:none;
-  -webkit-tap-highlight-color: transparent;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 18px;border-radius:14px;font-weight:950;text-decoration:none;
+  user-select:none;-webkit-tap-highlight-color: transparent;
   transition:transform .12s ease, filter .12s ease;
 }
 .btn:active{transform:scale(.99)}
@@ -186,403 +155,173 @@ main{display:block}
   padding:20px;
   box-shadow:0 30px 60px rgba(0,0,0,.55);
 }
-.card h3{
-  font-size:1.05rem;
-  letter-spacing:.2px;
-}
-.sell-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:14px;
-}
+.card h3{font-size:1.05rem;letter-spacing:.2px;}
+.sell-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
 .sell-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display:flex;align-items:center;gap:10px;
   background:rgba(15,23,42,.75);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;
-  padding:12px;
-  color:var(--muted);
-  font-weight:850;
-  font-size:.92rem;
+  border-radius:14px;padding:12px;
+  color:var(--muted);font-weight:850;font-size:.92rem;
 }
 .sell-item span{
   width:22px;height:22px;border-radius:50%;
   display:grid;place-items:center;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;font-size:.72rem;
-  flex:0 0 auto;
+  color:#000;font-size:.72rem;flex:0 0 auto;
 }
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:20px;
-}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
 .stat{
   background:rgba(15,23,42,.75);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:16px;
-  padding:14px;
-  text-align:center;
+  border-radius:16px;padding:14px;text-align:center;
 }
 .stat h3{color:var(--accent);font-size:1.2rem}
 .stat span{color:var(--muted);font-size:.86rem}
 
-/* Sections */
-.section{
-  max-width:1200px;
-  margin:auto;
-  padding:22px 16px;
-}
+.section{max-width:1200px;margin:auto;padding:22px 16px;}
 .section .card{padding:22px}
-.sectionTitleRow{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:10px;
-}
+.sectionTitleRow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
 .sectionTitleRow small{color:var(--muted);font-weight:800}
+
 .admin-edit[contenteditable="true"]{
   outline:2px dashed rgba(244,196,48,.75);
-  outline-offset:6px;
-  border-radius:14px;
-  padding:10px;
+  outline-offset:6px;border-radius:14px;padding:10px;
 }
 
-/* Gallery grid */
-#galleryGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-  gap:12px;
-}
+/* Gallery */
+#galleryGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
 .galleryItem{
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;border:1px solid rgba(255,255,255,.12);
   background:rgba(15,23,42,.65);
-  overflow:hidden;
-  min-height:120px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--muted);
-  font-weight:900;
-  position:relative;
+  overflow:hidden;min-height:120px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-weight:900;position:relative;
 }
-.galleryItem img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
+.galleryItem img{width:100%;height:100%;object-fit:cover;display:block;}
 .galleryItem .cap{
-  position:absolute;
-  left:10px; right:10px; bottom:10px;
+  position:absolute;left:10px;right:10px;bottom:10px;
   background:rgba(0,0,0,.55);
   border:1px solid rgba(255,255,255,.14);
-  padding:8px 10px;
-  border-radius:12px;
-  color:#fff;
-  font-size:.78rem;
-  font-weight:900;
-  display:none;
+  padding:8px 10px;border-radius:12px;
+  color:#fff;font-size:.78rem;font-weight:900;display:none;
 }
 .galleryItem:hover .cap{display:block}
 .galleryItem .del{
-  position:absolute;
-  top:10px; right:10px;
+  position:absolute;top:10px;right:10px;
   background:rgba(0,0,0,.55);
   border:1px solid rgba(255,255,255,.18);
-  color:#fff;
-  border-radius:12px;
-  padding:8px 10px;
-  font-weight:950;
-  cursor:pointer;
-  display:none;
+  color:#fff;border-radius:12px;padding:8px 10px;
+  font-weight:950;cursor:pointer;display:none;
 }
 .galleryItem.admin .del{display:block}
 
-/* Admin bar */
-#adminBar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:12px;
-}
-#adminBar .left{
-  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
-}
+#adminBar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px;}
+#adminBar .left{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
 .pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:999px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(15,23,42,.55);
-  color:var(--text);
-  font-weight:900;
-  font-size:.85rem;
+  color:var(--text);font-weight:900;font-size:.85rem;
 }
-.pill .tinyDot{
-  width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.25);
-  box-shadow:0 0 0 3px rgba(255,255,255,.08);
-}
+.pill .tinyDot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.25);box-shadow:0 0 0 3px rgba(255,255,255,.08);}
 .pill.ok .tinyDot{background:var(--ok);box-shadow:0 0 0 3px rgba(34,197,94,.18)}
 .pill.bad .tinyDot{background:var(--bad);box-shadow:0 0 0 3px rgba(239,68,68,.18)}
 
 /* Footer */
 footer{
   border-top:1px solid rgba(255,255,255,.08);
-  padding:22px 16px;
-  display:grid;
-  gap:10px;
-  max-width:1200px;
-  margin:0 auto;
+  padding:22px 16px;display:grid;gap:10px;
+  max-width:1200px;margin:0 auto;
 }
 footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
-.footerRow{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-.footerLinks{
-  display:flex;flex-wrap:wrap;gap:10px;
-}
+.footerRow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-start;}
+.footerLinks{display:flex;flex-wrap:wrap;gap:10px;}
 .footerLinks a{
-  color:var(--text);
-  text-decoration:none;
+  color:var(--text);text-decoration:none;
   border:1px solid rgba(255,255,255,.12);
-  padding:8px 12px;
-  border-radius:999px;
-  font-weight:900;
-  font-size:.85rem;
+  padding:8px 12px;border-radius:999px;font-weight:900;font-size:.85rem;
 }
 
-/* ====== VIN Panel (Bottom Sheet) ====== */
-#vin-panel-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  display:none;
-  z-index:997;
-}
+/* VIN Panel */
+#vin-panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:997;}
 #vin-panel{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:18px;
-  width:360px;
-  max-height:82vh;
-  background:#0b1210;
-  border-radius:18px;
-  padding:14px;
-  display:none;
-  box-shadow:0 30px 60px rgba(0,0,0,.75);
-  z-index:998;
-  border:1px solid rgba(255,255,255,.12);
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:18px;width:360px;max-height:82vh;
+  background:#0b1210;border-radius:18px;padding:14px;
+  display:none;box-shadow:0 30px 60px rgba(0,0,0,.75);
+  z-index:998;border:1px solid rgba(255,255,255,.12);
 }
-#vin-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
+#vin-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
 #vin-head strong{font-size:.95rem}
 #vin-close{
   border:1px solid rgba(255,255,255,.18);
-  background:#0f1714;
-  color:#fff;
-  border-radius:12px;
-  padding:8px 10px;
-  font-weight:950;
-  cursor:pointer;
+  background:#0f1714;color:#fff;border-radius:12px;
+  padding:8px 10px;font-weight:950;cursor:pointer;
 }
-#vin-meta{
-  color:#aeb8c2;
-  font-size:.82rem;
-  margin-bottom:10px;
-  line-height:1.3;
-}
+#vin-meta{color:#aeb8c2;font-size:.82rem;margin-bottom:10px;line-height:1.3;}
 #vin-panel input{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
+  width:100%;padding:12px;border-radius:12px;
   border:1px solid rgba(255,255,255,.15);
-  background:#0c1612;
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.6px;
+  background:#0c1612;color:#fff;text-transform:uppercase;letter-spacing:.6px;
 }
-#vin-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:8px;
-}
-#vin-panel button{
-  width:100%;
-  margin-top:0;
-  padding:11px;
-  border-radius:12px;
-  border:none;
-  font-weight:950;
-  cursor:pointer;
-}
-#vin-actions button.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#000;
-}
-#vin-actions button.secondary{
-  background:#0f1714;
-  color:#fff;
-  border:1px solid rgba(255,255,255,.14);
-}
-#vin-status{
-  margin-top:10px;
-  font-size:12px;
-  min-height:18px;
-  color:#9bb0a6;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(255,255,255,.18);
-  box-shadow:0 0 0 3px rgba(255,255,255,.06);
-}
-#vin-status.ok{color:var(--ok)}
-#vin-status.ok .dot{background:var(--ok);box-shadow:0 0 0 3px rgba(34,197,94,.18)}
-#vin-status.bad{color:var(--bad)}
-#vin-status.bad .dot{background:var(--bad);box-shadow:0 0 0 3px rgba(239,68,68,.18)}
-#vin-status.warn{color:var(--warn)}
-#vin-status.warn .dot{background:var(--warn);box-shadow:0 0 0 3px rgba(245,158,11,.18)}
-#vin-panel #results{
-  max-height:38vh;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  margin-top:10px;
-  padding-right:2px;
-}
-.row{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  background:#0f1714;
-  padding:9px 10px;
-  border-radius:12px;
-  margin-top:8px;
-  font-size:12px;
-  border:1px solid rgba(255,255,255,.08);
-  cursor:pointer;
-}
-.k{color:#9bb0a6;max-width:60%}
-.v{font-weight:950;text-align:right;max-width:40%;overflow-wrap:anywhere}
+#vin-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+#vin-panel button{width:100%;margin-top:0;padding:11px;border-radius:12px;border:none;font-weight:950;cursor:pointer;}
+#vin-status{margin-top:10px;font-size:12px;min-height:18px;color:#9bb0a6;display:flex;align-items:center;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);box-shadow:0 0 0 3px rgba(255,255,255,.06);}
+#vin-status.ok{color:var(--ok)} #vin-status.ok .dot{background:var(--ok);box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+#vin-status.bad{color:var(--bad)} #vin-status.bad .dot{background:var(--bad);box-shadow:0 0 0 3px rgba(239,68,68,.18)}
+#vin-status.warn{color:var(--warn)} #vin-status.warn .dot{background:var(--warn);box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+#vin-panel #results{max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;margin-top:10px;padding-right:2px;}
+.row{display:flex;justify-content:space-between;gap:12px;background:#0f1714;padding:9px 10px;border-radius:12px;margin-top:8px;font-size:12px;border:1px solid rgba(255,255,255,.08);cursor:pointer;}
+.k{color:#9bb0a6;max-width:60%} .v{font-weight:950;text-align:right;max-width:40%;overflow-wrap:anywhere}
 .vehicle{text-align:center;font-weight:950;margin-top:10px}
+
 .toast{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
+  position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(env(safe-area-inset-bottom) + 14px);
-  background:rgba(15,23,42,.92);
-  border:1px solid rgba(255,255,255,.12);
-  padding:10px 12px;
-  border-radius:12px;
-  font-size:12px;
-  color:var(--text);
-  display:none;
-  z-index:9999;
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
+  background:rgba(15,23,42,.92);border:1px solid rgba(255,255,255,.12);
+  padding:10px 12px;border-radius:12px;font-size:12px;color:var(--text);
+  display:none;z-index:9999;box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* ====== Admin Login Modal ====== */
-#adminModalBackdrop{
-  position:fixed; inset:0;
-  background:rgba(0,0,0,.62);
-  display:none;
-  z-index:2000;
+/* Admin Modals */
+#adminModalBackdrop,#addModalBackdrop{
+  position:fixed; inset:0; background:rgba(0,0,0,.62);
+  display:none; z-index:2000;
 }
-#adminModal{
-  position:fixed;
-  left:50%; top:50%;
-  transform:translate(-50%,-50%);
-  width:min(460px, calc(100% - 24px));
+#adminModal,#addModal{
+  position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:min(520px, calc(100% - 24px));
   background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);
   border:1px solid rgba(255,255,255,.14);
-  border-radius:18px;
-  box-shadow:0 30px 80px rgba(0,0,0,.7);
-  padding:16px;
-  display:none;
-  z-index:2001;
+  border-radius:18px; box-shadow:0 30px 80px rgba(0,0,0,.7);
+  padding:16px; display:none; z-index:2001;
 }
-.modalHead{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  margin-bottom:10px;
-}
+.modalHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
 .modalHead strong{font-size:1rem}
 .iconBtn{
   border:1px solid rgba(255,255,255,.18);
   background:rgba(0,0,0,.12);
-  color:#fff;
-  border-radius:12px;
-  padding:8px 10px;
-  font-weight:950;
-  cursor:pointer;
+  color:#fff;border-radius:12px;padding:8px 10px;font-weight:950;cursor:pointer;
 }
 .field{margin-top:10px;}
-.field label{
-  display:block;
-  font-size:.85rem;
-  color:var(--muted);
-  font-weight:900;
-  margin-bottom:6px;
-}
+.field label{display:block;font-size:.85rem;color:var(--muted);font-weight:900;margin-bottom:6px;}
 .field input{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.15);
-  background:#0c121a;
-  color:#fff;
-  font-weight:800;
+  width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);
+  background:#0c121a;color:#fff;font-weight:800;
 }
 .modalActions{display:flex;gap:10px;margin-top:12px;}
 .modalActions button{flex:1}
-.helper{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:.85rem;
-  line-height:1.35;
-}
+.helper{margin-top:10px;color:var(--muted);font-size:.85rem;line-height:1.35;}
 
-/* Mobile */
 @media(max-width:900px){ .hero{grid-template-columns:1fr} }
 @media(max-width:600px){
   .stats,.sell-grid{grid-template-columns:1fr}
-  nav{
-    width:100%;
-    justify-content:center;
-    overflow-x:auto;
-    padding-top:8px;
-  }
+  nav{width:100%;justify-content:center;overflow-x:auto;padding-top:8px;}
   nav a{flex-shrink:0}
-  #vin-panel{
-    left:0; right:0;
-    bottom:env(safe-area-inset-bottom);
-    width:100%;
-    max-height:78vh;
-    transform:none;
-    border-radius:18px 18px 0 0;
-  }
+  #vin-panel{left:0; right:0; bottom:env(safe-area-inset-bottom); width:100%; max-height:78vh; transform:none; border-radius:18px 18px 0 0;}
 }
 </style>
 </head>
@@ -670,7 +409,7 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
     <div class="card">
       <div class="sectionTitleRow">
         <h3>Gallery</h3>
-        <small id="galleryHint">Firestore Gallery (free)</small>
+        <small id="galleryHint">Public view</small>
       </div>
 
       <div id="adminBar">
@@ -710,26 +449,18 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
   </div>
 </footer>
 
-<!-- VIN UI -->
 <div id="vin-panel-backdrop" onclick="toggleVin()"></div>
-
 <div id="vin-panel" role="dialog" aria-modal="true" aria-label="VIN Decoder">
   <div id="vin-head">
     <strong>VIN Decoder</strong>
     <button id="vin-close" onclick="toggleVin()">Close</button>
   </div>
-
-  <div id="vin-meta">
-    Two Little Bees Auto Parts • (317) 243-7777 • Indianapolis
-  </div>
-
+  <div id="vin-meta">Two Little Bees Auto Parts • (317) 243-7777 • Indianapolis</div>
   <input id="vin" maxlength="17" placeholder="ENTER 17-CHAR VIN" autocomplete="off" />
-
   <div id="vin-actions">
     <button class="primary" onclick="decode()">Decode VIN</button>
     <button class="secondary" onclick="printSheet()">Print VIN Sheet</button>
   </div>
-
   <div id="vin-status"><span class="dot"></span><span id="vin-status-text"></span></div>
   <div id="vehicle" class="vehicle"></div>
   <div id="results"></div>
@@ -737,42 +468,33 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
 
 <div id="print-sheet" style="display:none"></div>
 
-<!-- Admin Login Modal -->
 <div id="adminModalBackdrop"></div>
 <div id="adminModal" role="dialog" aria-modal="true" aria-label="Admin Login">
   <div class="modalHead">
     <strong>Admin Login</strong>
     <button class="iconBtn" id="adminModalClose" type="button">Close</button>
   </div>
-
   <div class="field">
     <label for="adminEmail">Email</label>
     <input id="adminEmail" type="email" placeholder="your admin email" autocomplete="username">
   </div>
-
   <div class="field">
     <label for="adminPass">Password</label>
     <input id="adminPass" type="password" placeholder="your password" autocomplete="current-password">
   </div>
-
   <div class="modalActions">
     <button class="btn secondary" id="adminCancel" type="button">Cancel</button>
     <button class="btn primary" id="adminLoginDo" type="button">Login</button>
   </div>
-
-  <div class="helper" id="adminMsg">
-    Sign in using your Firebase user (Authentication → Users).
-  </div>
+  <div class="helper" id="adminMsg">Sign in using your Firebase user (Authentication → Users).</div>
 </div>
 
-<!-- Add Photo Modal -->
-<div id="addModalBackdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:2100"></div>
-<div id="addModal" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(520px,calc(100% - 24px));background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);border:1px solid rgba(255,255,255,.14);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.7);padding:16px;z-index:2101">
+<div id="addModalBackdrop"></div>
+<div id="addModal" role="dialog" aria-modal="true" aria-label="Add Gallery Photo">
   <div class="modalHead">
     <strong>Add Gallery Photo</strong>
     <button class="iconBtn" id="addModalClose" type="button">Close</button>
   </div>
-
   <div class="field">
     <label for="photoUrl">Photo URL (public link)</label>
     <input id="photoUrl" type="url" placeholder="https://..." autocomplete="off">
@@ -781,45 +503,22 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
     <label for="photoCaption">Caption (optional)</label>
     <input id="photoCaption" type="text" placeholder="Engine arrivals, shop, yard, etc." autocomplete="off">
   </div>
-
   <div class="modalActions">
     <button class="btn secondary" id="addCancel" type="button">Cancel</button>
     <button class="btn primary" id="addDo" type="button">Add</button>
   </div>
-
-  <div class="helper" id="addMsg">
-    Tip: Use a direct image link (ends in .jpg/.png/.webp) or a public “googleusercontent” link.
-  </div>
+  <div class="helper" id="addMsg">Tip: use a direct image URL (ends in .jpg/.png) or a public Googleusercontent link.</div>
 </div>
 
-<!-- Local Admin Edit Mode Toggle -->
-<button id="adminToggle" style="
-  position:fixed;
-  bottom:16px;
-  right:16px;
-  z-index:999;
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:950;
-  border:none;
-  background:linear-gradient(135deg,#f4c430,#ffb703);
-  color:#000;
-  display:none;
-  box-shadow:0 18px 35px rgba(0,0,0,.4);
-  cursor:pointer;
-">ADMIN</button>
-
+<!-- ======================
+     VIN + LOCAL EDIT MODE
+====================== -->
 <script>
-/* ======================
-   VIN + LOCAL EDIT MODE
-====================== */
-
 const vinPanel = document.getElementById("vin-panel");
 const vinBackdrop = document.getElementById("vin-panel-backdrop");
 const vinInput = document.getElementById("vin");
 const resultsEl = document.getElementById("results");
 const vehicleEl = document.getElementById("vehicle");
-
 const vinStatus = document.getElementById("vin-status");
 const vinStatusText = document.getElementById("vin-status-text");
 const toast = document.getElementById("toast");
@@ -836,22 +535,14 @@ function setVinStatus(msg, type=""){
 function toggleVin(force){
   const isOpen = vinPanel.style.display === "block";
   const next = (force === undefined) ? !isOpen : !!force;
-
   vinPanel.style.display = next ? "block" : "none";
   vinBackdrop.style.display = next ? "block" : "none";
-
-  if(next){
-    setTimeout(()=> vinInput.focus(), 60);
-    document.body.style.overflow = "hidden";
-  }else{
-    document.body.style.overflow = "";
-  }
+  document.body.style.overflow = next ? "hidden" : "";
+  if(next) setTimeout(()=> vinInput.focus(), 60);
 }
 
 document.addEventListener("keydown", (e)=>{
-  if(e.key === "Escape"){
-    if(vinPanel.style.display === "block") toggleVin(false);
-  }
+  if(e.key === "Escape" && vinPanel.style.display === "block") toggleVin(false);
 });
 
 function cleanVIN(v){ return (v||"").toUpperCase().replace(/[^A-Z0-9]/g,""); }
@@ -912,7 +603,6 @@ document.addEventListener("click", async (e)=>{
   if(!r) return;
   const text = r.getAttribute("data-copy");
   if(!text) return;
-
   try{
     await navigator.clipboard.writeText(text);
     showToast("Copied");
@@ -972,16 +662,13 @@ function renderVin(d, v){
   row("Make", d.Make);
   row("Model", d.Model);
   row("Trim", d.Trim);
-
   row("Engine", d.EngineModel || (d.DisplacementL ? `${d.DisplacementL}L` : ""));
   row("Displacement", d.DisplacementL ? `${d.DisplacementL} L` : "");
   row("Cylinders", d.EngineCylinders);
   row("Fuel", d.FuelTypePrimary);
-
   row("Transmission", d.TransmissionStyle);
   row("Trans Speeds", d.TransmissionSpeeds);
   row("Drive", d.DriveType);
-
   row("Body", d.BodyClass);
   row("Doors", d.Doors);
   row("Vehicle Type", d.VehicleType);
@@ -1008,42 +695,35 @@ function printSheet(){
 
 /* Local admin edit mode (localStorage only) */
 let admin = false;
-const adminBtn = document.getElementById("adminToggle");
 const editable = document.querySelectorAll(".admin-edit");
-
 document.addEventListener("keydown", (e)=>{
   if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a"){
     admin = !admin;
-    if(adminBtn) adminBtn.style.display = admin ? "block" : "none";
-
     editable.forEach(el=>{
       el.contentEditable = admin;
       el.style.cursor = admin ? "text" : "default";
     });
-
     alert(admin ? "Admin Edit Mode ON" : "Admin Edit Mode OFF");
   }
 });
-
 editable.forEach(el=>{
   const saved = localStorage.getItem(el.id);
   if(saved) el.innerHTML = saved;
-
   el.addEventListener("blur", ()=>{
-    if(admin){
-      localStorage.setItem(el.id, el.innerHTML);
-    }
+    if(admin) localStorage.setItem(el.id, el.innerHTML);
   });
 });
 </script>
 
-<!-- Firebase Firestore Gallery (Auth + Firestore) -->
+<!-- ======================
+     FIREBASE GALLERY
+====================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
   import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
   import { getFirestore, collection, addDoc, deleteDoc, doc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  // ✅ YOUR REAL FIREBASE CONFIG (from your screenshot)
+  // ✅ MUST MATCH FIREBASE CONSOLE EXACTLY
   const firebaseConfig = {
     apiKey: "AIzaSyCspSuGyknZoztjBoFz_wda0pnr4bVjpio",
     authDomain: "twolittlebeeshomepage.firebaseapp.com",
@@ -1089,29 +769,30 @@ editable.forEach(el=>{
 
   const galleryCol = collection(db, "gallery");
 
+  function show(el, on){ el.style.display = on ? "block" : "none"; }
   function openLoginModal(){
-    adminModalBackdrop.style.display = "block";
-    adminModal.style.display = "block";
+    show(adminModalBackdrop,true);
+    show(adminModal,true);
     adminMsg.textContent = "Sign in with your Firebase user (Authentication → Users).";
     setTimeout(()=> adminEmail.focus(), 50);
     document.body.style.overflow = "hidden";
   }
   function closeLoginModal(){
-    adminModalBackdrop.style.display = "none";
-    adminModal.style.display = "none";
+    show(adminModalBackdrop,false);
+    show(adminModal,false);
     document.body.style.overflow = "";
   }
 
   function openAddModal(){
-    addModalBackdrop.style.display = "block";
-    addModal.style.display = "block";
-    addMsg.textContent = "Paste a public image URL.";
+    show(addModalBackdrop,true);
+    show(addModal,true);
+    addMsg.textContent = "Paste a public direct image URL.";
     setTimeout(()=> photoUrl.focus(), 50);
     document.body.style.overflow = "hidden";
   }
   function closeAddModal(){
-    addModalBackdrop.style.display = "none";
-    addModal.style.display = "none";
+    show(addModalBackdrop,false);
+    show(addModal,false);
     document.body.style.overflow = "";
   }
 
@@ -1145,7 +826,8 @@ editable.forEach(el=>{
       await signInWithEmailAndPassword(auth, email, pass);
       closeLoginModal();
     }catch(e){
-      adminMsg.textContent = "Login failed: " + (e?.message || e);
+      adminMsg.textContent = "Login failed: " + (e?.code || "") + " " + (e?.message || e);
+      console.error(e);
     }finally{
       adminLoginDo.disabled = false;
     }
@@ -1155,7 +837,7 @@ editable.forEach(el=>{
   adminPass.addEventListener("keydown", (e)=>{ if(e.key === "Enter") doLogin(); });
 
   adminLogout.addEventListener("click", async ()=>{
-    try{ await signOut(auth); }catch{}
+    try{ await signOut(auth); }catch(e){ console.error(e); }
   });
 
   function makeEmpty(msg){
@@ -1191,7 +873,7 @@ editable.forEach(el=>{
       del.textContent = "Delete";
       del.addEventListener("click", async (e)=>{
         e.stopPropagation();
-        if(!confirm("Delete this photo?")) return;
+        if(!confirm("Delete this photo from Firestore?")) return;
         try{
           await deleteDoc(doc(db, "gallery", data.id));
         }catch(err){
@@ -1203,31 +885,6 @@ editable.forEach(el=>{
 
     galleryGrid.appendChild(wrap);
   }
-
-  async function addPhoto(){
-    const url = (photoUrl.value || "").trim();
-    const caption = (photoCaption.value || "").trim();
-
-    if(!url){
-      addMsg.textContent = "Paste a photo URL first.";
-      return;
-    }
-
-    addDo.disabled = true;
-    addMsg.textContent = "Adding…";
-    try{
-      await addDoc(galleryCol, { url, caption, createdAt: serverTimestamp() });
-      photoUrl.value = "";
-      photoCaption.value = "";
-      closeAddModal();
-    }catch(e){
-      addMsg.textContent = "Add failed: " + (e?.message || e);
-    }finally{
-      addDo.disabled = false;
-    }
-  }
-
-  addDo.addEventListener("click", addPhoto);
 
   const q = query(galleryCol, orderBy("createdAt", "desc"));
   let currentUser = null;
@@ -1244,7 +901,8 @@ editable.forEach(el=>{
       if(!item.url) continue;
       addImgCard(item, isAdmin);
     }
-  }, ()=>{
+  }, (err)=>{
+    console.error(err);
     if(galleryLoading) galleryLoading.textContent = "Gallery not loaded (check Firestore rules).";
   });
 
