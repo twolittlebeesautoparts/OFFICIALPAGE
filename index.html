@@ -723,7 +723,9 @@ editable.forEach(el=>{
   import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
   import { getFirestore, collection, addDoc, deleteDoc, doc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  // ✅ MUST MATCH FIREBASE CONSOLE EXACTLY
+  // IMPORTANT:
+  // This apiKey MUST be a key belonging to THIS firebase project.
+  // If your login still says "api-key-not-valid", the page is still loading an old index.html or your Auth authorized domains are missing.
   const firebaseConfig = {
     apiKey: "AIzaSyBbbBWg1x-RVuvfWfKBnOQPldMOWBLHXe8",
     authDomain: "twolittlebeeshomepage.firebaseapp.com",
@@ -770,6 +772,7 @@ editable.forEach(el=>{
   const galleryCol = collection(db, "gallery");
 
   function show(el, on){ el.style.display = on ? "block" : "none"; }
+
   function openLoginModal(){
     show(adminModalBackdrop,true);
     show(adminModal,true);
@@ -786,7 +789,7 @@ editable.forEach(el=>{
   function openAddModal(){
     show(addModalBackdrop,true);
     show(addModal,true);
-    addMsg.textContent = "Paste a public direct image URL.";
+    addMsg.textContent = "Paste a public direct image URL (jpg/png/webp).";
     setTimeout(()=> photoUrl.focus(), 50);
     document.body.style.overflow = "hidden";
   }
@@ -839,6 +842,44 @@ editable.forEach(el=>{
   adminLogout.addEventListener("click", async ()=>{
     try{ await signOut(auth); }catch(e){ console.error(e); }
   });
+
+  function normalizeImgUrl(url){
+    const u = (url || "").trim();
+    // allow direct images + googleusercontent + raw github images
+    if(!u) return "";
+    try{
+      const parsed = new URL(u);
+      return parsed.toString();
+    }catch{
+      return "";
+    }
+  }
+
+  async function addPhoto(){
+    const url = normalizeImgUrl(photoUrl.value);
+    const caption = (photoCaption.value || "").trim();
+
+    if(!url){
+      addMsg.textContent = "Paste a valid URL first.";
+      return;
+    }
+
+    addDo.disabled = true;
+    addMsg.textContent = "Adding…";
+    try{
+      await addDoc(galleryCol, { url, caption, createdAt: serverTimestamp() });
+      photoUrl.value = "";
+      photoCaption.value = "";
+      closeAddModal();
+    }catch(e){
+      addMsg.textContent = "Add failed: " + (e?.code || "") + " " + (e?.message || e);
+      console.error(e);
+    }finally{
+      addDo.disabled = false;
+    }
+  }
+
+  addDo.addEventListener("click", addPhoto);
 
   function makeEmpty(msg){
     galleryGrid.innerHTML = "";
@@ -925,6 +966,3 @@ editable.forEach(el=>{
 
 </body>
 </html>
-
-
-
