@@ -189,8 +189,9 @@ main{display:block}
   outline-offset:6px;border-radius:14px;padding:10px;
 }
 
-/* ====== Gallery (Horizontal Scroll) ====== */
+/* ====== GALLERY (UPGRADED: horizontal scroll carousel) ====== */
 .galleryWrap{position:relative;margin-top:8px;}
+
 #galleryGrid{
   display:flex;
   gap:14px;
@@ -206,24 +207,28 @@ main{display:block}
 .galleryItem{
   flex:0 0 auto;
   width:220px;
-  aspect-ratio:3/4;
+  aspect-ratio: 3 / 4;
   scroll-snap-align:start;
-
   border-radius:16px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(15,23,42,.65);
   overflow:hidden;
+  min-height:120px;
   display:flex;align-items:center;justify-content:center;
   color:var(--muted);font-weight:900;position:relative;
-  box-shadow:0 16px 30px rgba(0,0,0,.35);
+  box-shadow: 0 16px 30px rgba(0,0,0,.35);
+  cursor:pointer;
 }
+
 .galleryItem img{width:100%;height:100%;object-fit:cover;display:block;}
+
 .galleryItem::after{
   content:"";
-  position:absolute; inset:0;
+  position:absolute;inset:0;
   background:linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,.55) 100%);
   pointer-events:none;
 }
+
 .galleryItem .cap{
   position:absolute;left:10px;right:10px;bottom:10px;
   background:rgba(0,0,0,.55);
@@ -233,6 +238,7 @@ main{display:block}
   display:block;
   z-index:2;
 }
+
 .galleryItem .del{
   position:absolute;top:10px;right:10px;
   background:rgba(0,0,0,.55);
@@ -243,14 +249,17 @@ main{display:block}
 }
 .galleryItem.admin .del{display:block}
 
-/* arrows */
+/* Desktop arrows */
 .galleryNav{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
   z-index:5;
-  display:flex;align-items:center;justify-content:center;
-  width:42px;height:42px;border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:42px;height:42px;
+  border-radius:999px;
   border:1px solid rgba(255,255,255,.18);
   background:rgba(11,15,20,.72);
   backdrop-filter: blur(10px);
@@ -264,6 +273,89 @@ main{display:block}
 .galleryNav.left{left:10px}
 .galleryNav.right{right:10px}
 .galleryNav[disabled]{opacity:.35;cursor:default;pointer-events:none}
+
+/* ====== LIGHTBOX (NEW) ====== */
+#lightboxBackdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  backdrop-filter: blur(10px);
+  display:none;
+  z-index:5000;
+  padding:14px;
+}
+
+#lightboxModal{
+  position:relative;
+  width:min(1100px, 100%);
+  height:min(86vh, 900px);
+  margin:0 auto;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)), #0b0f14;
+  box-shadow:0 40px 90px rgba(0,0,0,.75);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+#lbStage{
+  flex:1;
+  display:grid;
+  place-items:center;
+  padding:14px;
+}
+
+#lbImg{
+  max-width:100%;
+  max-height:100%;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+  object-fit:contain;
+}
+
+.lbCap{
+  padding:10px 14px;
+  border-top:1px solid rgba(255,255,255,.10);
+  color:#e5e7eb;
+  background:rgba(0,0,0,.30);
+  font-weight:850;
+  font-size:.9rem;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+}
+
+#lbClose{
+  position:absolute;
+  top:12px; right:12px;
+  width:40px;height:40px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  font-weight:950;
+  cursor:pointer;
+  z-index:2;
+}
+
+.lbArrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;height:44px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  z-index:2;
+}
+#lbPrev{left:12px}
+#lbNext{right:12px}
+.lbArrow[disabled]{opacity:.35;cursor:default;pointer-events:none}
 
 /* Footer */
 footer{
@@ -358,8 +450,9 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
   nav{width:100%;justify-content:center;overflow-x:auto;padding-top:8px;}
   nav a{flex-shrink:0}
   #vin-panel{left:0; right:0; bottom:env(safe-area-inset-bottom); width:100%; max-height:78vh; transform:none; border-radius:18px 18px 0 0;}
-  .galleryItem{width:72vw; max-width:320px;}
-  .galleryNav{display:none;} /* mobile swipe is enough */
+  .galleryItem{width:72vw; max-width:340px;}
+  .galleryNav{display:none;}
+  #lightboxModal{height:88vh;}
 }
 </style>
 </head>
@@ -463,7 +556,7 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
         </div>
       </div>
 
-      <!-- Horizontal carousel wrapper + arrows -->
+      <!-- UPGRADED WRAPPER + ARROWS -->
       <div class="galleryWrap">
         <button class="galleryNav left" id="gPrev" type="button" aria-label="Scroll left">‹</button>
         <button class="galleryNav right" id="gNext" type="button" aria-label="Scroll right">›</button>
@@ -472,6 +565,7 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
           <div class="galleryItem" id="galleryLoading">Loading gallery…</div>
         </div>
       </div>
+
     </div>
   </section>
 </main>
@@ -552,6 +646,19 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
     <button class="btn primary" id="addDo" type="button">Add</button>
   </div>
   <div class="helper" id="addMsg">Tip: use a direct image URL (ends in .jpg/.png) or a public Googleusercontent link.</div>
+</div>
+
+<!-- ===== LIGHTBOX (NEW) ===== -->
+<div id="lightboxBackdrop" aria-hidden="true">
+  <div id="lightboxModal" role="dialog" aria-modal="true" aria-label="Gallery image">
+    <button id="lbClose" type="button" aria-label="Close">✕</button>
+    <button class="lbArrow" id="lbPrev" type="button" aria-label="Previous">‹</button>
+    <button class="lbArrow" id="lbNext" type="button" aria-label="Next">›</button>
+    <div id="lbStage">
+      <img id="lbImg" alt="Gallery large view" />
+    </div>
+    <div id="lbCap" class="lbCap"></div>
+  </div>
 </div>
 
 <!-- ======================
@@ -760,7 +867,7 @@ editable.forEach(el=>{
 </script>
 
 <!-- ======================
-     FIREBASE GALLERY
+     FIREBASE GALLERY (UPGRADED + LIGHTBOX)
 ====================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -786,49 +893,6 @@ editable.forEach(el=>{
 
   const gPrev = document.getElementById("gPrev");
   const gNext = document.getElementById("gNext");
-
-  // carousel controls + drag-scroll
-  function updateArrows(){
-    const max = galleryGrid.scrollWidth - galleryGrid.clientWidth;
-    if(max <= 1){
-      gPrev.disabled = true;
-      gNext.disabled = true;
-      return;
-    }
-    gPrev.disabled = galleryGrid.scrollLeft <= 2;
-    gNext.disabled = galleryGrid.scrollLeft >= (max - 2);
-  }
-
-  function scrollByCard(dir){
-    const card = galleryGrid.querySelector(".galleryItem");
-    const step = (card ? card.getBoundingClientRect().width : 240) + 14;
-    galleryGrid.scrollBy({ left: dir * step, behavior: "smooth" });
-  }
-
-  gPrev.addEventListener("click", ()=> scrollByCard(-1));
-  gNext.addEventListener("click", ()=> scrollByCard(1));
-  galleryGrid.addEventListener("scroll", ()=> requestAnimationFrame(updateArrows));
-
-  // mouse drag
-  let isDown=false, startX=0, startLeft=0;
-  galleryGrid.addEventListener("mousedown", (e)=>{
-    isDown = true;
-    startX = e.pageX;
-    startLeft = galleryGrid.scrollLeft;
-    galleryGrid.style.cursor = "grabbing";
-    galleryGrid.style.userSelect = "none";
-  });
-  window.addEventListener("mouseup", ()=>{
-    if(!isDown) return;
-    isDown = false;
-    galleryGrid.style.cursor = "";
-    galleryGrid.style.userSelect = "";
-  });
-  window.addEventListener("mousemove", (e)=>{
-    if(!isDown) return;
-    const dx = (e.pageX - startX);
-    galleryGrid.scrollLeft = startLeft - dx;
-  });
 
   const adminLoginOpen = document.getElementById("adminLoginOpen");
   const adminLogout = document.getElementById("adminLogout");
@@ -933,7 +997,12 @@ editable.forEach(el=>{
   function normalizeImgUrl(url){
     const u = (url || "").trim();
     if(!u) return "";
-    try{ return new URL(u).toString(); }catch{ return ""; }
+    try{
+      const parsed = new URL(u);
+      return parsed.toString();
+    }catch{
+      return "";
+    }
   }
 
   async function addPhoto(){
@@ -959,6 +1028,7 @@ editable.forEach(el=>{
       addDo.disabled = false;
     }
   }
+
   addDo.addEventListener("click", addPhoto);
 
   function makeEmpty(msg){
@@ -970,7 +1040,106 @@ editable.forEach(el=>{
     updateArrows();
   }
 
-  function addImgCard(data, isAdmin){
+  // ===== Carousel arrows + drag scroll =====
+  function updateArrows(){
+    const max = galleryGrid.scrollWidth - galleryGrid.clientWidth;
+    if(max <= 2){
+      gPrev.disabled = true;
+      gNext.disabled = true;
+      return;
+    }
+    gPrev.disabled = galleryGrid.scrollLeft <= 2;
+    gNext.disabled = galleryGrid.scrollLeft >= (max - 2);
+  }
+
+  function scrollByCard(dir){
+    const card = galleryGrid.querySelector(".galleryItem");
+    const step = (card ? card.getBoundingClientRect().width : 240) + 14;
+    galleryGrid.scrollBy({ left: dir * step, behavior: "smooth" });
+  }
+
+  gPrev.addEventListener("click", ()=> scrollByCard(-1));
+  gNext.addEventListener("click", ()=> scrollByCard(1));
+  galleryGrid.addEventListener("scroll", ()=> requestAnimationFrame(updateArrows));
+
+  let isDown=false, startX=0, startLeft=0;
+  galleryGrid.addEventListener("mousedown", (e)=>{
+    isDown = true;
+    startX = e.pageX;
+    startLeft = galleryGrid.scrollLeft;
+    galleryGrid.style.cursor = "grabbing";
+    galleryGrid.style.userSelect = "none";
+  });
+  window.addEventListener("mouseup", ()=>{
+    if(!isDown) return;
+    isDown = false;
+    galleryGrid.style.cursor = "";
+    galleryGrid.style.userSelect = "";
+  });
+  window.addEventListener("mousemove", (e)=>{
+    if(!isDown) return;
+    const dx = (e.pageX - startX);
+    galleryGrid.scrollLeft = startLeft - dx;
+  });
+
+  // ===== Lightbox (click image to open) =====
+  const lbBackdrop = document.getElementById("lightboxBackdrop");
+  const lbImg = document.getElementById("lbImg");
+  const lbCap = document.getElementById("lbCap");
+  const lbClose = document.getElementById("lbClose");
+  const lbPrev = document.getElementById("lbPrev");
+  const lbNext = document.getElementById("lbNext");
+
+  let lbItems = [];
+  let lbIndex = 0;
+
+  function openLightbox(index){
+    if(!lbItems.length) return;
+    lbIndex = Math.max(0, Math.min(index, lbItems.length - 1));
+    renderLightbox();
+    lbBackdrop.style.display = "block";
+    document.body.style.overflow = "hidden";
+    lbBackdrop.setAttribute("aria-hidden","false");
+  }
+  function closeLightbox(){
+    lbBackdrop.style.display = "none";
+    document.body.style.overflow = "";
+    lbBackdrop.setAttribute("aria-hidden","true");
+  }
+  function renderLightbox(){
+    const item = lbItems[lbIndex];
+    lbImg.src = item?.url || "";
+    lbCap.textContent = item?.caption || "";
+    lbPrev.disabled = (lbItems.length <= 1);
+    lbNext.disabled = (lbItems.length <= 1);
+  }
+  function prevLightbox(){
+    if(lbItems.length <= 1) return;
+    lbIndex = (lbIndex - 1 + lbItems.length) % lbItems.length;
+    renderLightbox();
+  }
+  function nextLightbox(){
+    if(lbItems.length <= 1) return;
+    lbIndex = (lbIndex + 1) % lbItems.length;
+    renderLightbox();
+  }
+
+  lbClose.addEventListener("click", closeLightbox);
+  lbPrev.addEventListener("click", prevLightbox);
+  lbNext.addEventListener("click", nextLightbox);
+  lbBackdrop.addEventListener("click", (e)=>{
+    if(e.target === lbBackdrop) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(lbBackdrop.style.display !== "block") return;
+    if(e.key === "Escape") closeLightbox();
+    if(e.key === "ArrowLeft") prevLightbox();
+    if(e.key === "ArrowRight") nextLightbox();
+  });
+
+  // Build cards
+  function addImgCard(data, isAdmin, index){
     const wrap = document.createElement("div");
     wrap.className = "galleryItem" + (isAdmin ? " admin" : "");
     wrap.style.padding = "0";
@@ -980,6 +1149,13 @@ editable.forEach(el=>{
     img.alt = data.caption || "Gallery photo";
     img.loading = "lazy";
     wrap.appendChild(img);
+
+    // click opens lightbox (but admin delete should not trigger it)
+    wrap.addEventListener("click", (e)=>{
+      const clickedDelete = e.target.closest(".del");
+      if(clickedDelete) return;
+      openLightbox(index);
+    });
 
     if(data.caption){
       const cap = document.createElement("div");
@@ -1012,17 +1188,21 @@ editable.forEach(el=>{
   let currentUser = null;
 
   onSnapshot(q, (snap)=>{
-    const items = snap.docs.map(d=> ({ id:d.id, ...d.data() }));
+    const items = snap.docs.map(d=> ({ id:d.id, ...d.data() })).filter(x=>x?.url);
+    lbItems = items.map(x=>({ url:x.url, caption:x.caption || "" })); // for lightbox
+
     if(!items.length){
       makeEmpty("No photos yet.");
       return;
     }
+
     galleryGrid.innerHTML = "";
     const isAdmin = !!currentUser;
-    for(const item of items){
-      if(!item.url) continue;
-      addImgCard(item, isAdmin);
-    }
+
+    items.forEach((item, idx)=>{
+      addImgCard(item, isAdmin, idx);
+    });
+
     requestAnimationFrame(updateArrows);
   }, (err)=>{
     console.error(err);
@@ -1042,7 +1222,6 @@ editable.forEach(el=>{
     authText.textContent = signedIn ? `Signed in: ${user.email || "admin"}` : "Not signed in";
     galleryHint.textContent = signedIn ? "Admin can add/delete" : "Public view";
 
-    // Re-render delete buttons state
     requestAnimationFrame(updateArrows);
   });
 
@@ -1052,3 +1231,4 @@ editable.forEach(el=>{
 
 </body>
 </html>
+
