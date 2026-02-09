@@ -103,11 +103,18 @@
       border-color: rgba(239,68,68,.45);
       background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(239,68,68,.08));
     }
+
     .pill{
       font-size:12px; color:var(--muted);
       padding:4px 10px; border:1px solid var(--border);
       border-radius:999px; background: rgba(0,0,0,.15);
+      display:inline-flex; align-items:center; gap:8px;
+      user-select:none;
     }
+    .pill .dot{ width:8px; height:8px; border-radius:99px; background: var(--muted); }
+    .pill.live .dot{ background: var(--ok); }
+    .pill.err .dot{ background: var(--danger); }
+    .pill.admin .dot{ background: var(--accent); }
 
     .hero{
       margin-top:16px;
@@ -151,13 +158,7 @@
       box-shadow: 0 0 0 3px rgba(244,196,48,.10);
     }
 
-    .grid{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:12px;
-    }
-
+    .grid{ margin-top:16px; display:grid; grid-template-columns: repeat(12, 1fr); gap:12px; }
     .card{
       grid-column: span 12;
       border:1px solid var(--border);
@@ -208,9 +209,7 @@
       top: 82px;
       z-index: 5;
     }
-    @media (max-width: 920px){
-      .table th{ top: 132px; }
-    }
+    @media (max-width: 920px){ .table th{ top: 132px; } }
 
     .badge{
       display:inline-flex; align-items:center; gap:6px;
@@ -221,48 +220,15 @@
       background: rgba(0,0,0,.18);
       white-space:nowrap;
     }
-    .dot{ width:8px; height:8px; border-radius:99px; background: var(--muted); }
-    .dot.ok{ background: var(--ok); }
-    .dot.warn{ background: var(--warn); }
-    .dot.danger{ background: var(--danger); }
+    .bdot{ width:8px; height:8px; border-radius:99px; background: var(--muted); }
+    .bdot.ok{ background: var(--ok); }
+    .bdot.warn{ background: var(--warn); }
+    .bdot.danger{ background: var(--danger); }
 
     .muted{ color:var(--muted); }
     .price{ font-weight:800; letter-spacing:.2px; }
     .empty{ padding:18px; color:var(--muted); text-align:center; }
 
-    /* Mobile cards (no side scroll) */
-    .mobileList{ display:none; padding:12px; }
-    .partCard{
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.16);
-      border-radius: 14px;
-      padding:12px;
-      margin-bottom:10px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.20);
-    }
-    .partCard .top{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
-    }
-    .partCard h3{ margin:0; font-size:14px; letter-spacing:.2px; line-height:1.25; }
-    .partCard .sub{ margin-top:4px; font-size:12px; color:var(--muted); }
-    .partCard .row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; font-size:13px; }
-    .kv{
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.14);
-      padding:8px 10px;
-      border-radius: 12px;
-      min-width: 160px;
-      flex:1 1 160px;
-    }
-    .kv b{ display:block; font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; }
-    .kv span{ display:block; }
-
-    @media (max-width: 920px){
-      .tableWrap{ display:none; }
-      .mobileList{ display:block; }
-    }
-
-    /* Pagination */
     .pager{
       padding:12px 16px;
       display:flex;
@@ -273,8 +239,6 @@
       border-top:1px solid var(--border);
       background: rgba(0,0,0,.10);
     }
-    .pager .left{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-    .pager .right{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
 
     /* Modal */
     .modal-backdrop{
@@ -286,7 +250,7 @@
       z-index: 50;
     }
     .modal{
-      width:min(860px, 100%);
+      width:min(920px, 100%);
       border-radius: 18px;
       border:1px solid var(--border);
       background: rgba(17,24,39,.92);
@@ -312,11 +276,7 @@
     .modal header .x:hover{ background: rgba(255,255,255,.06); }
 
     .modal .body{ padding:14px 16px 16px 16px; }
-    .form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
+    .form{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     .form .full{ grid-column: 1 / -1; }
     @media (max-width: 720px){ .form{ grid-template-columns: 1fr; } }
 
@@ -375,6 +335,12 @@
       background: rgba(0,0,0,.18);
       color: var(--text);
     }
+    mark{
+      background: rgba(244,196,48,.18);
+      color: var(--text);
+      padding:0 2px;
+      border-radius: 6px;
+    }
   </style>
 </head>
 
@@ -385,36 +351,41 @@
         <div class="logo" aria-hidden="true"></div>
         <div class="title">
           <b>Two Little Bees — Parts Inventory</b>
-          <span>Warranty • Price • Interchanges • Yard info</span>
+          <span>Warranty • Price • Interchanges • Vehicle fitment</span>
         </div>
       </div>
 
       <div class="navbtns">
-        <a class="btn" href="index.html" title="Back to landing">⬅️ Landing</a>
-        <a class="btn" href="https://twolittlebeesautoparts.github.io/" title="Back to car inventory">🚗 Cars</a>
-        <button class="btn primary" id="btnAdmin">🔒 Admin</button>
-        <button class="btn danger" id="btnLogoutTop" style="display:none;">🚪 Logout</button>
+        <a class="btn" href="index.html">⬅️ Landing</a>
+        <a class="btn" href="https://twolittlebeesautoparts.github.io/">🚗 Cars</a>
+
+        <button class="btn primary" id="btnAdmin" type="button">🔒 Admin</button>
+        <button class="btn danger" id="btnLogoutTop" type="button" style="display:none;">🚪 Logout</button>
+
+        <span class="pill live" id="statusPill">
+          <span class="dot"></span><span id="statusText">Live • Firestore</span>
+        </span>
+
+        <span class="pill" id="authPill"><span class="dot"></span><span id="authText">Public view</span></span>
         <span class="pill" id="countPill">0 parts</span>
       </div>
     </div>
 
-    <section class="hero" aria-label="Parts Search">
+    <section class="hero">
       <div class="hero-inner">
         <h1>Find Parts Fast</h1>
-        <p>Search by part name, vehicle, notes, stock ID, or interchange. Public can view — admin can edit.</p>
+        <p>Search includes part + notes + interchange + vehicle fitment (year/make/model/engine).</p>
       </div>
 
       <div class="controls">
         <div class="field span2">
           <label for="q">Search</label>
-          <input id="q" type="text" placeholder="Example: 5.7 Hemi, alternator, mirror, 2014 Silverado, LKQ, 560-..." autocomplete="off" />
+          <input id="q" type="text" placeholder="Example: 2014 Ram 5.7, alternator, mirror..." autocomplete="off" />
         </div>
 
         <div class="field">
           <label for="cat">Category</label>
-          <select id="cat">
-            <option value="">All</option>
-          </select>
+          <select id="cat"><option value="">All</option></select>
         </div>
 
         <div class="field">
@@ -450,7 +421,7 @@
 
         <div class="field spanFull">
           <label>&nbsp;</label>
-          <button class="btn" id="btnClear">🧹 Clear filters</button>
+          <button class="btn" id="btnClear" type="button">🧹 Clear filters</button>
         </div>
       </div>
     </section>
@@ -460,22 +431,21 @@
         <div class="list-head">
           <div class="left">
             <b>Available Parts</b>
-            <span class="muted">Tip: press <span class="kbd">/</span> to jump to search • Realtime database.</span>
+            <span class="muted">Tip: press <span class="kbd">/</span> to jump to search • <span class="kbd">Esc</span> closes admin.</span>
           </div>
-          <div class="actions">
-            <span class="pill" id="authPill">Public view</span>
-          </div>
+          <div class="actions"></div>
         </div>
 
         <div class="tableWrap">
-          <table class="table" id="partsTable">
+          <table class="table">
             <thead>
               <tr>
-                <th style="min-width:170px;">Part</th>
-                <th style="min-width:120px;">Category</th>
+                <th style="min-width:190px;">Part</th>
+                <th style="min-width:130px;">Category</th>
                 <th style="min-width:110px;">Condition</th>
+                <th style="min-width:220px;">Vehicle Fitment</th>
                 <th style="min-width:120px;">Price</th>
-                <th style="min-width:200px;">Warranty</th>
+                <th style="min-width:220px;">Warranty</th>
                 <th style="min-width:240px;">Interchange</th>
                 <th style="min-width:170px;">Yard / Notes</th>
                 <th style="min-width:190px;">Actions</th>
@@ -485,8 +455,6 @@
           </table>
         </div>
 
-        <div class="mobileList" id="mobileList"></div>
-
         <div class="empty" id="empty" style="display:none;">No parts match your search.</div>
 
         <div class="pager" id="pager" style="display:none;">
@@ -495,8 +463,8 @@
             <span class="muted" id="rangeInfo" style="font-size:12px;">—</span>
           </div>
           <div class="right">
-            <button class="mini" id="btnPrev">⬅️ Prev</button>
-            <button class="mini" id="btnNext">Next ➡️</button>
+            <button class="mini" id="btnPrev" type="button">⬅️ Prev</button>
+            <button class="mini" id="btnNext" type="button">Next ➡️</button>
           </div>
         </div>
       </div>
@@ -512,56 +480,58 @@
     <div class="modal">
       <header>
         <b id="modalTitle">Admin</b>
-        <button class="x" id="btnCloseModal" aria-label="Close">✕</button>
+        <button class="x" id="btnCloseModal" type="button" aria-label="Close">✕</button>
       </header>
 
       <div class="body">
         <!-- LOGIN -->
         <div id="adminLogin">
           <div class="form" style="margin-top:6px;">
-            <div class="field">
-              <label>Username</label>
-              <input id="u" placeholder="admin" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label>Password</label>
-              <input id="pw" type="password" placeholder="bees123" autocomplete="off" />
+            <div class="field full">
+              <label>Email</label>
+              <input id="loginEmail" type="email" autocomplete="email" placeholder="admin@email.com" />
             </div>
             <div class="field full">
-              <label>PIN</label>
-              <input id="pin" type="password" inputmode="numeric" placeholder="1520" autocomplete="off" />
+              <label>Password</label>
+              <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••" />
             </div>
           </div>
 
           <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-            <button class="btn primary" id="btnUnlock">Log In</button>
-            <button class="btn" id="btnCancelUnlock">Cancel</button>
+            <button class="btn primary" id="btnLogin" type="button">Log In</button>
+            <button class="btn" id="btnCancelLogin" type="button">Cancel</button>
           </div>
 
           <p class="muted" style="margin:10px 0 0 0; font-size:12px;">
-            Admin edits are protected by Firebase Auth + Firestore rules.
+            If login doesn’t work, check Firebase Auth “Authorized domains” (GitHub Pages domain must be added).
           </p>
         </div>
 
         <!-- ADMIN PANEL -->
         <div id="adminPanel" style="display:none;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-            <span class="badge"><span class="dot ok"></span> Admin logged in</span>
+            <span class="badge"><span class="bdot ok"></span> Admin logged in</span>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="mini" id="btnNew">➕ Add new part</button>
-              <button class="mini danger" id="btnLogout">🚪 Logout</button>
+              <button class="mini" id="btnNew" type="button">➕ Add new part</button>
+              <button class="mini danger" id="btnLogout" type="button">🚪 Logout</button>
             </div>
           </div>
+
+          <datalist id="dlPartNames"></datalist>
+          <datalist id="dlMakes"></datalist>
+          <datalist id="dlModels"></datalist>
+          <datalist id="dlEngines"></datalist>
+          <datalist id="dlLocations"></datalist>
 
           <form class="form" id="partForm" onsubmit="return false;">
             <div class="field">
               <label>Part Name *</label>
-              <input id="f_name" placeholder="Ex: Engine 5.7 Hemi" />
+              <input id="f_name" list="dlPartNames" placeholder="Ex: Alternator / Engine / Mirror" />
             </div>
 
             <div class="field">
               <label>Category *</label>
-              <input id="f_category" placeholder="Ex: Engine, Transmission, Body, Electrical..." />
+              <select id="f_category"></select>
             </div>
 
             <div class="field">
@@ -575,18 +545,43 @@
             </div>
 
             <div class="field">
+              <label>Warranty</label>
+              <select id="f_warranty"></select>
+            </div>
+
+            <div class="field">
+              <label>Year</label>
+              <input id="f_year" inputmode="numeric" placeholder="Ex: 2014" />
+            </div>
+
+            <div class="field">
+              <label>Make</label>
+              <input id="f_make" list="dlMakes" placeholder="Ex: Ram, Ford, Chevy" />
+            </div>
+
+            <div class="field">
+              <label>Model</label>
+              <input id="f_model" list="dlModels" placeholder="Ex: 1500, Silverado, Accord" />
+            </div>
+
+            <div class="field">
+              <label>Trim</label>
+              <input id="f_trim" placeholder="Ex: Laramie, LT, Sport" />
+            </div>
+
+            <div class="field">
+              <label>Engine</label>
+              <input id="f_engine" list="dlEngines" placeholder="Ex: 5.7 Hemi, 3.5 EcoBoost" />
+            </div>
+
+            <div class="field">
               <label>Price (USD) *</label>
               <input id="f_price" inputmode="decimal" placeholder="Ex: 799.99" />
             </div>
 
             <div class="field full">
-              <label>Warranty</label>
-              <input id="f_warranty" placeholder="Ex: 30-day start-up warranty • exchange only" />
-            </div>
-
-            <div class="field full">
               <label>Interchange</label>
-              <input id="f_interchange" placeholder="Ex: Fits 2014–2019 Ram 1500 5.7 • P/N 1234AB • Hollander 300-12345" />
+              <input id="f_interchange" placeholder="Ex: Part #, Hollander #, etc" />
             </div>
 
             <div class="field">
@@ -596,7 +591,7 @@
 
             <div class="field">
               <label>Location</label>
-              <input id="f_location" placeholder="Ex: Row 3 / Shelf B / Car #12" />
+              <input id="f_location" list="dlLocations" placeholder="Ex: Row 3 / Shelf B / Car #12" />
             </div>
 
             <div class="field full">
@@ -613,11 +608,11 @@
 
       <div class="footer" id="adminFooter" style="display:none;">
         <div class="footer-left">
-          <button class="btn" id="btnResetForm">Reset</button>
-          <button class="btn danger" id="btnDelete" style="display:none;">Delete</button>
+          <button class="btn" id="btnResetForm" type="button">Reset</button>
+          <button class="btn danger" id="btnDelete" type="button" style="display:none;">Delete</button>
         </div>
         <div class="footer-right">
-          <button class="btn primary" id="btnSave">Save</button>
+          <button class="btn primary" id="btnSave" type="button">Save</button>
         </div>
       </div>
     </div>
@@ -625,20 +620,11 @@
 
   <div class="toast" id="toast"></div>
 
-  <!-- Firebase + App -->
   <script type="module">
-    /**********************
-     * YOUR FIREBASE CONFIG (from you)
-     **********************/
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-    import {
-      getFirestore, collection, addDoc, doc, updateDoc, deleteDoc,
-      onSnapshot, query, orderBy, serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-    import {
-      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBVumo8QP3m18p33ugqx_eNADsjHG0gJS0",
@@ -650,41 +636,18 @@
       measurementId: "G-736B95M78E"
     };
 
-    const app = initializeApp(firebaseConfig);
-    try { getAnalytics(app); } catch(e){}
+    // ---------- helpers ----------
+    const $ = (id)=>document.getElementById(id);
 
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-
-    /**********************
-     * CONFIG
-     **********************/
-    const SHOP_PHONE = "13172437777";
-    const SHOP_EMAIL = "twolittlebeesautoparts@gmail.com";
-
-    // Your requested admin login
-    const ADMIN_USER = "admin";
-    const ADMIN_PASS = "bees123";
-    const ADMIN_PIN  = "1520";
-
-    // Behind the scenes Firebase Auth uses email+password
-    // Create this user in Firebase Auth:
-    // Email: admin@tlb.local
-    // Pass:  bees123
-    const ADMIN_EMAIL = "admin@tlb.local";
-
-    const ADMIN_IDLE_LOCK_MS = 10 * 60 * 1000; // 10 minutes
-
-    /**********************
-     * UTIL
-     **********************/
-    const $ = (id) => document.getElementById(id);
-
-    function money(n){
-      const v = Number(n);
-      if (!isFinite(v)) return "—";
-      return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.style.display = "block";
+      clearTimeout(toast._t);
+      toast._t = setTimeout(()=>t.style.display="none", 3000);
     }
+    window.addEventListener("error", (e)=> toast("JS Error: " + (e.message || "unknown")));
+    window.addEventListener("unhandledrejection", (e)=> toast("Promise Error: " + (e.reason?.message || e.reason || "unknown")));
 
     function escapeHtml(s){
       return String(s ?? "")
@@ -694,139 +657,24 @@
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
     }
-
-    function toast(msg){
-      const t = $("toast");
-      t.textContent = msg;
-      t.style.display = "block";
-      clearTimeout(toast._timer);
-      toast._timer = setTimeout(() => t.style.display="none", 2600);
+    function normalizeText(s){ return String(s ?? "").toLowerCase().trim(); }
+    function toMillis(ts){
+      if(!ts) return 0;
+      if(typeof ts === "object" && typeof ts.seconds === "number") return ts.seconds * 1000;
+      if(typeof ts === "number") return ts;
+      return 0;
     }
-
-    function debounce(fn, ms){
-      let t = null;
-      return (...args) => {
-        clearTimeout(t);
-        t = setTimeout(()=>fn(...args), ms);
-      };
+    function money(n){
+      const v = Number(n);
+      if(!isFinite(v)) return "—";
+      return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
     }
-
-    function normalizeText(s){
-      return String(s ?? "").toLowerCase().trim();
+    function setStatus(mode, text){
+      const pill = $("statusPill");
+      pill.classList.remove("live","err","admin");
+      pill.classList.add(mode);
+      $("statusText").textContent = text;
     }
-
-    function markQuery(text, q){
-      const raw = String(text ?? "");
-      const query = String(q ?? "").trim();
-      if(!query) return escapeHtml(raw);
-      const safe = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const re = new RegExp(safe, "ig");
-      return escapeHtml(raw).replace(re, (m)=>`<mark style="background:rgba(244,196,48,.18); padding:0 2px; border-radius:6px;">${escapeHtml(m)}</mark>`);
-    }
-
-    /**********************
-     * STATE
-     **********************/
-    let parts = [];
-    let adminUnlocked = false; // requires auth + pin verified
-    let editingId = null;
-
-    let page = 1;
-    let pageSize = 25;
-
-    let lastAdminActivity = 0;
-    function touchAdmin(){ if(adminUnlocked) lastAdminActivity = Date.now(); }
-
-    function isAuthed(){
-      return !!auth.currentUser;
-    }
-
-    function setAuthUI(){
-      const authed = isAuthed() && adminUnlocked;
-      $("authPill").textContent = authed ? "Admin mode" : "Public view";
-      $("btnLogoutTop").style.display = authed ? "inline-flex" : "none";
-    }
-
-    /**********************
-     * FIRESTORE SUBSCRIBE (Realtime)
-     **********************/
-    const partsCol = collection(db, "parts");
-    const partsQ = query(partsCol, orderBy("createdAt", "desc"));
-
-    onSnapshot(partsQ, (snap)=>{
-      parts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderCategoryOptions();
-      render();
-    }, (err)=>{
-      console.error(err);
-      toast("Firestore read blocked. Check rules / Firestore setup.");
-    });
-
-    /**********************
-     * FILTERING + PAGINATION
-     **********************/
-    function uniqueCategories(items){
-      const set = new Set(items.map(p => (p.category || "").trim()).filter(Boolean));
-      return Array.from(set).sort((a,b)=>a.localeCompare(b));
-    }
-
-    function renderCategoryOptions(){
-      const catSel = $("cat");
-      const current = catSel.value;
-      catSel.innerHTML = '<option value="">All</option>';
-      uniqueCategories(parts).forEach(c=>{
-        const opt = document.createElement("option");
-        opt.value = c; opt.textContent = c;
-        catSel.appendChild(opt);
-      });
-      if([...catSel.options].some(o=>o.value===current)) catSel.value = current;
-    }
-
-    function getFiltered(){
-      const qRaw = $("q").value || "";
-      const q = normalizeText(qRaw);
-      const cat = $("cat").value;
-      const cond = $("cond").value;
-
-      let out = parts.slice();
-
-      if(cat) out = out.filter(p => p.category === cat);
-      if(cond) out = out.filter(p => (p.condition || "") === cond);
-
-      if(q){
-        out = out.filter(p=>{
-          const hay = [
-            p.name, p.category, p.condition, p.warranty, p.interchange, p.stock, p.location, p.notes,
-            String(p.price ?? "")
-          ].join(" ").toLowerCase();
-          return hay.includes(q);
-        });
-      }
-
-      const sort = $("sort").value;
-      if(sort === "priceAsc") out.sort((a,b)=>(Number(a.price)||0)-(Number(b.price)||0));
-      if(sort === "priceDesc") out.sort((a,b)=>(Number(b.price)||0)-(Number(a.price)||0));
-      if(sort === "nameAsc") out.sort((a,b)=> (a.name||"").localeCompare(b.name||""));
-      if(sort === "newest") out.sort((a,b)=>{
-        const aa = (a.createdAt?.seconds ? a.createdAt.seconds*1000 : Number(a.createdAt||0));
-        const bb = (b.createdAt?.seconds ? b.createdAt.seconds*1000 : Number(b.createdAt||0));
-        return bb - aa;
-      });
-
-      return { list: out, qRaw };
-    }
-
-    function paginate(list){
-      const total = list.length;
-      const pages = Math.max(1, Math.ceil(total / pageSize));
-      page = Math.min(Math.max(1, page), pages);
-
-      const startIdx = (page - 1) * pageSize;
-      const endIdx = Math.min(total, startIdx + pageSize);
-      const slice = list.slice(startIdx, endIdx);
-      return { slice, total, pages, startIdx, endIdx };
-    }
-
     function condBadge(condition){
       const c = (condition || "Used").toLowerCase();
       let cls = "warn", label = condition || "Used";
@@ -834,361 +682,418 @@
       if(c === "used") cls = "warn";
       if(c === "reman") cls = "ok";
       if(c === "core") cls = "danger";
-      return `<span class="badge"><span class="dot ${cls}"></span>${escapeHtml(label)}</span>`;
+      return `<span class="badge"><span class="bdot ${cls}"></span>${escapeHtml(label)}</span>`;
     }
 
-    /**********************
-     * RENDER
-     **********************/
-    function render(){
-      const { list, qRaw } = getFiltered();
-      const { slice, total, pages, startIdx, endIdx } = paginate(list);
+    // ---------- presets (automation) ----------
+    const CATEGORY_PRESETS = [
+      "Engine","Transmission","Drivetrain","Differential","Transfer Case",
+      "Electrical","Lighting","Body Panels","Body Parts","Interior","Suspension",
+      "Brakes","Cooling","AC/Heat","Wheels","Tires","Exhaust","Fuel System",
+      "Sensors/Modules","Glass","Mirrors","Doors/Tailgate","Radiator Support","Other"
+    ];
+    const WARRANTY_PRESETS = [
+      "No warranty",
+      "7-day check warranty",
+      "14-day warranty • exchange only",
+      "30-day start-up warranty • exchange only",
+      "60-day warranty • exchange only",
+      "90-day warranty • exchange only"
+    ];
+    const PARTNAME_PRESETS = [
+      "Engine","Transmission","Alternator","Starter","AC Compressor","Radiator",
+      "Condenser","Headlight (Left)","Headlight (Right)","Tail Light (Left)","Tail Light (Right)",
+      "Mirror (Left)","Mirror (Right)","Bumper (Front)","Bumper (Rear)","Hood","Fender (Left)","Fender (Right)",
+      "Door (Left Front)","Door (Right Front)","Door (Left Rear)","Door (Right Rear)",
+      "Wheel (Alloy)","Wheel (Steel)","Battery (Used)","Battery (New)","Rear Axle","Front Differential",
+      "ECM/PCM","TCM","ABS Module","Instrument Cluster","Seats"
+    ];
+    const MAKE_PRESETS = ["Chevrolet","GMC","Ford","Ram","Dodge","Jeep","Chrysler","Toyota","Honda","Nissan","Hyundai","Kia","BMW","Mercedes-Benz","Audi","Volkswagen","Subaru","Mazda"];
+    const ENGINE_PRESETS = ["5.7 Hemi","6.4 Hemi","3.6 Pentastar","5.3 V8","6.2 V8","6.0 V8","3.5 EcoBoost","2.7 EcoBoost","2.4","2.0T","1.8","4.7","5.0"];
 
-      $("countPill").textContent = `${total} part${total===1?"":"s"}`;
-      $("empty").style.display = total ? "none" : "block";
-
-      $("pager").style.display = total ? "flex" : "none";
-      $("pagerInfo").textContent = `Page ${page} / ${pages}`;
-      $("rangeInfo").textContent = total ? `Showing ${startIdx+1}-${endIdx} of ${total}` : "—";
-
-      const tbody = $("tbody");
-      tbody.innerHTML = "";
-
-      for(const p of slice){
-        const askMsg = encodeURIComponent(
-          `Hi! I’m interested in this part:\n\n`+
-          `Part: ${p.name}\n`+
-          `Category: ${p.category}\n`+
-          `Condition: ${p.condition}\n`+
-          `Price: ${money(p.price)}\n`+
-          `Warranty: ${p.warranty}\n`+
-          `Interchange: ${p.interchange}\n`+
-          `Stock/Tag: ${p.stock}\n`+
-          `Location: ${p.location}\n\n`+
-          `Can you confirm availability and exact fitment?`
-        );
-
-        const emailLink = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent("Parts Inquiry — Two Little Bees")}&body=${askMsg}`;
-        const telLink = `tel:${SHOP_PHONE}`;
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>
-            <div style="display:flex; flex-direction:column; gap:2px;">
-              <b style="font-size:13px; letter-spacing:.2px;">${markQuery(p.name, qRaw)}</b>
-              <span class="muted" style="font-size:12px;">${markQuery(p.stock || "No tag", qRaw)} • ${markQuery(p.location || "No location", qRaw)}</span>
-            </div>
-          </td>
-          <td>${markQuery(p.category || "—", qRaw)}</td>
-          <td>${condBadge(p.condition)}</td>
-          <td><span class="price">${money(p.price)}</span></td>
-          <td>${markQuery(p.warranty || "—", qRaw)}</td>
-          <td>${markQuery(p.interchange || "—", qRaw)}</td>
-          <td>${markQuery(p.notes || "—", qRaw)}</td>
-          <td>
-            <div class="actions">
-              <a class="mini primary" href="${telLink}" title="Call about this part">📞 Call</a>
-              <a class="mini" href="${emailLink}" title="Email details">✉️ Email</a>
-              <button class="mini" data-edit="${p.id}" title="Edit (admin)">✏️ Edit</button>
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
+    function fillSelect(id, options){
+      const sel = $(id);
+      sel.innerHTML = "";
+      for(const v of options){
+        const o = document.createElement("option");
+        o.value = v; o.textContent = v;
+        sel.appendChild(o);
       }
-
-      // Mobile cards
-      const mobile = $("mobileList");
-      mobile.innerHTML = "";
-      for(const p of slice){
-        const askMsg = encodeURIComponent(
-          `Hi! I’m interested in this part:\n\n`+
-          `Part: ${p.name}\n`+
-          `Category: ${p.category}\n`+
-          `Condition: ${p.condition}\n`+
-          `Price: ${money(p.price)}\n`+
-          `Warranty: ${p.warranty}\n`+
-          `Interchange: ${p.interchange}\n`+
-          `Stock/Tag: ${p.stock}\n`+
-          `Location: ${p.location}\n\n`+
-          `Can you confirm availability and exact fitment?`
-        );
-
-        const emailLink = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent("Parts Inquiry — Two Little Bees")}&body=${askMsg}`;
-        const telLink = `tel:${SHOP_PHONE}`;
-
-        const div = document.createElement("div");
-        div.className = "partCard";
-        div.innerHTML = `
-          <div class="top">
-            <div>
-              <h3>${markQuery(p.name, qRaw)}</h3>
-              <div class="sub">${markQuery(p.stock || "No tag", qRaw)} • ${markQuery(p.location || "No location", qRaw)}</div>
-            </div>
-            <div>${condBadge(p.condition)}</div>
-          </div>
-
-          <div class="row">
-            <div class="kv"><b>Category</b><span>${markQuery(p.category || "—", qRaw)}</span></div>
-            <div class="kv"><b>Price</b><span class="price">${money(p.price)}</span></div>
-            <div class="kv"><b>Warranty</b><span>${markQuery(p.warranty || "—", qRaw)}</span></div>
-            <div class="kv"><b>Interchange</b><span>${markQuery(p.interchange || "—", qRaw)}</span></div>
-            <div class="kv"><b>Notes</b><span>${markQuery(p.notes || "—", qRaw)}</span></div>
-          </div>
-
-          <div class="actions" style="margin-top:10px;">
-            <a class="mini primary" href="${telLink}">📞 Call</a>
-            <a class="mini" href="${emailLink}">✉️ Email</a>
-            <button class="mini" data-edit="${p.id}">✏️ Edit</button>
-          </div>
-        `;
-        mobile.appendChild(div);
-      }
-
-      // Wire edit buttons
-      [...document.querySelectorAll("button[data-edit]")].forEach(btn=>{
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-edit");
-          if(!isAuthed() || !adminUnlocked){
-            openModal();
-            toast("Admin locked — log in to edit.");
-            return;
-          }
-          touchAdmin();
-          openEditor(id);
-        };
-      });
-
-      setAuthUI();
     }
-
-    /**********************
-     * ADMIN MODAL + CRUD (Firestore)
-     **********************/
-    function openModal(){
-      $("modalBackdrop").style.display = "flex";
-      if(isAuthed() && adminUnlocked){
-        $("adminLogin").style.display = "none";
-        $("adminPanel").style.display = "block";
-        $("adminFooter").style.display = "flex";
-        touchAdmin();
-      } else {
-        $("adminLogin").style.display = "block";
-        $("adminPanel").style.display = "none";
-        $("adminFooter").style.display = "none";
-        $("u").value = "";
-        $("pw").value = "";
-        $("pin").value = "";
-        $("u").focus();
+    function fillDatalist(id, options){
+      const dl = $(id);
+      dl.innerHTML = "";
+      for(const v of options){
+        const o = document.createElement("option");
+        o.value = v;
+        dl.appendChild(o);
       }
     }
 
-    function closeModal(){
-      $("modalBackdrop").style.display = "none";
+    function fitmentText(p){
+      const y = String(p.vehicleYear ?? "").trim();
+      const mk = String(p.vehicleMake ?? "").trim();
+      const md = String(p.vehicleModel ?? "").trim();
+      const tr = String(p.vehicleTrim ?? "").trim();
+      const en = String(p.vehicleEngine ?? "").trim();
+
+      const main = [y, mk, md].filter(Boolean).join(" ");
+      const extra = [tr, en].filter(Boolean).join(" • ");
+      if(main && extra) return `${main} • ${extra}`;
+      return main || extra || "—";
     }
 
-    function resetForm(){
-      editingId = null;
-      $("modalTitle").textContent = "Admin — Add Part";
-      $("f_name").value = "";
-      $("f_category").value = "";
-      $("f_condition").value = "Used";
-      $("f_price").value = "";
-      $("f_warranty").value = "";
-      $("f_interchange").value = "";
-      $("f_stock").value = "";
-      $("f_location").value = "";
-      $("f_notes").value = "";
-      $("btnDelete").style.display = "none";
-    }
+    // ---------- app state ----------
+    const SHOP_PHONE = "13172437777";
+    const SHOP_EMAIL = "twolittlebeesautoparts@gmail.com";
 
-    function openEditor(id){
-      const p = parts.find(x=>x.id===id);
-      if(!p){ toast("Part not found."); return; }
-      openModal();
+    let parts = [];
+    let editingId = null;
+    let page = 1;
+    let pageSize = 25;
 
-      $("adminLogin").style.display = "none";
-      $("adminPanel").style.display = "block";
-      $("adminFooter").style.display = "flex";
+    // ---------- init after DOM loads ----------
+    window.addEventListener("DOMContentLoaded", async ()=>{
+      // If you click Admin and nothing happens, THIS line ensures it's bound:
+      $("btnAdmin").addEventListener("click", ()=> openModal());
 
-      editingId = id;
-      $("modalTitle").textContent = "Admin — Edit Part";
-      $("f_name").value = p.name || "";
-      $("f_category").value = p.category || "";
-      $("f_condition").value = p.condition || "Used";
-      $("f_price").value = String(p.price ?? "");
-      $("f_warranty").value = p.warranty || "";
-      $("f_interchange").value = p.interchange || "";
-      $("f_stock").value = p.stock || "";
-      $("f_location").value = p.location || "";
-      $("f_notes").value = p.notes || "";
-      $("btnDelete").style.display = "inline-flex";
-    }
+      // Preset UI
+      fillSelect("f_category", CATEGORY_PRESETS);
+      fillSelect("f_warranty", WARRANTY_PRESETS);
+      fillDatalist("dlPartNames", PARTNAME_PRESETS);
+      fillDatalist("dlMakes", MAKE_PRESETS);
+      fillDatalist("dlEngines", ENGINE_PRESETS);
 
-    function validateForm(){
-      const name = $("f_name").value.trim();
-      const category = $("f_category").value.trim();
-      const price = Number(($("f_price").value || "").trim());
-      if(!name) return { ok:false, msg:"Part Name is required." };
-      if(!category) return { ok:false, msg:"Category is required." };
-      if(!isFinite(price) || price < 0) return { ok:false, msg:"Price must be a valid number." };
-      return { ok:true, price, name, category };
-    }
-
-    async function saveFromForm(){
-      if(!isAuthed() || !adminUnlocked){ toast("Admin locked."); return; }
-      touchAdmin();
-
-      const v = validateForm();
-      if(!v.ok){ toast(v.msg); return; }
-
-      const payload = {
-        name: $("f_name").value.trim(),
-        category: $("f_category").value.trim(),
-        condition: $("f_condition").value,
-        price: v.price,
-        warranty: $("f_warranty").value.trim(),
-        interchange: $("f_interchange").value.trim(),
-        stock: $("f_stock").value.trim(),
-        location: $("f_location").value.trim(),
-        notes: $("f_notes").value.trim(),
-        updatedAt: serverTimestamp()
-      };
-
+      // Firebase start
+      let db, auth;
       try{
-        if(editingId){
-          await updateDoc(doc(db, "parts", editingId), payload);
-          toast("Saved changes.");
-        } else {
-          await addDoc(collection(db, "parts"), {
-            ...payload,
-            createdAt: serverTimestamp()
-          });
-          toast("Part added.");
-        }
-        closeModal();
+        const app = initializeApp(firebaseConfig);
+        try { getAnalytics(app); } catch(e){}
+        db = getFirestore(app);
+        auth = getAuth(app);
       }catch(e){
+        setStatus("err","Firebase init failed");
+        toast("Firebase init failed. Check config / blocked imports.");
         console.error(e);
-        toast("Save failed. Check Firestore rules / auth.");
-      }
-    }
-
-    async function deleteEditing(){
-      if(!isAuthed() || !adminUnlocked){ toast("Admin locked."); return; }
-      touchAdmin();
-
-      if(!editingId) return;
-      const p = parts.find(x=>x.id===editingId);
-      if(!p) return;
-
-      const yes = confirm(`Delete "${p.name}"?`);
-      if(!yes) return;
-
-      try{
-        await deleteDoc(doc(db, "parts", editingId));
-        toast("Part deleted.");
-        closeModal();
-      }catch(e){
-        console.error(e);
-        toast("Delete failed. Check Firestore rules / auth.");
-      }
-    }
-
-    /**********************
-     * AUTH (Login/Logout)
-     **********************/
-    async function doLogin(){
-      const u = ($("u").value || "").trim();
-      const pw = ($("pw").value || "").trim();
-      const pin = ($("pin").value || "").trim();
-
-      // UI credentials check (so random people can’t even try)
-      if(u !== ADMIN_USER || pw !== ADMIN_PASS || pin !== ADMIN_PIN){
-        toast("Wrong login.");
         return;
       }
 
-      try{
-        // Real Firebase login:
-        await signInWithEmailAndPassword(auth, ADMIN_EMAIL, ADMIN_PASS);
-        adminUnlocked = true; // pin verified
-        lastAdminActivity = Date.now();
-        toast("Admin logged in.");
-        openModal();
-        resetForm();
-        setAuthUI();
-      }catch(e){
-        console.error(e);
-        toast("Firebase login failed. Make sure admin@tlb.local exists in Auth.");
+      const isAuthed = ()=> !!auth.currentUser;
+
+      function setAuthUI(){
+        const pill = $("authPill");
+        if(isAuthed()){
+          pill.classList.add("admin");
+          $("authText").textContent = "Admin mode";
+          $("btnLogoutTop").style.display = "inline-flex";
+        } else {
+          pill.classList.remove("admin");
+          $("authText").textContent = "Public view";
+          $("btnLogoutTop").style.display = "none";
+        }
       }
-    }
 
-    async function doLogout(){
-      try{
-        await signOut(auth);
-      }catch(e){}
-      adminUnlocked = false;
-      editingId = null;
-      toast("Logged out.");
-      closeModal();
-      setAuthUI();
-    }
+      function openModal(){
+        $("modalBackdrop").style.display = "flex";
+        if(isAuthed()){
+          $("adminLogin").style.display = "none";
+          $("adminPanel").style.display = "block";
+          $("adminFooter").style.display = "flex";
+        }else{
+          $("adminLogin").style.display = "block";
+          $("adminPanel").style.display = "none";
+          $("adminFooter").style.display = "none";
+          $("loginEmail").focus();
+        }
+      }
+      function closeModal(){ $("modalBackdrop").style.display = "none"; }
 
-    function adminAutoLockTick(){
-      if(!adminUnlocked) return;
-      const now = Date.now();
-      if(now - lastAdminActivity > ADMIN_IDLE_LOCK_MS){
-        adminUnlocked = false;
+      function resetForm(){
         editingId = null;
-        toast("Admin auto-logged out (inactive).");
+        $("modalTitle").textContent = "Admin — Add Part";
+        $("f_name").value = "";
+        $("f_category").value = CATEGORY_PRESETS[0];
+        $("f_condition").value = "Used";
+        $("f_warranty").value = WARRANTY_PRESETS[2] || WARRANTY_PRESETS[0];
+
+        $("f_year").value = "";
+        $("f_make").value = "";
+        $("f_model").value = "";
+        $("f_trim").value = "";
+        $("f_engine").value = "";
+
+        $("f_price").value = "";
+        $("f_interchange").value = "";
+        $("f_stock").value = "";
+        $("f_location").value = "";
+        $("f_notes").value = "";
+
+        $("btnDelete").style.display = "none";
+      }
+
+      function openEditor(id){
+        const p = parts.find(x=>x.id===id);
+        if(!p){ toast("Part not found."); return; }
+        openModal();
+        $("adminLogin").style.display = "none";
+        $("adminPanel").style.display = "block";
+        $("adminFooter").style.display = "flex";
+
+        editingId = id;
+        $("modalTitle").textContent = "Admin — Edit Part";
+
+        $("f_name").value = p.name || "";
+        $("f_category").value = p.category || CATEGORY_PRESETS[0];
+        $("f_condition").value = p.condition || "Used";
+        $("f_warranty").value = p.warranty || WARRANTY_PRESETS[0];
+
+        $("f_year").value = String(p.vehicleYear ?? "");
+        $("f_make").value = p.vehicleMake || "";
+        $("f_model").value = p.vehicleModel || "";
+        $("f_trim").value = p.vehicleTrim || "";
+        $("f_engine").value = p.vehicleEngine || "";
+
+        $("f_price").value = String(p.price ?? "");
+        $("f_interchange").value = p.interchange || "";
+        $("f_stock").value = p.stock || "";
+        $("f_location").value = p.location || "";
+        $("f_notes").value = p.notes || "";
+
+        $("btnDelete").style.display = "inline-flex";
+      }
+
+      function validateForm(){
+        const name = $("f_name").value.trim();
+        const category = $("f_category").value.trim();
+        const price = Number(($("f_price").value || "").trim());
+        if(!name) return { ok:false, msg:"Part Name is required." };
+        if(!category) return { ok:false, msg:"Category is required." };
+        if(!isFinite(price) || price < 0) return { ok:false, msg:"Price must be a valid number." };
+        return { ok:true, price };
+      }
+
+      async function saveFromForm(){
+        if(!isAuthed()){ toast("Log in first."); return; }
+        const v = validateForm();
+        if(!v.ok){ toast(v.msg); return; }
+
+        const payload = {
+          name: $("f_name").value.trim(),
+          category: $("f_category").value.trim(),
+          condition: $("f_condition").value,
+          warranty: $("f_warranty").value,
+
+          vehicleYear: String(($("f_year").value || "").trim()),
+          vehicleMake: $("f_make").value.trim(),
+          vehicleModel: $("f_model").value.trim(),
+          vehicleTrim: $("f_trim").value.trim(),
+          vehicleEngine: $("f_engine").value.trim(),
+
+          price: v.price,
+          interchange: $("f_interchange").value.trim(),
+          stock: $("f_stock").value.trim(),
+          location: $("f_location").value.trim(),
+          notes: $("f_notes").value.trim(),
+          updatedAt: serverTimestamp()
+        };
+
+        try{
+          if(editingId){
+            await updateDoc(doc(db, "parts", editingId), payload);
+            toast("Saved changes.");
+          } else {
+            await addDoc(collection(db, "parts"), { ...payload, createdAt: serverTimestamp() });
+            toast("Part added.");
+          }
+          closeModal();
+        }catch(e){
+          console.error(e);
+          toast("Save failed. Check Firestore rules (write needs auth).");
+        }
+      }
+
+      async function deleteEditing(){
+        if(!isAuthed()){ toast("Log in first."); return; }
+        if(!editingId) return;
+        const p = parts.find(x=>x.id===editingId);
+        if(!p) return;
+        if(!confirm(`Delete "${p.name}"?`)) return;
+
+        try{
+          await deleteDoc(doc(db, "parts", editingId));
+          toast("Part deleted.");
+          closeModal();
+        }catch(e){
+          console.error(e);
+          toast("Delete failed. Check Firestore rules.");
+        }
+      }
+
+      async function doLogin(){
+        const email = ($("loginEmail").value || "").trim();
+        const pass  = ($("loginPass").value || "").trim();
+        if(!email || !pass){ toast("Enter email + password."); return; }
+        try{
+          await signInWithEmailAndPassword(auth, email, pass);
+          toast("Logged in.");
+          openModal();
+          resetForm();
+          setAuthUI();
+        }catch(e){
+          console.error(e);
+          toast("Login failed. Check email/password or Authorized Domains.");
+        }
+      }
+
+      async function doLogout(){
+        try{ await signOut(auth); }catch(e){}
+        editingId = null;
+        toast("Logged out.");
         closeModal();
         setAuthUI();
       }
-    }
 
-    onAuthStateChanged(auth, (user)=>{
-      if(!user){
-        adminUnlocked = false;
-        editingId = null;
+      function getFiltered(){
+        const qRaw = $("q").value || "";
+        const q = normalizeText(qRaw);
+        const cat = $("cat").value;
+        const cond = $("cond").value;
+
+        let out = parts.slice();
+        if(cat) out = out.filter(p => p.category === cat);
+        if(cond) out = out.filter(p => (p.condition || "") === cond);
+
+        if(q){
+          out = out.filter(p=>{
+            const hay = [
+              p.name, p.category, p.condition, p.warranty, p.interchange, p.stock, p.location, p.notes,
+              p.vehicleYear, p.vehicleMake, p.vehicleModel, p.vehicleTrim, p.vehicleEngine,
+              String(p.price ?? "")
+            ].join(" ").toLowerCase();
+            return hay.includes(q);
+          });
+        }
+
+        const sort = $("sort").value;
+        if(sort === "priceAsc") out.sort((a,b)=>(Number(a.price)||0)-(Number(b.price)||0));
+        if(sort === "priceDesc") out.sort((a,b)=>(Number(b.price)||0)-(Number(a.price)||0));
+        if(sort === "nameAsc") out.sort((a,b)=> (a.name||"").localeCompare(b.name||""));
+        if(sort === "newest") out.sort((a,b)=>{
+          const aa = Math.max(toMillis(a.createdAt), toMillis(a.updatedAt));
+          const bb = Math.max(toMillis(b.createdAt), toMillis(b.updatedAt));
+          return bb - aa;
+        });
+
+        return { list: out, qRaw };
       }
-      setAuthUI();
-    });
 
-    /**********************
-     * EVENTS
-     **********************/
-    function wire(){
-      window.addEventListener("keydown", (e)=>{
-        if(e.key === "/" && document.activeElement && !["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)){
-          e.preventDefault();
-          $("q").focus();
+      function paginate(list){
+        const total = list.length;
+        const pages = Math.max(1, Math.ceil(total / pageSize));
+        page = Math.min(Math.max(1, page), pages);
+        const startIdx = (page - 1) * pageSize;
+        const endIdx = Math.min(total, startIdx + pageSize);
+        return { slice: list.slice(startIdx, endIdx), total, pages, startIdx, endIdx };
+      }
+
+      function renderCategoryOptions(){
+        const catSel = $("cat");
+        const current = catSel.value;
+        const set = new Set(parts.map(p => (p.category || "").trim()).filter(Boolean));
+        const cats = Array.from(set).sort((a,b)=>a.localeCompare(b));
+        catSel.innerHTML = '<option value="">All</option>';
+        cats.forEach(c=>{
+          const opt = document.createElement("option");
+          opt.value = c; opt.textContent = c;
+          catSel.appendChild(opt);
+        });
+        if([...catSel.options].some(o=>o.value===current)) catSel.value = current;
+      }
+
+      function render(){
+        const { list } = getFiltered();
+        const { slice, total, pages, startIdx, endIdx } = paginate(list);
+
+        $("countPill").textContent = `${total} part${total===1?"":"s"}`;
+        $("empty").style.display = total ? "none" : "block";
+
+        $("pager").style.display = total ? "flex" : "none";
+        $("pagerInfo").textContent = `Page ${page} / ${pages}`;
+        $("rangeInfo").textContent = total ? `Showing ${startIdx+1}-${endIdx} of ${total}` : "—";
+
+        const tbody = $("tbody");
+        tbody.innerHTML = "";
+
+        for(const p of slice){
+          const askMsg = encodeURIComponent(
+            `Hi! I’m interested in this part:\n\n`+
+            `Part: ${p.name}\n`+
+            `Category: ${p.category}\n`+
+            `Condition: ${p.condition}\n`+
+            `Vehicle: ${fitmentText(p)}\n`+
+            `Price: ${money(p.price)}\n`+
+            `Warranty: ${p.warranty}\n`+
+            `Interchange: ${p.interchange}\n`+
+            `Stock/Tag: ${p.stock}\n`+
+            `Location: ${p.location}\n\n`+
+            `Can you confirm availability and exact fitment?`
+          );
+
+          const emailLink = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent("Parts Inquiry — Two Little Bees")}&body=${askMsg}`;
+          const telLink = `tel:${SHOP_PHONE}`;
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><b>${escapeHtml(p.name || "—")}</b><div class="muted" style="font-size:12px;">${escapeHtml(p.stock || "No tag")} • ${escapeHtml(p.location || "No location")}</div></td>
+            <td>${escapeHtml(p.category || "—")}</td>
+            <td>${condBadge(p.condition)}</td>
+            <td>${escapeHtml(fitmentText(p))}</td>
+            <td><span class="price">${money(p.price)}</span></td>
+            <td>${escapeHtml(p.warranty || "—")}</td>
+            <td>${escapeHtml(p.interchange || "—")}</td>
+            <td>${escapeHtml(p.notes || "—")}</td>
+            <td>
+              <div class="actions">
+                <a class="mini primary" href="${telLink}">📞 Call</a>
+                <a class="mini" href="${emailLink}">✉️ Email</a>
+                <button class="mini" data-edit="${p.id}" type="button">✏️ Edit</button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
         }
-        if(e.key === "Escape" && $("modalBackdrop").style.display === "flex"){
-          closeModal();
-        }
-      });
 
-      const debouncedRender = debounce(()=>{ page = 1; render(); }, 120);
-      $("q").addEventListener("input", debouncedRender);
-      $("cat").addEventListener("change", ()=>{ page = 1; render(); });
-      $("cond").addEventListener("change", ()=>{ page = 1; render(); });
-      $("sort").addEventListener("change", ()=>{ page = 1; render(); });
+        // Edit buttons
+        tbody.querySelectorAll("button[data-edit]").forEach(btn=>{
+          btn.addEventListener("click", ()=>{
+            const id = btn.getAttribute("data-edit");
+            if(!isAuthed()){
+              openModal();
+              toast("Log in to edit.");
+              return;
+            }
+            openEditor(id);
+          });
+        });
 
-      $("pageSize").addEventListener("change", ()=>{
-        pageSize = Number($("pageSize").value) || 25;
-        page = 1;
-        render();
-      });
+        setAuthUI();
+      }
 
-      $("btnPrev").addEventListener("click", ()=>{
-        page = Math.max(1, page - 1);
-        render();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-      $("btnNext").addEventListener("click", ()=>{
-        page = page + 1;
-        render();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+      // UI events
+      $("btnCloseModal").addEventListener("click", closeModal);
+      $("btnCancelLogin").addEventListener("click", closeModal);
+      $("modalBackdrop").addEventListener("click", (e)=>{ if(e.target === $("modalBackdrop")) closeModal(); });
+
+      $("btnLogin").addEventListener("click", doLogin);
+      $("loginPass").addEventListener("keydown", (e)=>{ if(e.key === "Enter") doLogin(); });
+
+      $("btnLogout").addEventListener("click", doLogout);
+      $("btnLogoutTop").addEventListener("click", doLogout);
+
+      $("btnNew").addEventListener("click", ()=>{ if(!isAuthed()) return toast("Log in first."); resetForm(); $("f_name").focus(); });
+      $("btnSave").addEventListener("click", saveFromForm);
+      $("btnResetForm").addEventListener("click", resetForm);
+      $("btnDelete").addEventListener("click", deleteEditing);
 
       $("btnClear").addEventListener("click", ()=>{
         $("q").value = "";
@@ -1199,40 +1104,63 @@
         render();
       });
 
-      $("btnAdmin").addEventListener("click", openModal);
-      $("btnCloseModal").addEventListener("click", closeModal);
-      $("btnCancelUnlock").addEventListener("click", closeModal);
-
-      $("modalBackdrop").addEventListener("click", (e)=>{
-        if(e.target === $("modalBackdrop")) closeModal();
+      $("pageSize").addEventListener("change", ()=>{
+        pageSize = Number($("pageSize").value) || 25;
+        page = 1;
+        render();
       });
 
-      $("btnUnlock").addEventListener("click", doLogin);
-      $("btnLogout").addEventListener("click", doLogout);
-      $("btnLogoutTop").addEventListener("click", doLogout);
+      $("btnPrev").addEventListener("click", ()=>{ page = Math.max(1, page-1); render(); });
+      $("btnNext").addEventListener("click", ()=>{ page = page+1; render(); });
 
-      $("btnNew").addEventListener("click", ()=>{
-        if(!isAuthed() || !adminUnlocked){ toast("Admin locked."); return; }
-        touchAdmin();
-        resetForm();
-        $("f_name").focus();
+      ["q","cat","cond","sort"].forEach(id=>{
+        $(id).addEventListener(id==="q" ? "input" : "change", ()=>{ page=1; render(); });
       });
 
-      $("btnSave").addEventListener("click", saveFromForm);
-      $("btnResetForm").addEventListener("click", ()=>{ touchAdmin(); resetForm(); });
-      $("btnDelete").addEventListener("click", deleteEditing);
-
-      // auto-lock
-      setInterval(adminAutoLockTick, 2000);
-      ["mousemove","keydown","click","touchstart"].forEach(evt=>{
-        window.addEventListener(evt, ()=>{ if(adminUnlocked) touchAdmin(); }, { passive:true });
+      window.addEventListener("keydown", (e)=>{
+        if(e.key === "/" && document.activeElement && !["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)){
+          e.preventDefault();
+          $("q").focus();
+        }
+        if(e.key === "Escape" && $("modalBackdrop").style.display === "flex"){
+          closeModal();
+        }
       });
-    }
 
-    // Init
-    wire();
-    render();
-    setAuthUI();
+      // Auth state
+      onAuthStateChanged(auth, ()=> setAuthUI());
+
+      // Realtime Firestore
+      setStatus("live","Connecting…");
+      onSnapshot(collection(db, "parts"), (snap)=>{
+        parts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        parts.sort((a,b)=>{
+          const aa = Math.max(toMillis(a.createdAt), toMillis(a.updatedAt));
+          const bb = Math.max(toMillis(b.createdAt), toMillis(b.updatedAt));
+          return bb - aa;
+        });
+
+        // “learned” lists
+        const models = Array.from(new Set(parts.map(p=>String(p.vehicleModel||"").trim()).filter(Boolean))).sort();
+        const locations = Array.from(new Set(parts.map(p=>String(p.location||"").trim()).filter(Boolean))).sort();
+        fillDatalist("dlModels", models);
+        fillDatalist("dlLocations", locations);
+
+        renderCategoryOptions();
+        render();
+        setStatus("live","Live • Firestore");
+      }, (err)=>{
+        console.error(err);
+        setStatus("err","Firestore error");
+        toast("Firestore error. Check rules + collection name (parts).");
+      });
+
+      // Final
+      resetForm();
+      setAuthUI();
+      render();
+      toast("Loaded ✔");
+    });
   </script>
 </body>
 </html>
