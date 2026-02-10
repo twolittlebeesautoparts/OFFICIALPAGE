@@ -3,343 +3,261 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Two Little Bees – Parts Inventory</title>
-  <meta name="description" content="Two Little Bees Auto Parts — yard parts inventory with pricing, warranty, and interchange info." />
+  <title>Two Little Bees — Parts Inventory</title>
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0f14">
+
+  <!-- Firebase (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <style>
     :root{
       --bg:#0b0f14;
-      --panel:#111827;
-      --panel-soft:#0f172a;
+      --panel:#0f172a;
+      --panel2:#0b1220;
       --card:#0e1726;
-
       --text:#f9fafb;
       --muted:#9ca3af;
-
+      --border:rgba(255,255,255,.10);
       --accent:#f4c430;
       --accent2:#ffb703;
-
-      --border:rgba(255,255,255,.10);
-      --border2:rgba(255,255,255,.14);
-
+      --danger:#ff4d4d;
       --ok:#22c55e;
-      --warn:#f59e0b;
-      --danger:#ef4444;
-
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --radius: 16px;
-
-      --max: 1100px;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      background:
-        radial-gradient(900px 450px at 15% 0%, rgba(244,196,48,.10), transparent 55%),
-        radial-gradient(900px 500px at 90% 5%, rgba(255,183,3,.08), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.03), transparent 18%),
-        var(--bg);
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(244,196,48,.10), transparent 60%),
+                  radial-gradient(1200px 800px at 80% 0%, rgba(255,183,3,.08), transparent 60%),
+                  var(--bg);
       color:var(--text);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      overflow-x:hidden;
+      font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
-
-    a{ color:inherit; text-decoration:none; }
-    button, input, select, textarea{ font:inherit; }
-
-    .wrap{ max-width:var(--max); margin:0 auto; padding:18px; }
-
+    a{color:inherit}
+    .wrap{max-width:1200px;margin:24px auto;padding:0 14px}
     .topbar{
-      display:flex; gap:12px; align-items:center; justify-content:space-between;
-      padding:12px 14px; border:1px solid var(--border); border-radius:var(--radius);
-      background:rgba(17,24,39,.70); backdrop-filter: blur(10px);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:12px 14px;
       box-shadow: var(--shadow);
-      position:sticky; top:10px; z-index:10;
+      position:sticky;top:10px;z-index:50;
+      backdrop-filter: blur(10px);
     }
-
-    .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
-    .logo{
-      width:42px; height:42px; border-radius:12px;
-      background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(135deg, rgba(244,196,48,.95), rgba(255,183,3,.75));
-      border:1px solid rgba(0,0,0,.25);
-      box-shadow: 0 10px 25px rgba(0,0,0,.35);
-      flex:0 0 auto;
+    .brand{display:flex;align-items:center;gap:10px;min-width:220px}
+    .bee{
+      width:34px;height:34px;border-radius:10px;
+      background:linear-gradient(135deg, rgba(244,196,48,.9), rgba(255,183,3,.75));
+      box-shadow: 0 12px 30px rgba(244,196,48,.18);
     }
-    .title{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-    .title b{
-      font-size:14px; letter-spacing:.2px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-    .title span{
-      font-size:12px; color:var(--muted);
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-
-    .navbtns{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .brand h1{font-size:14px;margin:0}
+    .brand small{display:block;color:var(--muted);margin-top:2px}
+    .navbtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .btn{
       border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
+      background:rgba(255,255,255,.05);
       color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
+      padding:9px 12px;border-radius:14px;
       cursor:pointer;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex;align-items:center;gap:8px;
+      transition:.15s ease;
       user-select:none;
     }
-    .btn:hover{ background: rgba(255,255,255,.06); }
-    .btn:active{ transform: translateY(1px); }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}
     .btn.primary{
-      border-color: rgba(244,196,48,.45);
-      background: linear-gradient(180deg, rgba(244,196,48,.20), rgba(255,183,3,.10));
+      border-color:rgba(244,196,48,.55);
+      background:rgba(244,196,48,.12);
     }
     .btn.danger{
-      border-color: rgba(239,68,68,.45);
-      background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(239,68,68,.08));
+      border-color:rgba(255,77,77,.45);
+      background:rgba(255,77,77,.10);
     }
-
     .pill{
-      font-size:12px; color:var(--muted);
-      padding:4px 10px; border:1px solid var(--border);
-      border-radius:999px; background: rgba(0,0,0,.15);
-      display:inline-flex; align-items:center; gap:8px;
-      user-select:none;
-    }
-    .pill .dot{ width:8px; height:8px; border-radius:99px; background: var(--muted); }
-    .pill.live .dot{ background: var(--ok); }
-    .pill.err .dot{ background: var(--danger); }
-    .pill.admin .dot{ background: var(--accent); }
-
-    .hero{
-      margin-top:16px;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
       border:1px solid var(--border);
-      border-radius: calc(var(--radius) + 4px);
-      background: linear-gradient(180deg, rgba(17,24,39,.75), rgba(15,23,42,.55));
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--ok)}
+    .dot.off{background:rgba(255,255,255,.30)}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media(max-width:980px){ .grid{grid-template-columns:1fr} .brand{min-width:auto}}
+    .panel{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .panel h2{margin:0 0 8px 0;font-size:16px}
+    .sub{color:var(--muted);margin:0 0 12px 0}
+    .controls{
+      display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;
+      gap:10px;
+    }
+    @media(max-width:980px){
+      .controls{grid-template-columns:1fr 1fr}
+    }
+    .field label{display:block;color:var(--muted);font-size:12px;margin:0 0 6px 2px}
+    .input, select, textarea{
+      width:100%;
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px 12px;
+      outline:none;
+    }
+    textarea{min-height:90px;resize:vertical}
+    .row{
+      display:flex;gap:10px;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .stats{display:flex;gap:10px;flex-wrap:wrap}
+    .stat{
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:10px 12px;
+      min-width:150px;
+    }
+    .stat b{display:block;font-size:16px}
+    .stat span{color:var(--muted);font-size:12px}
+    /* Desktop table */
+    .tableWrap{margin-top:12px}
+    table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    thead th{
+      color:var(--muted);
+      font-weight:600;
+      text-align:left;
+      font-size:12px;
+      padding:0 10px;
+      white-space:nowrap;
+    }
+    tbody tr{
+      background:rgba(0,0,0,.20);
+      border:1px solid var(--border);
+    }
+    tbody td{
+      padding:12px 10px;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      vertical-align:top;
+    }
+    tbody tr td:first-child{
+      border-left:1px solid var(--border);
+      border-top-left-radius:16px;border-bottom-left-radius:16px
+    }
+    tbody tr td:last-child{
+      border-right:1px solid var(--border);
+      border-top-right-radius:16px;border-bottom-right-radius:16px
+    }
+    .thumb{
+      width:54px;height:54px;border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+      object-fit:cover;
+    }
+    .muted{color:var(--muted)}
+    .fit{white-space:nowrap}
+    .price{font-weight:800}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    /* Mobile cards (no side-scroll) */
+    .cards{display:none; margin-top:10px; gap:10px}
+    .card{
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.20);
+      border-radius:18px;
+      padding:12px;
+      display:grid;
+      grid-template-columns: 66px 1fr;
+      gap:12px;
+    }
+    .card h3{margin:0 0 2px 0;font-size:14px}
+    .card .meta{color:var(--muted);font-size:12px}
+    .card .line{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    @media(max-width:780px){
+      .tableWrap{display:none}
+      .cards{display:grid}
+    }
+
+    /* Modals */
+    .modalBack{
+      position:fixed;inset:0;background:rgba(0,0,0,.55);
+      display:none;align-items:center;justify-content:center;
+      padding:16px;z-index:100;
+    }
+    .modal{
+      width:min(900px, 100%);
+      border-radius:22px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(15,23,42,.98), rgba(11,18,32,.98));
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .hero-inner{ padding:18px; }
-    .hero h1{ margin:0 0 6px 0; font-size:20px; letter-spacing:.2px; }
-    .hero p{ margin:0; color:var(--muted); line-height:1.35; font-size:13px; }
-
-    .controls{
-      display:grid;
-      grid-template-columns: 1.2fr .65fr .65fr .7fr .7fr;
-      gap:10px;
-      padding:14px 18px 18px 18px;
-      border-top:1px solid var(--border);
-      background: rgba(0,0,0,.10);
+    .modalHead{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:14px 14px;border-bottom:1px solid var(--border);
     }
-    @media (max-width: 920px){
-      .controls{ grid-template-columns: 1fr 1fr; }
-      .controls .span2{ grid-column: span 2; }
-      .controls .spanFull{ grid-column: 1 / -1; }
-    }
-
-    .field{ display:flex; flex-direction:column; gap:6px; }
-    .field label{ font-size:12px; color:var(--muted); }
-    .field input, .field select{
-      width:100%;
-      background: rgba(0,0,0,.18);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding:11px 12px;
-      border-radius: 12px;
-      outline:none;
-    }
-    .field input:focus, .field select:focus{
-      border-color: rgba(244,196,48,.55);
-      box-shadow: 0 0 0 3px rgba(244,196,48,.10);
-    }
-
-    .grid{ margin-top:16px; display:grid; grid-template-columns: repeat(12, 1fr); gap:12px; }
-    .card{
-      grid-column: span 12;
+    .modalHead b{font-size:14px}
+    .x{
+      width:38px;height:38px;border-radius:12px;
       border:1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(17,24,39,.65);
-      box-shadow: 0 14px 45px rgba(0,0,0,.35);
-      overflow:hidden;
-    }
-
-    .list-head{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:14px 16px;
-      border-bottom:1px solid var(--border);
-      background: rgba(0,0,0,.14);
-      flex-wrap:wrap;
-    }
-    .list-head .left{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-    .list-head .left b{ font-size:14px; }
-    .list-head .left span{ font-size:12px; color:var(--muted); }
-
-    .actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-    .mini{
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      cursor:pointer;
-      user-select:none;
-    }
-    .mini:hover{ background: rgba(255,255,255,.06); }
-    .mini.primary{ border-color: rgba(244,196,48,.45); background: rgba(244,196,48,.12); }
-    .mini.danger{ border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.10); }
-
-    .tableWrap{ width:100%; overflow:auto; }
-    .table{ width:100%; border-collapse: collapse; }
-    .table th, .table td{
-      text-align:left;
-      padding:12px 12px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      vertical-align: top;
-      font-size:13px;
-    }
-    .table th{
-      font-size:12px;
-      color: var(--muted);
-      background: rgba(0,0,0,.10);
-      position: sticky;
-      top: 82px;
-      z-index: 5;
-    }
-    @media (max-width: 920px){ .table th{ top: 132px; } }
-
-    .badge{
-      display:inline-flex; align-items:center; gap:6px;
-      font-size:12px;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.18);
-      white-space:nowrap;
-    }
-    .bdot{ width:8px; height:8px; border-radius:99px; background: var(--muted); }
-    .bdot.ok{ background: var(--ok); }
-    .bdot.warn{ background: var(--warn); }
-    .bdot.danger{ background: var(--danger); }
-
-    .muted{ color:var(--muted); }
-    .price{ font-weight:800; letter-spacing:.2px; }
-    .empty{ padding:18px; color:var(--muted); text-align:center; }
-
-    .pager{
-      padding:12px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      border-top:1px solid var(--border);
-      background: rgba(0,0,0,.10);
-    }
-
-    /* Modal */
-    .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.60);
-      display:none;
-      align-items:center; justify-content:center;
-      padding:16px;
-      z-index: 50;
-    }
-    .modal{
-      width:min(920px, 100%);
-      border-radius: 18px;
-      border:1px solid var(--border);
-      background: rgba(17,24,39,.92);
-      box-shadow: 0 30px 120px rgba(0,0,0,.55);
-      overflow:hidden;
-    }
-    .modal header{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      padding:14px 16px;
-      border-bottom:1px solid var(--border);
-      background: rgba(0,0,0,.14);
-    }
-    .modal header b{ font-size:14px; }
-    .modal header .x{
-      width:38px; height:38px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      cursor:pointer;
+      background:rgba(255,255,255,.04);
       color:var(--text);
-      user-select:none;
+      cursor:pointer;
     }
-    .modal header .x:hover{ background: rgba(255,255,255,.06); }
-
-    .modal .body{ padding:14px 16px 16px 16px; }
-    .form{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    .form .full{ grid-column: 1 / -1; }
-    @media (max-width: 720px){ .form{ grid-template-columns: 1fr; } }
-
-    textarea{
-      width:100%;
-      min-height:84px;
-      resize:vertical;
-      background: rgba(0,0,0,.18);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding:11px 12px;
-      border-radius: 12px;
-      outline:none;
+    .modalBody{padding:14px}
+    .formGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
     }
-    textarea:focus{
-      border-color: rgba(244,196,48,.55);
-      box-shadow: 0 0 0 3px rgba(244,196,48,.10);
+    @media(max-width:860px){ .formGrid{grid-template-columns:1fr} }
+    .modalFoot{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:14px;border-top:1px solid var(--border);
+      flex-wrap:wrap;
     }
-
-    .modal .footer{
-      display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap;
-      padding:12px 16px 16px 16px;
-      border-top:1px solid var(--border);
-      background: rgba(0,0,0,.10);
-    }
-    .footer-left{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .footer-right{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-
+    .hint{color:var(--muted);font-size:12px}
     .toast{
-      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
-      background: rgba(0,0,0,.70);
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background:rgba(0,0,0,.72);
       border:1px solid var(--border);
-      color: var(--text);
-      padding:10px 12px;
-      border-radius: 14px;
+      padding:10px 12px;border-radius:14px;
+      color:var(--text);
       display:none;
-      z-index: 99;
-      max-width: min(720px, calc(100% - 24px));
-      box-shadow: 0 20px 80px rgba(0,0,0,.55);
-      font-size:13px;
+      z-index:200;
+      max-width:min(640px, calc(100% - 24px));
     }
-
-    .footer-note{
-      margin: 14px 0 26px 0;
-      color: var(--muted);
-      font-size: 12px;
+    .footer{
+      margin:18px 0 28px;
+      color:var(--muted);
       text-align:center;
-    }
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 12px;
-      padding:2px 6px;
-      border:1px solid var(--border);
-      border-bottom-color: rgba(0,0,0,.35);
-      border-radius: 8px;
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-    }
-    mark{
-      background: rgba(244,196,48,.18);
-      color: var(--text);
-      padding:0 2px;
-      border-radius: 6px;
+      font-size:12px;
     }
   </style>
 </head>
@@ -347,820 +265,694 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="brand" title="Two Little Bees Auto Parts">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="title">
-          <b>Two Little Bees — Parts Inventory</b>
-          <span>Warranty • Price • Interchanges • Vehicle fitment</span>
+      <div class="brand">
+        <div class="bee" aria-hidden="true"></div>
+        <div>
+          <h1>Two Little Bees — Parts Inventory</h1>
+          <small>Search • Fitment • Warranty • Pricing</small>
         </div>
       </div>
 
       <div class="navbtns">
-        <a class="btn" href="index.html">⬅️ Landing</a>
-        <a class="btn" href="https://twolittlebeesautoparts.github.io/">🚗 Cars</a>
-
-        <button class="btn primary" id="btnAdmin" type="button">🔒 Admin</button>
-        <button class="btn danger" id="btnLogoutTop" type="button" style="display:none;">🚪 Logout</button>
-
-        <span class="pill live" id="statusPill">
-          <span class="dot"></span><span id="statusText">Live • Firestore</span>
+        <span class="pill" title="Firebase status">
+          <span id="liveDot" class="dot off"></span>
+          <span id="liveText">Connecting…</span>
+        </span>
+        <span class="pill" id="adminPill">
+          <span id="adminDot" class="dot off"></span>
+          <span id="adminText">Not signed in</span>
         </span>
 
-        <span class="pill" id="authPill"><span class="dot"></span><span id="authText">Public view</span></span>
-        <span class="pill" id="countPill">0 parts</span>
+        <button class="btn" onclick="location.href='index.html'">⬅️ Landing</button>
+        <button class="btn" onclick="location.href='cars.html'">🚗 Cars</button>
+        <button class="btn primary" id="adminBtn" style="display:none" onclick="openPartModal()">➕ Add Part</button>
+        <button class="btn" id="loginBtn" onclick="openAuthModal()">🔐 Login</button>
+        <button class="btn danger" id="logoutBtn" style="display:none" onclick="doLogout()">🚪 Logout</button>
       </div>
     </div>
-
-    <section class="hero">
-      <div class="hero-inner">
-        <h1>Find Parts Fast</h1>
-        <p>Search includes part + notes + interchange + vehicle fitment (year/make/model/engine).</p>
-      </div>
-
-      <div class="controls">
-        <div class="field span2">
-          <label for="q">Search</label>
-          <input id="q" type="text" placeholder="Example: 2014 Ram 5.7, alternator, mirror..." autocomplete="off" />
-        </div>
-
-        <div class="field">
-          <label for="cat">Category</label>
-          <select id="cat"><option value="">All</option></select>
-        </div>
-
-        <div class="field">
-          <label for="cond">Condition</label>
-          <select id="cond">
-            <option value="">All</option>
-            <option>Used</option>
-            <option>New</option>
-            <option>Reman</option>
-            <option>Core</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="sort">Sort</label>
-          <select id="sort">
-            <option value="newest">Newest</option>
-            <option value="priceAsc">Price (Low → High)</option>
-            <option value="priceDesc">Price (High → Low)</option>
-            <option value="nameAsc">Name (A → Z)</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="pageSize">Per Page</label>
-          <select id="pageSize">
-            <option value="10">10</option>
-            <option value="25" selected>25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-        </div>
-
-        <div class="field spanFull">
-          <label>&nbsp;</label>
-          <button class="btn" id="btnClear" type="button">🧹 Clear filters</button>
-        </div>
-      </div>
-    </section>
 
     <div class="grid">
-      <div class="card">
-        <div class="list-head">
-          <div class="left">
-            <b>Available Parts</b>
-            <span class="muted">Tip: press <span class="kbd">/</span> to jump to search • <span class="kbd">Esc</span> closes admin.</span>
+      <div class="panel">
+        <h2>Find Parts Fast</h2>
+        <p class="sub">Search includes part + notes + interchange + vehicle fitment (year/make/model/trim/engine).</p>
+
+        <div class="controls">
+          <div class="field">
+            <label>Search</label>
+            <input id="q" class="input" placeholder="Search: engine, alternator, Jeep, 2015, renegade, 2.4, stock id…" />
           </div>
-          <div class="actions"></div>
+          <div class="field">
+            <label>Category</label>
+            <select id="cat">
+              <option value="">All</option>
+              <option>Engine</option>
+              <option>Transmission</option>
+              <option>Body Panel</option>
+              <option>Body Part</option>
+              <option>Wheel</option>
+              <option>Battery</option>
+              <option>Drivetrain</option>
+              <option>Module</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Condition</label>
+            <select id="cond">
+              <option value="">All</option>
+              <option>Used</option>
+              <option>New</option>
+              <option>Refurbished</option>
+              <option>Core</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Sort</label>
+            <select id="sort">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="priceHigh">Price: High → Low</option>
+              <option value="priceLow">Price: Low → High</option>
+              <option value="nameAZ">Name A → Z</option>
+              <option value="nameZA">Name Z → A</option>
+            </select>
+          </div>
         </div>
 
+        <div class="row">
+          <div class="stats">
+            <div class="stat"><b id="statCount">0</b><span>Matching parts</span></div>
+            <div class="stat"><b id="statTotal">0</b><span>Total parts</span></div>
+            <div class="stat"><b id="statAvg">$0</b><span>Avg price</span></div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" onclick="clearFilters()">🧹 Clear</button>
+            <button class="btn" onclick="refreshData()">🔄 Refresh</button>
+          </div>
+        </div>
+
+        <!-- Desktop table -->
         <div class="tableWrap">
-          <table class="table">
+          <table>
             <thead>
               <tr>
-                <th style="min-width:190px;">Part</th>
-                <th style="min-width:130px;">Category</th>
-                <th style="min-width:110px;">Condition</th>
-                <th style="min-width:220px;">Vehicle Fitment</th>
-                <th style="min-width:120px;">Price</th>
-                <th style="min-width:220px;">Warranty</th>
-                <th style="min-width:240px;">Interchange</th>
-                <th style="min-width:170px;">Yard / Notes</th>
-                <th style="min-width:190px;">Actions</th>
+                <th>Image</th>
+                <th>Part</th>
+                <th>Category</th>
+                <th>Condition</th>
+                <th>Vehicle Fitment</th>
+                <th>Price</th>
+                <th>Stock / Location</th>
+                <th>Warranty</th>
+                <th>Admin</th>
               </tr>
             </thead>
-            <tbody id="tbody"></tbody>
+            <tbody id="rows"></tbody>
           </table>
+          <div class="hint">Tip: Mobile shows cards (no side scroll). Desktop shows table.</div>
         </div>
 
-        <div class="empty" id="empty" style="display:none;">No parts match your search.</div>
+        <!-- Mobile cards -->
+        <div class="cards" id="cards"></div>
 
-        <div class="pager" id="pager" style="display:none;">
-          <div class="left">
-            <span class="pill" id="pagerInfo">Page 1</span>
-            <span class="muted" id="rangeInfo" style="font-size:12px;">—</span>
-          </div>
-          <div class="right">
-            <button class="mini" id="btnPrev" type="button">⬅️ Prev</button>
-            <button class="mini" id="btnNext" type="button">Next ➡️</button>
-          </div>
+      </div>
+
+      <div class="panel">
+        <h2>Quick Admin Tips</h2>
+        <p class="sub">
+          ✅ Add parts with fitment fields so search works better. <br/>
+          📸 For images, paste an Image URL (Facebook, Imgur, your site, etc.). <br/>
+          🔐 Only your admin email can write after rules lock.
+        </p>
+
+        <div class="field">
+          <label>Suggested Stock Format</label>
+          <input class="input" value="BEE-000123" readonly />
+        </div>
+
+        <div class="field" style="margin-top:10px">
+          <label>Suggested Location Format</label>
+          <input class="input" value="Row 3 / Shelf B / Car #12" readonly />
+        </div>
+
+        <div class="field" style="margin-top:10px">
+          <label>Note Example</label>
+          <textarea readonly>Tested good. Include harness. Minor scratches. Interchange confirmed.</textarea>
         </div>
       </div>
     </div>
 
-    <div class="footer-note">
-      Hablamos Español • Call: <b>(317) 243-7777</b> • 507 S Tibbs Ave, Indianapolis
-    </div>
-  </div>
-
-  <!-- ADMIN MODAL -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Admin Panel">
-    <div class="modal">
-      <header>
-        <b id="modalTitle">Admin</b>
-        <button class="x" id="btnCloseModal" type="button" aria-label="Close">✕</button>
-      </header>
-
-      <div class="body">
-        <!-- LOGIN -->
-        <div id="adminLogin">
-          <div class="form" style="margin-top:6px;">
-            <div class="field full">
-              <label>Email</label>
-              <input id="loginEmail" type="email" autocomplete="email" placeholder="admin@email.com" />
-            </div>
-            <div class="field full">
-              <label>Password</label>
-              <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••" />
-            </div>
-          </div>
-
-          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-            <button class="btn primary" id="btnLogin" type="button">Log In</button>
-            <button class="btn" id="btnCancelLogin" type="button">Cancel</button>
-          </div>
-
-          <p class="muted" style="margin:10px 0 0 0; font-size:12px;">
-            If login doesn’t work, check Firebase Auth “Authorized domains” (GitHub Pages domain must be added).
-          </p>
-        </div>
-
-        <!-- ADMIN PANEL -->
-        <div id="adminPanel" style="display:none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-            <span class="badge"><span class="bdot ok"></span> Admin logged in</span>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="mini" id="btnNew" type="button">➕ Add new part</button>
-              <button class="mini danger" id="btnLogout" type="button">🚪 Logout</button>
-            </div>
-          </div>
-
-          <datalist id="dlPartNames"></datalist>
-          <datalist id="dlMakes"></datalist>
-          <datalist id="dlModels"></datalist>
-          <datalist id="dlEngines"></datalist>
-          <datalist id="dlLocations"></datalist>
-
-          <form class="form" id="partForm" onsubmit="return false;">
-            <div class="field">
-              <label>Part Name *</label>
-              <input id="f_name" list="dlPartNames" placeholder="Ex: Alternator / Engine / Mirror" />
-            </div>
-
-            <div class="field">
-              <label>Category *</label>
-              <select id="f_category"></select>
-            </div>
-
-            <div class="field">
-              <label>Condition</label>
-              <select id="f_condition">
-                <option>Used</option>
-                <option>New</option>
-                <option>Reman</option>
-                <option>Core</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Warranty</label>
-              <select id="f_warranty"></select>
-            </div>
-
-            <div class="field">
-              <label>Year</label>
-              <input id="f_year" inputmode="numeric" placeholder="Ex: 2014" />
-            </div>
-
-            <div class="field">
-              <label>Make</label>
-              <input id="f_make" list="dlMakes" placeholder="Ex: Ram, Ford, Chevy" />
-            </div>
-
-            <div class="field">
-              <label>Model</label>
-              <input id="f_model" list="dlModels" placeholder="Ex: 1500, Silverado, Accord" />
-            </div>
-
-            <div class="field">
-              <label>Trim</label>
-              <input id="f_trim" placeholder="Ex: Laramie, LT, Sport" />
-            </div>
-
-            <div class="field">
-              <label>Engine</label>
-              <input id="f_engine" list="dlEngines" placeholder="Ex: 5.7 Hemi, 3.5 EcoBoost" />
-            </div>
-
-            <div class="field">
-              <label>Price (USD) *</label>
-              <input id="f_price" inputmode="decimal" placeholder="Ex: 799.99" />
-            </div>
-
-            <div class="field full">
-              <label>Interchange</label>
-              <input id="f_interchange" placeholder="Ex: Part #, Hollander #, etc" />
-            </div>
-
-            <div class="field">
-              <label>Stock / Tag ID</label>
-              <input id="f_stock" placeholder="Ex: BEE-01821" />
-            </div>
-
-            <div class="field">
-              <label>Location</label>
-              <input id="f_location" list="dlLocations" placeholder="Ex: Row 3 / Shelf B / Car #12" />
-            </div>
-
-            <div class="field full">
-              <label>Notes</label>
-              <textarea id="f_notes" placeholder="Ex: Tested good. Minor scratches. Include harness."></textarea>
-            </div>
-          </form>
-
-          <div class="muted" style="font-size:12px; margin-top:10px;">
-            * Required fields • Saves to Firestore (shared)
-          </div>
-        </div>
-      </div>
-
-      <div class="footer" id="adminFooter" style="display:none;">
-        <div class="footer-left">
-          <button class="btn" id="btnResetForm" type="button">Reset</button>
-          <button class="btn danger" id="btnDelete" type="button" style="display:none;">Delete</button>
-        </div>
-        <div class="footer-right">
-          <button class="btn primary" id="btnSave" type="button">Save</button>
-        </div>
-      </div>
+    <div class="footer">
+      Hablamos Español • Call: (317) 243-7777 • 507 S Tibbs Ave, Indianapolis
     </div>
   </div>
 
+  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-    import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBVumo8QP3m18p33ugqx_eNADsjHG0gJS0",
-      authDomain: "two-little-bees-inventory.firebaseapp.com",
-      projectId: "two-little-bees-inventory",
-      storageBucket: "two-little-bees-inventory.firebasestorage.app",
-      messagingSenderId: "669354511397",
-      appId: "1:669354511397:web:a5e4565496e097f85483cc",
-      measurementId: "G-736B95M78E"
-    };
-
-    // ---------- helpers ----------
-    const $ = (id)=>document.getElementById(id);
-
-    function toast(msg){
-      const t = $("toast");
-      t.textContent = msg;
-      t.style.display = "block";
-      clearTimeout(toast._t);
-      toast._t = setTimeout(()=>t.style.display="none", 3000);
-    }
-    window.addEventListener("error", (e)=> toast("JS Error: " + (e.message || "unknown")));
-    window.addEventListener("unhandledrejection", (e)=> toast("Promise Error: " + (e.reason?.message || e.reason || "unknown")));
-
-    function escapeHtml(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-    function normalizeText(s){ return String(s ?? "").toLowerCase().trim(); }
-    function toMillis(ts){
-      if(!ts) return 0;
-      if(typeof ts === "object" && typeof ts.seconds === "number") return ts.seconds * 1000;
-      if(typeof ts === "number") return ts;
-      return 0;
-    }
-    function money(n){
-      const v = Number(n);
-      if(!isFinite(v)) return "—";
-      return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
-    }
-    function setStatus(mode, text){
-      const pill = $("statusPill");
-      pill.classList.remove("live","err","admin");
-      pill.classList.add(mode);
-      $("statusText").textContent = text;
-    }
-    function condBadge(condition){
-      const c = (condition || "Used").toLowerCase();
-      let cls = "warn", label = condition || "Used";
-      if(c === "new") cls = "ok";
-      if(c === "used") cls = "warn";
-      if(c === "reman") cls = "ok";
-      if(c === "core") cls = "danger";
-      return `<span class="badge"><span class="bdot ${cls}"></span>${escapeHtml(label)}</span>`;
-    }
-
-    // ---------- presets (automation) ----------
-    const CATEGORY_PRESETS = [
-      "Engine","Transmission","Drivetrain","Differential","Transfer Case",
-      "Electrical","Lighting","Body Panels","Body Parts","Interior","Suspension",
-      "Brakes","Cooling","AC/Heat","Wheels","Tires","Exhaust","Fuel System",
-      "Sensors/Modules","Glass","Mirrors","Doors/Tailgate","Radiator Support","Other"
-    ];
-    const WARRANTY_PRESETS = [
-      "No warranty",
-      "7-day check warranty",
-      "14-day warranty • exchange only",
-      "30-day start-up warranty • exchange only",
-      "60-day warranty • exchange only",
-      "90-day warranty • exchange only"
-    ];
-    const PARTNAME_PRESETS = [
-      "Engine","Transmission","Alternator","Starter","AC Compressor","Radiator",
-      "Condenser","Headlight (Left)","Headlight (Right)","Tail Light (Left)","Tail Light (Right)",
-      "Mirror (Left)","Mirror (Right)","Bumper (Front)","Bumper (Rear)","Hood","Fender (Left)","Fender (Right)",
-      "Door (Left Front)","Door (Right Front)","Door (Left Rear)","Door (Right Rear)",
-      "Wheel (Alloy)","Wheel (Steel)","Battery (Used)","Battery (New)","Rear Axle","Front Differential",
-      "ECM/PCM","TCM","ABS Module","Instrument Cluster","Seats"
-    ];
-    const MAKE_PRESETS = ["Chevrolet","GMC","Ford","Ram","Dodge","Jeep","Chrysler","Toyota","Honda","Nissan","Hyundai","Kia","BMW","Mercedes-Benz","Audi","Volkswagen","Subaru","Mazda"];
-    const ENGINE_PRESETS = ["5.7 Hemi","6.4 Hemi","3.6 Pentastar","5.3 V8","6.2 V8","6.0 V8","3.5 EcoBoost","2.7 EcoBoost","2.4","2.0T","1.8","4.7","5.0"];
-
-    function fillSelect(id, options){
-      const sel = $(id);
-      sel.innerHTML = "";
-      for(const v of options){
-        const o = document.createElement("option");
-        o.value = v; o.textContent = v;
-        sel.appendChild(o);
-      }
-    }
-    function fillDatalist(id, options){
-      const dl = $(id);
-      dl.innerHTML = "";
-      for(const v of options){
-        const o = document.createElement("option");
-        o.value = v;
-        dl.appendChild(o);
-      }
-    }
-
-    function fitmentText(p){
-      const y = String(p.vehicleYear ?? "").trim();
-      const mk = String(p.vehicleMake ?? "").trim();
-      const md = String(p.vehicleModel ?? "").trim();
-      const tr = String(p.vehicleTrim ?? "").trim();
-      const en = String(p.vehicleEngine ?? "").trim();
-
-      const main = [y, mk, md].filter(Boolean).join(" ");
-      const extra = [tr, en].filter(Boolean).join(" • ");
-      if(main && extra) return `${main} • ${extra}`;
-      return main || extra || "—";
-    }
-
-    // ---------- app state ----------
-    const SHOP_PHONE = "13172437777";
-    const SHOP_EMAIL = "twolittlebeesautoparts@gmail.com";
-
-    let parts = [];
-    let editingId = null;
-    let page = 1;
-    let pageSize = 25;
-
-    // ---------- init after DOM loads ----------
-    window.addEventListener("DOMContentLoaded", async ()=>{
-      // If you click Admin and nothing happens, THIS line ensures it's bound:
-      $("btnAdmin").addEventListener("click", ()=> openModal());
-
-      // Preset UI
-      fillSelect("f_category", CATEGORY_PRESETS);
-      fillSelect("f_warranty", WARRANTY_PRESETS);
-      fillDatalist("dlPartNames", PARTNAME_PRESETS);
-      fillDatalist("dlMakes", MAKE_PRESETS);
-      fillDatalist("dlEngines", ENGINE_PRESETS);
-
-      // Firebase start
-      let db, auth;
-      try{
-        const app = initializeApp(firebaseConfig);
-        try { getAnalytics(app); } catch(e){}
-        db = getFirestore(app);
-        auth = getAuth(app);
-      }catch(e){
-        setStatus("err","Firebase init failed");
-        toast("Firebase init failed. Check config / blocked imports.");
-        console.error(e);
-        return;
-      }
-
-      const isAuthed = ()=> !!auth.currentUser;
-
-      function setAuthUI(){
-        const pill = $("authPill");
-        if(isAuthed()){
-          pill.classList.add("admin");
-          $("authText").textContent = "Admin mode";
-          $("btnLogoutTop").style.display = "inline-flex";
-        } else {
-          pill.classList.remove("admin");
-          $("authText").textContent = "Public view";
-          $("btnLogoutTop").style.display = "none";
-        }
-      }
-
-      function openModal(){
-        $("modalBackdrop").style.display = "flex";
-        if(isAuthed()){
-          $("adminLogin").style.display = "none";
-          $("adminPanel").style.display = "block";
-          $("adminFooter").style.display = "flex";
-        }else{
-          $("adminLogin").style.display = "block";
-          $("adminPanel").style.display = "none";
-          $("adminFooter").style.display = "none";
-          $("loginEmail").focus();
-        }
-      }
-      function closeModal(){ $("modalBackdrop").style.display = "none"; }
-
-      function resetForm(){
-        editingId = null;
-        $("modalTitle").textContent = "Admin — Add Part";
-        $("f_name").value = "";
-        $("f_category").value = CATEGORY_PRESETS[0];
-        $("f_condition").value = "Used";
-        $("f_warranty").value = WARRANTY_PRESETS[2] || WARRANTY_PRESETS[0];
-
-        $("f_year").value = "";
-        $("f_make").value = "";
-        $("f_model").value = "";
-        $("f_trim").value = "";
-        $("f_engine").value = "";
-
-        $("f_price").value = "";
-        $("f_interchange").value = "";
-        $("f_stock").value = "";
-        $("f_location").value = "";
-        $("f_notes").value = "";
-
-        $("btnDelete").style.display = "none";
-      }
-
-      function openEditor(id){
-        const p = parts.find(x=>x.id===id);
-        if(!p){ toast("Part not found."); return; }
-        openModal();
-        $("adminLogin").style.display = "none";
-        $("adminPanel").style.display = "block";
-        $("adminFooter").style.display = "flex";
-
-        editingId = id;
-        $("modalTitle").textContent = "Admin — Edit Part";
-
-        $("f_name").value = p.name || "";
-        $("f_category").value = p.category || CATEGORY_PRESETS[0];
-        $("f_condition").value = p.condition || "Used";
-        $("f_warranty").value = p.warranty || WARRANTY_PRESETS[0];
-
-        $("f_year").value = String(p.vehicleYear ?? "");
-        $("f_make").value = p.vehicleMake || "";
-        $("f_model").value = p.vehicleModel || "";
-        $("f_trim").value = p.vehicleTrim || "";
-        $("f_engine").value = p.vehicleEngine || "";
-
-        $("f_price").value = String(p.price ?? "");
-        $("f_interchange").value = p.interchange || "";
-        $("f_stock").value = p.stock || "";
-        $("f_location").value = p.location || "";
-        $("f_notes").value = p.notes || "";
-
-        $("btnDelete").style.display = "inline-flex";
-      }
-
-      function validateForm(){
-        const name = $("f_name").value.trim();
-        const category = $("f_category").value.trim();
-        const price = Number(($("f_price").value || "").trim());
-        if(!name) return { ok:false, msg:"Part Name is required." };
-        if(!category) return { ok:false, msg:"Category is required." };
-        if(!isFinite(price) || price < 0) return { ok:false, msg:"Price must be a valid number." };
-        return { ok:true, price };
-      }
-
-      async function saveFromForm(){
-        if(!isAuthed()){ toast("Log in first."); return; }
-        const v = validateForm();
-        if(!v.ok){ toast(v.msg); return; }
-
-        const payload = {
-          name: $("f_name").value.trim(),
-          category: $("f_category").value.trim(),
-          condition: $("f_condition").value,
-          warranty: $("f_warranty").value,
-
-          vehicleYear: String(($("f_year").value || "").trim()),
-          vehicleMake: $("f_make").value.trim(),
-          vehicleModel: $("f_model").value.trim(),
-          vehicleTrim: $("f_trim").value.trim(),
-          vehicleEngine: $("f_engine").value.trim(),
-
-          price: v.price,
-          interchange: $("f_interchange").value.trim(),
-          stock: $("f_stock").value.trim(),
-          location: $("f_location").value.trim(),
-          notes: $("f_notes").value.trim(),
-          updatedAt: serverTimestamp()
-        };
-
-        try{
-          if(editingId){
-            await updateDoc(doc(db, "parts", editingId), payload);
-            toast("Saved changes.");
-          } else {
-            await addDoc(collection(db, "parts"), { ...payload, createdAt: serverTimestamp() });
-            toast("Part added.");
-          }
-          closeModal();
-        }catch(e){
-          console.error(e);
-          toast("Save failed. Check Firestore rules (write needs auth).");
-        }
-      }
-
-      async function deleteEditing(){
-        if(!isAuthed()){ toast("Log in first."); return; }
-        if(!editingId) return;
-        const p = parts.find(x=>x.id===editingId);
-        if(!p) return;
-        if(!confirm(`Delete "${p.name}"?`)) return;
-
-        try{
-          await deleteDoc(doc(db, "parts", editingId));
-          toast("Part deleted.");
-          closeModal();
-        }catch(e){
-          console.error(e);
-          toast("Delete failed. Check Firestore rules.");
-        }
-      }
-
-      async function doLogin(){
-        const email = ($("loginEmail").value || "").trim();
-        const pass  = ($("loginPass").value || "").trim();
-        if(!email || !pass){ toast("Enter email + password."); return; }
-        try{
-          await signInWithEmailAndPassword(auth, email, pass);
-          toast("Logged in.");
-          openModal();
-          resetForm();
-          setAuthUI();
-        }catch(e){
-          console.error(e);
-          toast("Login failed. Check email/password or Authorized Domains.");
-        }
-      }
-
-      async function doLogout(){
-        try{ await signOut(auth); }catch(e){}
-        editingId = null;
-        toast("Logged out.");
-        closeModal();
-        setAuthUI();
-      }
-
-      function getFiltered(){
-        const qRaw = $("q").value || "";
-        const q = normalizeText(qRaw);
-        const cat = $("cat").value;
-        const cond = $("cond").value;
-
-        let out = parts.slice();
-        if(cat) out = out.filter(p => p.category === cat);
-        if(cond) out = out.filter(p => (p.condition || "") === cond);
-
-        if(q){
-          out = out.filter(p=>{
-            const hay = [
-              p.name, p.category, p.condition, p.warranty, p.interchange, p.stock, p.location, p.notes,
-              p.vehicleYear, p.vehicleMake, p.vehicleModel, p.vehicleTrim, p.vehicleEngine,
-              String(p.price ?? "")
-            ].join(" ").toLowerCase();
-            return hay.includes(q);
-          });
-        }
-
-        const sort = $("sort").value;
-        if(sort === "priceAsc") out.sort((a,b)=>(Number(a.price)||0)-(Number(b.price)||0));
-        if(sort === "priceDesc") out.sort((a,b)=>(Number(b.price)||0)-(Number(a.price)||0));
-        if(sort === "nameAsc") out.sort((a,b)=> (a.name||"").localeCompare(b.name||""));
-        if(sort === "newest") out.sort((a,b)=>{
-          const aa = Math.max(toMillis(a.createdAt), toMillis(a.updatedAt));
-          const bb = Math.max(toMillis(b.createdAt), toMillis(b.updatedAt));
-          return bb - aa;
-        });
-
-        return { list: out, qRaw };
-      }
-
-      function paginate(list){
-        const total = list.length;
-        const pages = Math.max(1, Math.ceil(total / pageSize));
-        page = Math.min(Math.max(1, page), pages);
-        const startIdx = (page - 1) * pageSize;
-        const endIdx = Math.min(total, startIdx + pageSize);
-        return { slice: list.slice(startIdx, endIdx), total, pages, startIdx, endIdx };
-      }
-
-      function renderCategoryOptions(){
-        const catSel = $("cat");
-        const current = catSel.value;
-        const set = new Set(parts.map(p => (p.category || "").trim()).filter(Boolean));
-        const cats = Array.from(set).sort((a,b)=>a.localeCompare(b));
-        catSel.innerHTML = '<option value="">All</option>';
-        cats.forEach(c=>{
-          const opt = document.createElement("option");
-          opt.value = c; opt.textContent = c;
-          catSel.appendChild(opt);
-        });
-        if([...catSel.options].some(o=>o.value===current)) catSel.value = current;
-      }
-
-      function render(){
-        const { list } = getFiltered();
-        const { slice, total, pages, startIdx, endIdx } = paginate(list);
-
-        $("countPill").textContent = `${total} part${total===1?"":"s"}`;
-        $("empty").style.display = total ? "none" : "block";
-
-        $("pager").style.display = total ? "flex" : "none";
-        $("pagerInfo").textContent = `Page ${page} / ${pages}`;
-        $("rangeInfo").textContent = total ? `Showing ${startIdx+1}-${endIdx} of ${total}` : "—";
-
-        const tbody = $("tbody");
-        tbody.innerHTML = "";
-
-        for(const p of slice){
-          const askMsg = encodeURIComponent(
-            `Hi! I’m interested in this part:\n\n`+
-            `Part: ${p.name}\n`+
-            `Category: ${p.category}\n`+
-            `Condition: ${p.condition}\n`+
-            `Vehicle: ${fitmentText(p)}\n`+
-            `Price: ${money(p.price)}\n`+
-            `Warranty: ${p.warranty}\n`+
-            `Interchange: ${p.interchange}\n`+
-            `Stock/Tag: ${p.stock}\n`+
-            `Location: ${p.location}\n\n`+
-            `Can you confirm availability and exact fitment?`
-          );
-
-          const emailLink = `mailto:${SHOP_EMAIL}?subject=${encodeURIComponent("Parts Inquiry — Two Little Bees")}&body=${askMsg}`;
-          const telLink = `tel:${SHOP_PHONE}`;
-
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td><b>${escapeHtml(p.name || "—")}</b><div class="muted" style="font-size:12px;">${escapeHtml(p.stock || "No tag")} • ${escapeHtml(p.location || "No location")}</div></td>
-            <td>${escapeHtml(p.category || "—")}</td>
-            <td>${condBadge(p.condition)}</td>
-            <td>${escapeHtml(fitmentText(p))}</td>
-            <td><span class="price">${money(p.price)}</span></td>
-            <td>${escapeHtml(p.warranty || "—")}</td>
-            <td>${escapeHtml(p.interchange || "—")}</td>
-            <td>${escapeHtml(p.notes || "—")}</td>
-            <td>
-              <div class="actions">
-                <a class="mini primary" href="${telLink}">📞 Call</a>
-                <a class="mini" href="${emailLink}">✉️ Email</a>
-                <button class="mini" data-edit="${p.id}" type="button">✏️ Edit</button>
-              </div>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        }
-
-        // Edit buttons
-        tbody.querySelectorAll("button[data-edit]").forEach(btn=>{
-          btn.addEventListener("click", ()=>{
-            const id = btn.getAttribute("data-edit");
-            if(!isAuthed()){
-              openModal();
-              toast("Log in to edit.");
-              return;
-            }
-            openEditor(id);
-          });
-        });
-
-        setAuthUI();
-      }
-
-      // UI events
-      $("btnCloseModal").addEventListener("click", closeModal);
-      $("btnCancelLogin").addEventListener("click", closeModal);
-      $("modalBackdrop").addEventListener("click", (e)=>{ if(e.target === $("modalBackdrop")) closeModal(); });
-
-      $("btnLogin").addEventListener("click", doLogin);
-      $("loginPass").addEventListener("keydown", (e)=>{ if(e.key === "Enter") doLogin(); });
-
-      $("btnLogout").addEventListener("click", doLogout);
-      $("btnLogoutTop").addEventListener("click", doLogout);
-
-      $("btnNew").addEventListener("click", ()=>{ if(!isAuthed()) return toast("Log in first."); resetForm(); $("f_name").focus(); });
-      $("btnSave").addEventListener("click", saveFromForm);
-      $("btnResetForm").addEventListener("click", resetForm);
-      $("btnDelete").addEventListener("click", deleteEditing);
-
-      $("btnClear").addEventListener("click", ()=>{
-        $("q").value = "";
-        $("cat").value = "";
-        $("cond").value = "";
-        $("sort").value = "newest";
-        page = 1;
-        render();
-      });
-
-      $("pageSize").addEventListener("change", ()=>{
-        pageSize = Number($("pageSize").value) || 25;
-        page = 1;
-        render();
-      });
-
-      $("btnPrev").addEventListener("click", ()=>{ page = Math.max(1, page-1); render(); });
-      $("btnNext").addEventListener("click", ()=>{ page = page+1; render(); });
-
-      ["q","cat","cond","sort"].forEach(id=>{
-        $(id).addEventListener(id==="q" ? "input" : "change", ()=>{ page=1; render(); });
-      });
-
-      window.addEventListener("keydown", (e)=>{
-        if(e.key === "/" && document.activeElement && !["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)){
-          e.preventDefault();
-          $("q").focus();
-        }
-        if(e.key === "Escape" && $("modalBackdrop").style.display === "flex"){
-          closeModal();
-        }
-      });
-
-      // Auth state
-      onAuthStateChanged(auth, ()=> setAuthUI());
-
-      // Realtime Firestore
-      setStatus("live","Connecting…");
-      onSnapshot(collection(db, "parts"), (snap)=>{
-        parts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        parts.sort((a,b)=>{
-          const aa = Math.max(toMillis(a.createdAt), toMillis(a.updatedAt));
-          const bb = Math.max(toMillis(b.createdAt), toMillis(b.updatedAt));
-          return bb - aa;
-        });
-
-        // “learned” lists
-        const models = Array.from(new Set(parts.map(p=>String(p.vehicleModel||"").trim()).filter(Boolean))).sort();
-        const locations = Array.from(new Set(parts.map(p=>String(p.location||"").trim()).filter(Boolean))).sort();
-        fillDatalist("dlModels", models);
-        fillDatalist("dlLocations", locations);
-
-        renderCategoryOptions();
-        render();
-        setStatus("live","Live • Firestore");
-      }, (err)=>{
-        console.error(err);
-        setStatus("err","Firestore error");
-        toast("Firestore error. Check rules + collection name (parts).");
-      });
-
-      // Final
-      resetForm();
-      setAuthUI();
-      render();
-      toast("Loaded ✔");
+  <!-- Auth Modal -->
+  <div class="modalBack" id="authBack">
+    <div class="modal">
+      <div class="modalHead">
+        <b>Admin Login</b>
+        <button class="x" onclick="closeAuthModal()">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="formGrid">
+          <div class="field">
+            <label>Email</label>
+            <input id="authEmail" class="input" placeholder="you@email.com" />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input id="authPass" class="input" type="password" placeholder="••••••••" />
+          </div>
+        </div>
+        <p class="hint" style="margin-top:10px">
+          If you don’t have an account yet, click “Create account” once, then login normally.
+        </p>
+      </div>
+      <div class="modalFoot">
+        <span class="hint" id="authHint">Only approved admin emails can write.</span>
+        <div class="actions">
+          <button class="btn" onclick="signup()">Create account</button>
+          <button class="btn primary" onclick="login()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Part Modal -->
+  <div class="modalBack" id="partBack">
+    <div class="modal">
+      <div class="modalHead">
+        <b id="partTitle">Add Part</b>
+        <button class="x" onclick="closePartModal()">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="formGrid">
+          <div class="field">
+            <label>Part Name *</label>
+            <input id="p_name" class="input" placeholder="Engine, Transmission, Alternator…" />
+          </div>
+          <div class="field">
+            <label>Category *</label>
+            <select id="p_category">
+              <option>Engine</option>
+              <option>Transmission</option>
+              <option>Body Panel</option>
+              <option>Body Part</option>
+              <option>Wheel</option>
+              <option>Battery</option>
+              <option>Drivetrain</option>
+              <option>Module</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Condition</label>
+            <select id="p_condition">
+              <option>Used</option>
+              <option>New</option>
+              <option>Refurbished</option>
+              <option>Core</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Warranty</label>
+            <select id="p_warranty">
+              <option>30-day start-up warranty • exchange only</option>
+              <option>14-day exchange only</option>
+              <option>No warranty</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Vehicle Year</label>
+            <input id="p_year" class="input" placeholder="2015" />
+          </div>
+          <div class="field">
+            <label>Vehicle Make</label>
+            <input id="p_make" class="input" placeholder="Jeep" />
+          </div>
+          <div class="field">
+            <label>Vehicle Model</label>
+            <input id="p_model" class="input" placeholder="Renegade" />
+          </div>
+          <div class="field">
+            <label>Vehicle Trim</label>
+            <input id="p_trim" class="input" placeholder="Latitude / Sport / LX…" />
+          </div>
+
+          <div class="field">
+            <label>Vehicle Engine</label>
+            <input id="p_engine" class="input" placeholder="2.4L" />
+          </div>
+          <div class="field">
+            <label>Price (USD) *</label>
+            <input id="p_price" class="input" placeholder="800" inputmode="decimal" />
+          </div>
+
+          <div class="field">
+            <label>Interchange</label>
+            <input id="p_interchange" class="input" placeholder="Part #, Hollander #, etc" />
+          </div>
+          <div class="field">
+            <label>Stock / Tag ID</label>
+            <input id="p_stock" class="input" placeholder="BEE-01821" />
+          </div>
+
+          <div class="field">
+            <label>Location</label>
+            <input id="p_location" class="input" placeholder="Row 3 / Shelf B / Car #12" />
+          </div>
+          <div class="field">
+            <label>Image URL</label>
+            <input id="p_imageUrl" class="input" placeholder="https://…" />
+          </div>
+
+          <div class="field" style="grid-column:1/-1">
+            <label>Notes</label>
+            <textarea id="p_notes" placeholder="Tested good. Minor scratches. Include harness…"></textarea>
+          </div>
+        </div>
+        <div class="hint" style="margin-top:10px">
+          * Required fields. Saving writes into Firestore collection: <b>parts</b>.
+        </div>
+      </div>
+      <div class="modalFoot">
+        <button class="btn" onclick="resetPartForm()">Reset</button>
+        <div class="actions">
+          <button class="btn danger" id="deleteBtn" style="display:none" onclick="deleteCurrent()">Delete</button>
+          <button class="btn primary" onclick="savePart()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================
+   0) CONFIG — PASTE YOURS
+========================= */
+const firebaseConfig = {
+  // 🔥 PASTE YOUR REAL CONFIG HERE
+  // apiKey: "...",
+  // authDomain: "...",
+  // projectId: "...",
+  // storageBucket: "...",
+  // messagingSenderId: "...",
+  // appId: "..."
+};
+
+/* =========================
+   1) INIT
+========================= */
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const ADMIN_EMAILS = [
+  "josueblas971@gmail.com"
+];
+
+const partsCol = db.collection("parts");
+
+/* =========================
+   2) STATE
+========================= */
+let ALL = [];
+let isAdmin = false;
+let editingId = null;
+
+/* =========================
+   3) UI HELPERS
+========================= */
+const el = id => document.getElementById(id);
+
+function toast(msg){
+  const t = el("toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=> t.style.display="none", 2600);
+}
+
+function setLive(ok){
+  el("liveDot").className = "dot" + (ok ? "" : " off");
+  el("liveText").textContent = ok ? "Live • Firestore" : "Offline";
+}
+
+function setAdminUI(){
+  el("adminDot").className = "dot" + (isAdmin ? "" : " off");
+  el("adminText").textContent = isAdmin ? "Admin mode" : (auth.currentUser ? "Signed in (no write)" : "Not signed in");
+  el("adminBtn").style.display = isAdmin ? "inline-flex" : "none";
+  el("logoutBtn").style.display = auth.currentUser ? "inline-flex" : "none";
+  el("loginBtn").style.display = auth.currentUser ? "none" : "inline-flex";
+}
+
+/* =========================
+   4) AUTH
+========================= */
+function openAuthModal(){ el("authBack").style.display="flex"; }
+function closeAuthModal(){ el("authBack").style.display="none"; }
+
+async function signup(){
+  const email = el("authEmail").value.trim();
+  const pass = el("authPass").value;
+  if(!email || !pass) return toast("Enter email + password.");
+  try{
+    await auth.createUserWithEmailAndPassword(email, pass);
+    toast("Account created. Now you can login.");
+    closeAuthModal();
+  }catch(e){
+    toast(e.message || "Signup failed.");
+  }
+}
+
+async function login(){
+  const email = el("authEmail").value.trim();
+  const pass = el("authPass").value;
+  if(!email || !pass) return toast("Enter email + password.");
+  try{
+    await auth.signInWithEmailAndPassword(email, pass);
+    toast("Logged in.");
+    closeAuthModal();
+  }catch(e){
+    toast(e.message || "Login failed.");
+  }
+}
+
+async function doLogout(){
+  await auth.signOut();
+  toast("Logged out.");
+}
+
+/* =========================
+   5) FETCH / RENDER
+========================= */
+function normalizeStr(x){
+  return String(x ?? "").toLowerCase();
+}
+function matchQuery(p, q){
+  if(!q) return true;
+  const hay = [
+    p.name, p.category, p.condition, p.notes, p.interchange,
+    p.vehicleYear, p.vehicleMake, p.vehicleModel, p.vehicleTrim, p.vehicleEngine,
+    p.stock, p.location, p.warranty
+  ].map(normalizeStr).join(" ");
+  return hay.includes(q);
+}
+
+function applyFilters(list){
+  const q = normalizeStr(el("q").value.trim());
+  const cat = el("cat").value.trim();
+  const cond = el("cond").value.trim();
+  let out = list.filter(p => {
+    if(cat && String(p.category||"") !== cat) return false;
+    if(cond && String(p.condition||"") !== cond) return false;
+    if(!matchQuery(p, q)) return false;
+    return true;
+  });
+
+  const sort = el("sort").value;
+  const byName = (a,b)=> (String(a.name||"")).localeCompare(String(b.name||""));
+  const byCreated = (a,b)=> (Number(a._created||0) - Number(b._created||0));
+  const byPrice = (a,b)=> (Number(a.price||0) - Number(b.price||0));
+
+  if(sort==="newest") out.sort((a,b)=> byCreated(b,a));
+  if(sort==="oldest") out.sort(byCreated);
+  if(sort==="priceHigh") out.sort((a,b)=> byPrice(b,a));
+  if(sort==="priceLow") out.sort(byPrice);
+  if(sort==="nameAZ") out.sort(byName);
+  if(sort==="nameZA") out.sort((a,b)=> byName(b,a));
+
+  return out;
+}
+
+function money(n){
+  const x = Number(n||0);
+  return "$" + x.toFixed(0);
+}
+
+function fitment(p){
+  const y = p.vehicleYear ? String(p.vehicleYear) : "";
+  const mk = p.vehicleMake ? String(p.vehicleMake) : "";
+  const md = p.vehicleModel ? String(p.vehicleModel) : "";
+  const tr = p.vehicleTrim ? String(p.vehicleTrim) : "";
+  const eg = p.vehicleEngine ? String(p.vehicleEngine) : "";
+  const s = [y,mk,md,tr,eg].filter(Boolean).join(" ");
+  return s || "—";
+}
+
+function safeText(x){ return (x==null? "" : String(x)); }
+
+function render(){
+  const filtered = applyFilters(ALL);
+
+  // Stats
+  el("statCount").textContent = filtered.length;
+  el("statTotal").textContent = ALL.length;
+  const avg = filtered.length ? filtered.reduce((a,p)=>a+Number(p.price||0),0)/filtered.length : 0;
+  el("statAvg").textContent = "$" + Math.round(avg);
+
+  // Desktop rows
+  const rows = filtered.map(p=>{
+    const img = p.imageUrl ? `<img class="thumb" src="${p.imageUrl}" onerror="this.style.opacity=.25;this.src='';" />`
+                           : `<div class="thumb" style="display:grid;place-items:center;color:rgba(255,255,255,.35)">—</div>`;
+    const adminActions = isAdmin
+      ? `<div class="actions">
+           <button class="btn" onclick="editPart('${p.id}')">✏️ Edit</button>
+           <button class="btn danger" onclick="confirmDelete('${p.id}')">🗑 Delete</button>
+         </div>`
+      : `<span class="muted">—</span>`;
+
+    return `
+      <tr>
+        <td>${img}</td>
+        <td>
+          <b>${safeText(p.name)}</b><div class="muted">${safeText(p.notes).slice(0,80)}${safeText(p.notes).length>80?'…':''}</div>
+          ${p.interchange ? `<div class="tag">🔁 ${safeText(p.interchange)}</div>` : ""}
+        </td>
+        <td><span class="tag">${safeText(p.category)||"—"}</span></td>
+        <td><span class="tag">${safeText(p.condition)||"—"}</span></td>
+        <td class="fit">${fitment(p)}</td>
+        <td class="price">${money(p.price)}</td>
+        <td>
+          <div><b>${safeText(p.stock)||"—"}</b></div>
+          <div class="muted">${safeText(p.location)||"—"}</div>
+        </td>
+        <td>${safeText(p.warranty)||"—"}</td>
+        <td>${adminActions}</td>
+      </tr>
+    `;
+  }).join("");
+
+  el("rows").innerHTML = rows || `
+    <tr><td colspan="9" class="muted" style="padding:16px">No parts match your search.</td></tr>
+  `;
+
+  // Mobile cards
+  el("cards").innerHTML = filtered.map(p=>{
+    const img = p.imageUrl ? `<img class="thumb" src="${p.imageUrl}" onerror="this.style.opacity=.25;this.src='';" />`
+                           : `<div class="thumb" style="display:grid;place-items:center;color:rgba(255,255,255,.35)">—</div>`;
+    const actions = isAdmin
+      ? `<div class="actions" style="margin-top:10px">
+           <button class="btn" onclick="editPart('${p.id}')">✏️ Edit</button>
+           <button class="btn danger" onclick="confirmDelete('${p.id}')">🗑 Delete</button>
+         </div>`
+      : "";
+
+    return `
+      <div class="card">
+        ${img}
+        <div>
+          <h3>${safeText(p.name)}</h3>
+          <div class="meta">${safeText(p.category)||"—"} • ${safeText(p.condition)||"—"} • <b>${money(p.price)}</b></div>
+          <div class="line">
+            <span class="tag">🚗 ${fitment(p)}</span>
+            <span class="tag">🏷 ${safeText(p.stock)||"—"}</span>
+            <span class="tag">📍 ${safeText(p.location)||"—"}</span>
+          </div>
+          ${p.notes ? `<div class="meta" style="margin-top:8px">${safeText(p.notes)}</div>` : ""}
+          ${actions}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function refreshData(){
+  try{
+    setLive(true);
+    const snap = await partsCol.get();
+    ALL = snap.docs.map(d=>{
+      const data = d.data() || {};
+      const created = data.createdAt && data.createdAt.toDate ? data.createdAt.toDate().getTime() : 0;
+      return { id:d.id, ...data, _created: created };
     });
-  </script>
+    render();
+    toast("Loaded parts.");
+  }catch(e){
+    setLive(false);
+    toast(e.message || "Load failed.");
+  }
+}
+
+/* =========================
+   6) FILTER EVENTS
+========================= */
+["q","cat","cond","sort"].forEach(id=>{
+  const node = el(id);
+  node.addEventListener("input", render);
+  node.addEventListener("change", render);
+});
+function clearFilters(){
+  el("q").value = "";
+  el("cat").value = "";
+  el("cond").value = "";
+  el("sort").value = "newest";
+  render();
+}
+
+/* =========================
+   7) ADD / EDIT / DELETE
+========================= */
+function openPartModal(){
+  if(!isAdmin) return toast("Login as admin first.");
+  el("partBack").style.display = "flex";
+}
+function closePartModal(){
+  el("partBack").style.display = "none";
+  editingId = null;
+  el("deleteBtn").style.display="none";
+  el("partTitle").textContent = "Add Part";
+}
+function resetPartForm(){
+  const ids = ["p_name","p_year","p_make","p_model","p_trim","p_engine","p_price","p_interchange","p_stock","p_location","p_notes","p_imageUrl"];
+  ids.forEach(x=> el(x).value = "");
+  el("p_category").value = "Engine";
+  el("p_condition").value = "Used";
+  el("p_warranty").value = "30-day start-up warranty • exchange only";
+}
+
+function fillPartForm(p){
+  el("p_name").value = p.name || "";
+  el("p_category").value = p.category || "Engine";
+  el("p_condition").value = p.condition || "Used";
+  el("p_warranty").value = p.warranty || "30-day start-up warranty • exchange only";
+  el("p_year").value = p.vehicleYear || "";
+  el("p_make").value = p.vehicleMake || "";
+  el("p_model").value = p.vehicleModel || "";
+  el("p_trim").value = p.vehicleTrim || "";
+  el("p_engine").value = p.vehicleEngine || "";
+  el("p_price").value = (p.price ?? "");
+  el("p_interchange").value = p.interchange || "";
+  el("p_stock").value = p.stock || "";
+  el("p_location").value = p.location || "";
+  el("p_notes").value = p.notes || "";
+  el("p_imageUrl").value = p.imageUrl || "";
+}
+
+function getPartPayload(){
+  const name = el("p_name").value.trim();
+  const category = el("p_category").value.trim();
+  const price = Number(el("p_price").value);
+  if(!name) throw new Error("Part name is required.");
+  if(!category) throw new Error("Category is required.");
+  if(!Number.isFinite(price)) throw new Error("Price must be a number.");
+
+  return {
+    name,
+    category,
+    condition: el("p_condition").value.trim(),
+    warranty: el("p_warranty").value.trim(),
+    vehicleYear: el("p_year").value.trim(),
+    vehicleMake: el("p_make").value.trim(),
+    vehicleModel: el("p_model").value.trim(),
+    vehicleTrim: el("p_trim").value.trim(),
+    vehicleEngine: el("p_engine").value.trim(),
+    interchange: el("p_interchange").value.trim(),
+    stock: el("p_stock").value.trim(),
+    location: el("p_location").value.trim(),
+    notes: el("p_notes").value.trim(),
+    imageUrl: el("p_imageUrl").value.trim(),
+    price: price
+  };
+}
+
+async function savePart(){
+  if(!isAdmin) return toast("Login as admin first.");
+  try{
+    const payload = getPartPayload();
+    payload.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+
+    if(editingId){
+      await partsCol.doc(editingId).update(payload);
+      toast("Updated.");
+    }else{
+      payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      await partsCol.add(payload);
+      toast("Saved.");
+    }
+    closePartModal();
+    await refreshData();
+  }catch(e){
+    toast(e.message || "Save failed.");
+  }
+}
+
+function editPart(id){
+  if(!isAdmin) return toast("Login as admin first.");
+  const p = ALL.find(x=>x.id===id);
+  if(!p) return toast("Part not found.");
+  editingId = id;
+  el("partTitle").textContent = "Edit Part";
+  el("deleteBtn").style.display="inline-flex";
+  fillPartForm(p);
+  openPartModal();
+}
+
+function confirmDelete(id){
+  if(!isAdmin) return toast("Login as admin first.");
+  const p = ALL.find(x=>x.id===id);
+  if(!p) return toast("Part not found.");
+  if(confirm(`Delete "${p.name}"? This cannot be undone.`)){
+    partsCol.doc(id).delete()
+      .then(()=>{ toast("Deleted."); refreshData(); })
+      .catch(e=> toast(e.message || "Delete failed."));
+  }
+}
+
+async function deleteCurrent(){
+  if(!editingId) return;
+  confirmDelete(editingId);
+  closePartModal();
+}
+
+/* =========================
+   8) AUTH STATE + BOOT
+========================= */
+auth.onAuthStateChanged(async (user)=>{
+  isAdmin = !!(user && ADMIN_EMAILS.includes((user.email||"").toLowerCase()));
+  setAdminUI();
+  if(user && !isAdmin){
+    toast("Signed in, but not an admin email.");
+  }
+});
+
+(async function boot(){
+  try{
+    // Basic connectivity ping:
+    await db.enablePersistence({ synchronizeTabs:true }).catch(()=>{});
+    setLive(true);
+  }catch(e){
+    setLive(false);
+  }
+  resetPartForm();
+  await refreshData();
+})();
+</script>
 </body>
 </html>
