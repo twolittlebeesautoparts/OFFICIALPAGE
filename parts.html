@@ -137,7 +137,6 @@
     }
     .stat b{display:block;font-size:16px}
     .stat span{color:var(--muted);font-size:12px}
-    /* Desktop table */
     .tableWrap{margin-top:12px}
     table{width:100%;border-collapse:separate;border-spacing:0 10px}
     thead th{
@@ -185,7 +184,6 @@
       font-size:12px;
       white-space:nowrap;
     }
-    /* Mobile cards (no side-scroll) */
     .cards{display:none; margin-top:10px; gap:10px}
     .card{
       border:1px solid var(--border);
@@ -203,8 +201,6 @@
       .tableWrap{display:none}
       .cards{display:grid}
     }
-
-    /* Modals */
     .modalBack{
       position:fixed;inset:0;background:rgba(0,0,0,.55);
       display:none;align-items:center;justify-content:center;
@@ -352,7 +348,6 @@
           </div>
         </div>
 
-        <!-- Desktop table -->
         <div class="tableWrap">
           <table>
             <thead>
@@ -373,9 +368,7 @@
           <div class="hint">Tip: Mobile shows cards (no side scroll). Desktop shows table.</div>
         </div>
 
-        <!-- Mobile cards -->
         <div class="cards" id="cards"></div>
-
       </div>
 
       <div class="panel">
@@ -408,10 +401,8 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
-  <!-- Auth Modal -->
   <div class="modalBack" id="authBack">
     <div class="modal">
       <div class="modalHead">
@@ -443,7 +434,6 @@
     </div>
   </div>
 
-  <!-- Add/Edit Part Modal -->
   <div class="modalBack" id="partBack">
     <div class="modal">
       <div class="modalHead">
@@ -554,16 +544,16 @@
 
 <script>
 /* =========================
-   0) CONFIG — PASTE YOURS
+   0) CONFIG — FIXED (YOUR REAL ONE)
 ========================= */
 const firebaseConfig = {
-  // 🔥 PASTE YOUR REAL CONFIG HERE
-  // apiKey: "...",
-  // authDomain: "...",
-  // projectId: "...",
-  // storageBucket: "...",
-  // messagingSenderId: "...",
-  // appId: "..."
+  apiKey: "AIzaSyBVumo8QP3m18p33ugqx_eNADsjHG0gJS0",
+  authDomain: "two-little-bees-inventory.firebaseapp.com",
+  projectId: "two-little-bees-inventory",
+  storageBucket: "two-little-bees-inventory.appspot.com",
+  messagingSenderId: "669354511397",
+  appId: "1:669354511397:web:a5e4565496e097f85483cc",
+  measurementId: "G-736B95M78E"
 };
 
 /* =========================
@@ -711,13 +701,11 @@ function safeText(x){ return (x==null? "" : String(x)); }
 function render(){
   const filtered = applyFilters(ALL);
 
-  // Stats
   el("statCount").textContent = filtered.length;
   el("statTotal").textContent = ALL.length;
   const avg = filtered.length ? filtered.reduce((a,p)=>a+Number(p.price||0),0)/filtered.length : 0;
   el("statAvg").textContent = "$" + Math.round(avg);
 
-  // Desktop rows
   const rows = filtered.map(p=>{
     const img = p.imageUrl ? `<img class="thumb" src="${p.imageUrl}" onerror="this.style.opacity=.25;this.src='';" />`
                            : `<div class="thumb" style="display:grid;place-items:center;color:rgba(255,255,255,.35)">—</div>`;
@@ -753,7 +741,6 @@ function render(){
     <tr><td colspan="9" class="muted" style="padding:16px">No parts match your search.</td></tr>
   `;
 
-  // Mobile cards
   el("cards").innerHTML = filtered.map(p=>{
     const img = p.imageUrl ? `<img class="thumb" src="${p.imageUrl}" onerror="this.style.opacity=.25;this.src='';" />`
                            : `<div class="thumb" style="display:grid;place-items:center;color:rgba(255,255,255,.35)">—</div>`;
@@ -944,7 +931,6 @@ auth.onAuthStateChanged(async (user)=>{
 
 (async function boot(){
   try{
-    // Basic connectivity ping:
     await db.enablePersistence({ synchronizeTabs:true }).catch(()=>{});
     setLive(true);
   }catch(e){
@@ -956,3 +942,4 @@ auth.onAuthStateChanged(async (user)=>{
 </script>
 </body>
 </html>
+
