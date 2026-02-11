@@ -30,6 +30,11 @@
   --ok:#22c55e;
   --bad:#ef4444;
   --warn:#f59e0b;
+
+  /* ✅ logo crop controls (fixes that “divider line / huge header” look) */
+  --logo-img-h:140px;      /* keeps your logo size */
+  --logo-box-h:128px;      /* header height stays small */
+  --logo-shift:10px;      /* crops extra transparent space inside PNG */
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -75,9 +80,15 @@ header{
   white-space:nowrap;
 }
 
-/* ✅ LOGO IMAGE (NO BACKGROUND BOX) */
-.logo img{
-  height:170px;
+/* ✅ NEW: crop box so header isn’t tall, without shrinking logo */
+.logoMark{
+  height:var(--logo-box-h);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+}
+.logoMark img{
+  height:var(--logo-img-h);
   width:auto;
   display:block;
   object-fit:contain;
@@ -86,6 +97,7 @@ header{
   border-radius:0 !important;
   box-shadow:none !important;
   filter: drop-shadow(0 14px 28px rgba(0,0,0,.28));
+  transform: translateY(var(--logo-shift));
 }
 
 .logo span{font-size:1rem;letter-spacing:.2px;}
@@ -451,14 +463,59 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
 .helper{margin-top:10px;color:var(--muted);font-size:.85rem;line-height:1.35;}
 
 @media(max-width:900px){ .hero{grid-template-columns:1fr} }
+
+/* ✅ PHONE FRIENDLY PATCH */
 @media(max-width:600px){
+  .header-inner{
+    padding:6px 12px;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .logo{
+    width:100%;
+    justify-content:center;
+  }
+
+  /* keep logo visually big but header short */
+  :root{
+    --logo-img-h:150px;
+    --logo-box-h:82px;
+    --logo-shift:-34px;
+  }
+
+  nav{
+    width:100%;
+    justify-content:center;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none;}
+  nav a{
+    flex-shrink:0;
+    padding:10px 14px;
+    font-size:.9rem;
+  }
+
+  .hero{
+    padding:22px 12px 14px;
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .hero h1{
+    font-size:clamp(1.7rem, 8vw, 2.3rem);
+    line-height:1.05;
+  }
+  .btn{width:100%}
+
   .stats,.sell-grid{grid-template-columns:1fr}
-  nav{width:100%;justify-content:center;overflow-x:auto;padding-top:8px;}
-  nav a{flex-shrink:0}
   #vin-panel{left:0; right:0; bottom:env(safe-area-inset-bottom); width:100%; max-height:78vh; transform:none; border-radius:18px 18px 0 0;}
-  .galleryItem{width:72vw; max-width:340px;}
+  .galleryItem{width:78vw; max-width:320px;}
   .galleryNav{display:none;}
-  #lightboxModal{height:88vh;}
+  #lightboxModal{height:90vh;}
 }
 </style>
 </head>
@@ -469,18 +526,17 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
 <header>
   <div class="header-inner">
     <div class="logo">
-      <img alt="Two Little Bees Auto Parts"
-           src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
-      <spans</span>
+      <div class="logoMark">
+        <img alt="Two Little Bees Auto Parts"
+             src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
+      </div>
+      <span></span>
     </div>
 
     <nav>
       <a href="#top">Home</a>
       <a class="cta" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
-
-      <!-- ✅ NEW: Parts page link (relative, same repo folder) -->
       <a href="parts.html">Car Parts</a>
-
       <a href="javascript:void(0)" class="vin-btn" onclick="toggleVin()">VIN</a>
     </nav>
   </div>
@@ -501,10 +557,7 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
 
       <div class="btns">
         <a class="btn primary" href="https://twolittlebeesautoparts.github.io/">Search Inventory</a>
-
-        <!-- ✅ NEW: Big button to parts.html -->
         <a class="btn secondary" href="parts.html">🧰 Parts Inventory</a>
-
         <a class="btn secondary" href="tel:3172437777">Call (317) 243-7777</a>
         <a class="btn secondary" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Get Directions</a>
       </div>
@@ -594,10 +647,7 @@ footer span{color:var(--muted);font-size:.92rem;line-height:1.35}
 
   <div class="footerLinks">
     <a href="https://twolittlebeesautoparts.github.io/">Inventory</a>
-
-    <!-- ✅ NEW: Footer link to parts.html -->
     <a href="parts.html">Car Parts</a>
-
     <a href="javascript:void(0)" onclick="toggleVin()">VIN Decoder</a>
     <a href="tel:3172437777">Call</a>
     <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Directions</a>
