@@ -3,15 +3,30 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Two Little Bees Auto Parts</title>
+<title>Two Little Bees Auto Parts | VIN-Verified OEM Used Parts | Indianapolis</title>
 
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0b0f14">
-<meta name="description" content="Two Little Bees Auto Parts — VIN-verified OEM used parts in Indianapolis. Engines, transmissions, modules, and more.">
+<meta name="description" content="Two Little Bees Auto Parts in Indianapolis — VIN-verified OEM used parts. Engines, transmissions, modules, body parts, wheels, and more. Fast counter support.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">
+
+<!-- Open Graph / Social Preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Two Little Bees Auto Parts — VIN-Verified OEM Used Parts">
+<meta property="og:description" content="Indianapolis OEM used parts. Engines, transmissions, modules, body parts, wheels & more. Request a part, decode VIN, or get directions.">
+<meta property="og:url" content="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">
+<meta property="og:image" content="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Two Little Bees Auto Parts — VIN-Verified OEM Used Parts">
+<meta name="twitter:description" content="Indianapolis OEM used parts. Request a part, decode VIN, or call now.">
+<meta name="twitter:image" content="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
+
 <link rel="preconnect" href="https://vpic.nhtsa.dot.gov">
 <link rel="preconnect" href="https://www.gstatic.com">
 <link rel="preconnect" href="https://identitytoolkit.googleapis.com">
 <link rel="preconnect" href="https://github.com">
+<link rel="preload" as="image" href="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
 
 <style>
 :root{
@@ -54,7 +69,7 @@ body{
   padding-left:env(safe-area-inset-left);
   padding-right:env(safe-area-inset-right);
   padding-top:env(safe-area-inset-top);
-  padding-bottom:calc(env(safe-area-inset-bottom) + 18px);
+  padding-bottom:calc(env(safe-area-inset-bottom) + 78px);
   -webkit-font-smoothing:antialiased;
 }
 
@@ -273,6 +288,81 @@ body.adminMode .admin-edit{
   padding:10px;
 }
 
+/* ============ Forms ============ */
+.formGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.formGrid .full{grid-column:1 / -1;}
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.15);
+  background:#0c121a;
+  color:#fff;
+  font-weight:800;
+  min-height:110px;
+  resize:vertical;
+}
+select{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.15);
+  background:#0c121a;
+  color:#fff;
+  font-weight:800;
+}
+.miniNote{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.4;
+}
+.notice{
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(15,23,42,.40);
+  border-radius:14px;
+  padding:12px;
+  color:#e5e7eb;
+  font-weight:850;
+  line-height:1.35;
+}
+.notice.ok{border-color:rgba(34,197,94,.35)}
+.notice.bad{border-color:rgba(239,68,68,.30)}
+
+/* ============ Trust / Reviews ============ */
+.trustGrid{
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:12px;
+  margin-top:10px;
+}
+.quoteCard{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(15,23,42,.44);
+  border-radius:16px;
+  padding:14px;
+}
+.quoteCard p{color:#e5e7eb;line-height:1.45;font-weight:800}
+.quoteCard small{display:block;margin-top:8px;color:var(--muted);font-weight:900}
+.trustList{
+  display:grid; gap:10px;
+}
+.trustItem{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(15,23,42,.40);
+  border-radius:16px;
+  padding:12px;
+  line-height:1.35;
+}
+.trustItem b{color:#fff}
+.trustItem span{color:var(--muted);font-weight:850}
+
 /* ============ Admin Bar ============ */
 #adminBar{
   margin-top:10px;
@@ -302,6 +392,30 @@ body.adminMode .admin-edit{
 .pill.ok .tinyDot{background:var(--ok); box-shadow:0 0 0 3px rgba(34,197,94,.18)}
 .pill.bad{border-color:rgba(239,68,68,.30)}
 .pill.bad .tinyDot{background:var(--bad); box-shadow:0 0 0 3px rgba(239,68,68,.18)}
+
+/* ============ Gallery Category Tabs ============ */
+.tabs{
+  display:flex; flex-wrap:wrap; gap:8px;
+  margin-top:12px;
+}
+.tab{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  color:var(--muted);
+  border-radius:999px;
+  padding:9px 12px;
+  font-weight:950;
+  cursor:pointer;
+  user-select:none;
+  transition: border-color .12s ease, filter .12s ease, background .12s ease, transform .12s ease;
+}
+.tab:hover{border-color: rgba(255,255,255,.18); filter: brightness(1.04);}
+.tab:active{transform:scale(.99)}
+.tab.active{
+  color:#0b0f14;
+  border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
 
 /* ============ Gallery (Carousel) ============ */
 .galleryWrap{position:relative; margin-top:10px;}
@@ -452,7 +566,7 @@ body.adminMode .admin-edit{
 footer{
   margin-top:10px;
   border-top:1px solid rgba(255,255,255,.08);
-  padding:22px 16px;
+  padding:22px 16px 86px;
 }
 .footer-inner{
   max-width:1200px; margin:0 auto;
@@ -528,7 +642,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 /* Toast */
 .toast{
   position:fixed;left:50%;transform:translateX(-50%);
-  bottom:calc(env(safe-area-inset-bottom) + 14px);
+  bottom:calc(env(safe-area-inset-bottom) + 78px);
   background:rgba(15,23,42,.92);border:1px solid rgba(255,255,255,.12);
   padding:10px 12px;border-radius:12px;font-size:12px;color:var(--text);
   display:none;z-index:9999;box-shadow:0 20px 40px rgba(0,0,0,.45);
@@ -541,7 +655,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 }
 #adminModal,#addModal{
   position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:min(520px, calc(100% - 24px));
+  width:min(560px, calc(100% - 24px));
   background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)), var(--panel);
   border:1px solid rgba(255,255,255,.14);
   border-radius:18px; box-shadow:0 30px 80px rgba(0,0,0,.7);
@@ -562,10 +676,50 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);
   background:#0c121a;color:#fff;font-weight:800;
 }
-.field input:focus{border-color: rgba(244,196,48,.45);}
+.field input:focus, select:focus, textarea:focus{border-color: rgba(244,196,48,.45);}
 .modalActions{display:flex;gap:10px;margin-top:12px;}
 .modalActions button{flex:1}
 .helper{margin-top:10px;color:var(--muted);font-size:.85rem;line-height:1.35;}
+
+/* ============ Sticky Mobile Action Bar (Click-to-Text + Call) ============ */
+#ctaDock{
+  position:fixed;
+  left:0; right:0;
+  bottom:0;
+  z-index:9990;
+  padding:10px 12px calc(env(safe-area-inset-bottom) + 10px);
+  background:rgba(11,15,20,.78);
+  backdrop-filter: blur(14px);
+  border-top:1px solid rgba(255,255,255,.10);
+}
+.ctaInner{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:10px;
+}
+.ctaBtn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.03);
+  color:#fff;
+  text-decoration:none;
+  font-weight:950;
+  user-select:none;
+  transition: transform .12s ease, filter .12s ease, border-color .12s ease;
+  text-align:center;
+}
+.ctaBtn:active{transform:scale(.99)}
+.ctaBtn:hover{filter:brightness(1.05); border-color: rgba(255,255,255,.20);}
+.ctaBtn.primary{
+  border:none;
+  color:#0b0f14;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+.ctaBtn small{display:none}
 
 /* ============ Responsive ============ */
 @media(max-width:900px){
@@ -602,6 +756,8 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   .btnRow .btn{width:100%}
   .stats{grid-template-columns:1fr}
   .grid2{grid-template-columns:1fr}
+  .formGrid{grid-template-columns:1fr}
+  .trustGrid{grid-template-columns:1fr}
 
   #vin-panel{
     left:0; right:0;
@@ -614,8 +770,35 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   .galleryItem{width:78vw; max-width:340px;}
   .galleryNav{display:none;}
   #lightboxModal{height:90vh;}
+
+  .ctaInner{
+    grid-template-columns: repeat(4, 1fr);
+    gap:8px;
+  }
+  .ctaBtn{padding:12px 8px; font-size:.92rem}
 }
 </style>
+
+<!-- LocalBusiness Structured Data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutoPartsStore",
+  "name":"Two Little Bees Auto Parts",
+  "url":"https://twolittlebeesautoparts.github.io/OFFICIALPAGE/",
+  "image":"https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true",
+  "telephone":"+1-317-243-7777",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"507 S Tibbs Ave",
+    "addressLocality":"Indianapolis",
+    "addressRegion":"IN",
+    "addressCountry":"US"
+  },
+  "areaServed":"Indianapolis, IN",
+  "description":"VIN-verified OEM used parts — engines, transmissions, modules, body parts, wheels and more."
+}
+</script>
 </head>
 
 <body>
@@ -636,6 +819,8 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
       <a href="#top">Home</a>
       <a class="cta" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
       <a href="parts.html">Car Parts</a>
+      <a href="#request">Request a Part</a>
+      <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" class="vin-btn" onclick="toggleVin()">VIN</a>
     </nav>
   </div>
@@ -643,6 +828,8 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 
 <main id="top">
   <div class="container">
+
+    <!-- HERO -->
     <section class="hero">
       <div>
         <h1>The Right Parts.<br>Every Time.<br>Built on Trust.</h1>
@@ -653,19 +840,20 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
           <div class="badge"><span class="dot"></span> Fast Counter Support</div>
         </div>
 
-        <p>Live inventory tied to real vehicles. Call or search — we move fast, verify fitment, and keep it simple.</p>
+        <p>Live inventory tied to real vehicles. Call or request a quote — we verify fitment, move fast, and keep it simple.</p>
 
         <div class="btnRow">
           <a class="btn primary" href="https://twolittlebeesautoparts.github.io/">Search Inventory</a>
-          <a class="btn secondary" href="parts.html">🧰 Parts Inventory</a>
+          <a class="btn secondary" href="#request">💬 Request a Part</a>
           <a class="btn secondary" href="tel:3172437777">Call (317) 243-7777</a>
+          <a class="btn secondary" id="textLinkTop" href="#">Text Us</a>
           <a class="btn secondary" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Get Directions</a>
         </div>
 
         <div class="stats">
           <div class="stat"><strong>10K+</strong><span>OEM Parts</span></div>
           <div class="stat"><strong>1985–2026</strong><span>Coverage</span></div>
-          <div class="stat"><strong>Trusted</strong><span>Local Professionals</span></div>
+          <div class="stat"><strong>Trusted</strong><span>Local Pros</span></div>
         </div>
       </div>
 
@@ -682,6 +870,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section class="section">
       <div class="card">
         <div class="sectionTitleRow">
@@ -703,6 +892,170 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
       </div>
     </section>
 
+    <!-- TRUST + REVIEWS (5) -->
+    <section class="section" id="trust">
+      <div class="card">
+        <div class="sectionTitleRow">
+          <h3>Trust & Reviews</h3>
+          <small>What customers care about</small>
+        </div>
+
+        <div class="trustGrid">
+          <div class="quoteCard">
+            <p>“We verify fitment using VIN and vehicle data so you don’t waste time. If it doesn’t match, we’ll tell you before you buy.”</p>
+            <small>— Two Little Bees Auto Parts</small>
+
+            <div class="notice" style="margin-top:12px">
+              <b>Warranty / Returns:</b>
+              <div style="margin-top:6px;color:var(--muted);font-weight:850;line-height:1.35">
+                Ask your salesperson for warranty options on engines/transmissions and any return rules for your specific part. We keep it simple and clear at the counter.
+              </div>
+            </div>
+
+            <div class="btnRow" style="margin-top:12px">
+              <a class="btn secondary" target="_blank" rel="noopener"
+                 href="https://www.google.com/search?q=Two+Little+Bees+Auto+Parts+Indianapolis+reviews">
+                ⭐ View / Leave a Google Review
+              </a>
+              <a class="btn secondary" href="#request">Request a Part</a>
+            </div>
+          </div>
+
+          <div class="trustList">
+            <div class="trustItem"><b>VIN-Verified Fitment</b><br><span>We match parts to real vehicles and confirm details before you pay.</span></div>
+            <div class="trustItem"><b>Fast Support</b><br><span>Call or text — we respond quick and keep the process simple.</span></div>
+            <div class="trustItem"><b>Local & Reliable</b><br><span>Indianapolis-based. Built on repeat customers and shop relationships.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST A PART (2) -->
+    <section class="section" id="request">
+      <div class="card">
+        <div class="sectionTitleRow">
+          <h3>Request a Part</h3>
+          <small>We’ll respond fast</small>
+        </div>
+
+        <div class="miniNote">
+          Fill this out and we’ll contact you. If you have a label/photo, paste a link — or just text it to us after submitting.
+        </div>
+
+        <div class="formGrid">
+          <div class="field">
+            <label for="rqName">Name</label>
+            <input id="rqName" type="text" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="rqPhone">Phone</label>
+            <input id="rqPhone" type="tel" placeholder="(317) 555-1234" autocomplete="tel">
+          </div>
+
+          <div class="field">
+            <label for="rqYear">Year</label>
+            <input id="rqYear" type="text" placeholder="2016" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="rqMakeModel">Make / Model</label>
+            <input id="rqMakeModel" type="text" placeholder="Chevy Malibu">
+          </div>
+
+          <div class="field">
+            <label for="rqPart">Part Needed</label>
+            <input id="rqPart" type="text" placeholder="Transmission, engine, bumper, wheel...">
+          </div>
+          <div class="field">
+            <label for="rqVin">VIN (optional)</label>
+            <input id="rqVin" type="text" placeholder="17-char VIN" maxlength="17" style="text-transform:uppercase;letter-spacing:.6px">
+          </div>
+
+          <div class="field full">
+            <label for="rqNotes">Notes (optional)</label>
+            <textarea id="rqNotes" placeholder="Any details: trim, engine size, 2WD/4WD, color, part number, etc."></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="rqPhotoUrl">Photo link (optional)</label>
+            <input id="rqPhotoUrl" type="url" placeholder="https://... (label/photo link)">
+          </div>
+
+          <div class="modalActions full" style="margin-top:2px">
+            <button class="btn primary" id="rqSubmit" type="button">Send Request</button>
+            <a class="btn secondary" id="rqTextPrefill" href="#" style="text-align:center">Text This Request</a>
+          </div>
+        </div>
+
+        <div id="rqStatus" class="notice" style="display:none"></div>
+      </div>
+    </section>
+
+    <!-- CASH FOR JUNK CARS (6) -->
+    <section class="section" id="junkcars">
+      <div class="card">
+        <div class="sectionTitleRow">
+          <h3>Cash for Junk Cars</h3>
+          <small>Same-day pickup (when available)</small>
+        </div>
+
+        <div class="notice">
+          <b>We buy junk cars.</b> Top dollar paid. Quick pickup. Title helps — if you’re unsure, still submit and we’ll tell you what you need.
+        </div>
+
+        <div class="formGrid" style="margin-top:12px">
+          <div class="field">
+            <label for="jcName">Name</label>
+            <input id="jcName" type="text" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="jcPhone">Phone</label>
+            <input id="jcPhone" type="tel" placeholder="(317) 555-1234" autocomplete="tel">
+          </div>
+
+          <div class="field">
+            <label for="jcLocation">Pickup Location</label>
+            <input id="jcLocation" type="text" placeholder="Address or zip code">
+          </div>
+          <div class="field">
+            <label for="jcVehicle">Vehicle (Year / Make / Model)</label>
+            <input id="jcVehicle" type="text" placeholder="2010 Honda Accord">
+          </div>
+
+          <div class="field">
+            <label for="jcRuns">Does it run?</label>
+            <select id="jcRuns">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="jcTitle">Do you have the title?</label>
+            <select id="jcTitle">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+              <option>Not sure</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="jcNotes">Notes (optional)</label>
+            <textarea id="jcNotes" placeholder="Any info: damage, missing wheels, location details, best time to pickup, etc."></textarea>
+          </div>
+
+          <div class="modalActions full" style="margin-top:2px">
+            <button class="btn primary" id="jcSubmit" type="button">Get an Offer</button>
+            <a class="btn secondary" id="jcTextPrefill" href="#" style="text-align:center">Text About This Car</a>
+          </div>
+        </div>
+
+        <div id="jcStatus" class="notice" style="display:none"></div>
+      </div>
+    </section>
+
+    <!-- GALLERY (7) -->
     <section class="section" style="padding-top:0">
       <div class="card">
         <div class="sectionTitleRow">
@@ -723,6 +1076,15 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
           </div>
         </div>
 
+        <div class="tabs" id="galleryTabs" aria-label="Gallery categories">
+          <button class="tab active" type="button" data-cat="All">All</button>
+          <button class="tab" type="button" data-cat="Engines">Engines</button>
+          <button class="tab" type="button" data-cat="Transmissions">Transmissions</button>
+          <button class="tab" type="button" data-cat="New Arrivals">New Arrivals</button>
+          <button class="tab" type="button" data-cat="Yard">Yard</button>
+          <button class="tab" type="button" data-cat="General">General</button>
+        </div>
+
         <div class="galleryWrap">
           <button class="galleryNav left" id="gPrev" type="button" aria-label="Scroll left">‹</button>
           <button class="galleryNav right" id="gNext" type="button" aria-label="Scroll right">›</button>
@@ -731,8 +1093,13 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
             <div class="galleryItem" id="galleryLoading">Loading gallery…</div>
           </div>
         </div>
+
+        <div class="miniNote">
+          Tip: Tap a photo to open full screen. Categories help customers see what you have fast.
+        </div>
       </div>
     </section>
+
   </div>
 </main>
 
@@ -747,8 +1114,10 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
     </div>
 
     <div class="footerLinks">
-      <a href="https://twolittlebeesautoparts.github.io/">Inventory</a>
+      <a href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
       <a href="parts.html">Car Parts</a>
+      <a href="#request">Request a Part</a>
+      <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" onclick="toggleVin()">VIN Decoder</a>
       <a href="tel:3172437777">Call</a>
       <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Directions</a>
@@ -756,18 +1125,28 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   </div>
 </footer>
 
+<!-- Sticky CTA Dock (2) -->
+<div id="ctaDock" role="navigation" aria-label="Quick actions">
+  <div class="ctaInner">
+    <a class="ctaBtn" href="tel:3172437777" aria-label="Call Two Little Bees">(📞) Call</a>
+    <a class="ctaBtn" id="dockText" href="#" aria-label="Text Two Little Bees">(💬) Text</a>
+    <a class="ctaBtn primary" href="#request" aria-label="Request a part">(🧰) Quote</a>
+    <a class="ctaBtn" href="#junkcars" aria-label="Cash for junk cars">(🚗) Junk</a>
+  </div>
+</div>
+
 <!-- VIN -->
 <div id="vin-panel-backdrop" onclick="toggleVin()"></div>
 <div id="vin-panel" role="dialog" aria-modal="true" aria-label="VIN Decoder">
   <div id="vin-head">
     <strong>VIN Decoder</strong>
-    <button id="vin-close" onclick="toggleVin()">Close</button>
+    <button id="vin-close" type="button" onclick="toggleVin()">Close</button>
   </div>
   <div id="vin-meta">Two Little Bees Auto Parts • (317) 243-7777 • Indianapolis</div>
   <input id="vin" maxlength="17" placeholder="ENTER 17-CHAR VIN" autocomplete="off" />
   <div id="vin-actions">
-    <button class="primary" onclick="decode()">Decode VIN</button>
-    <button class="secondary" onclick="printSheet()">Print VIN Sheet</button>
+    <button class="primary" type="button" onclick="decode()">Decode VIN</button>
+    <button class="secondary" type="button" onclick="printSheet()">Print VIN Sheet</button>
   </div>
   <div id="vin-status"><span class="dot"></span><span id="vin-status-text"></span></div>
   <div id="vehicle" class="vehicle"></div>
@@ -812,11 +1191,21 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
     <label for="photoCaption">Caption (optional)</label>
     <input id="photoCaption" type="text" placeholder="Engine arrivals, shop, yard, etc." autocomplete="off">
   </div>
+  <div class="field">
+    <label for="photoCategory">Category</label>
+    <select id="photoCategory">
+      <option>General</option>
+      <option>Engines</option>
+      <option>Transmissions</option>
+      <option>New Arrivals</option>
+      <option>Yard</option>
+    </select>
+  </div>
   <div class="modalActions">
     <button class="btn secondary" id="addCancel" type="button">Cancel</button>
     <button class="btn primary" id="addDo" type="button">Add</button>
   </div>
-  <div class="helper" id="addMsg">Tip: use a direct image URL (ends in .jpg/.png) or a public Googleusercontent link.</div>
+  <div class="helper" id="addMsg">Tip: use a direct image URL (ends in .jpg/.png/.webp) or a public Googleusercontent link.</div>
 </div>
 
 <!-- Lightbox -->
@@ -836,6 +1225,40 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
      VIN + LOCAL EDIT MODE
 ====================== -->
 <script>
+/* ===== Click-to-Text links (works on iPhone/Android; desktop will open SMS apps if installed) ===== */
+const BUSINESS_PHONE = "3172437777";
+function smsHref(message){
+  const msg = encodeURIComponent(message || "");
+  // iOS uses &body=, most others support ?body=
+  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  return `sms:${BUSINESS_PHONE}${isiOS ? "&" : "?"}body=${msg}`;
+}
+function setTextLinks(){
+  const generic = "Hey Two Little Bees, I need help with parts. My year/make/model is ____ and I need ____.";
+  const top = document.getElementById("textLinkTop");
+  const dock = document.getElementById("dockText");
+  if(top) top.href = smsHref(generic);
+  if(dock) dock.href = smsHref(generic);
+}
+setTextLinks();
+
+/* ===== Smooth hash scrolling ===== */
+(function(){
+  const links = document.querySelectorAll('a[href^="#"]');
+  links.forEach(a=>{
+    a.addEventListener("click", (e)=>{
+      const href = a.getAttribute("href");
+      if(!href || href === "#") return;
+      const el = document.querySelector(href);
+      if(!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior:"smooth", block:"start" });
+      history.pushState(null, "", href);
+    });
+  });
+})();
+
+/* ===== VIN Decoder ===== */
 const vinPanel = document.getElementById("vin-panel");
 const vinBackdrop = document.getElementById("vin-panel-backdrop");
 const vinInput = document.getElementById("vin");
@@ -851,7 +1274,6 @@ let lastVinCache = { vin:"", d:null, ts:0 };
 function setVinStatus(msg, type=""){
   vinStatusText.textContent = msg || "";
   vinStatus.className = type ? type : "";
-  vinStatus.id = "vin-status";
 }
 
 function toggleVin(force){
@@ -891,6 +1313,7 @@ async function fetchDecode(v){
   }catch{
     const proxy = "https://api.allorigins.win/raw?url=" + encodeURIComponent(direct);
     const r2 = await fetch(proxy, { cache:"no-store" });
+    if(!r2.ok) throw new Error("Proxy failed");
     return await r2.json();
   }
 }
@@ -1001,7 +1424,7 @@ function printSheet(){
   const ps = document.getElementById("print-sheet");
   ps.innerHTML = `
     <div style="background:#fff;color:#000;padding:20px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
-      <img src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/logo.png?raw=true" alt="Two Little Bees" style="height:60px">
+      <img src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true" alt="Two Little Bees" style="height:60px">
       <h2 style="margin:10px 0 6px">TWO LITTLE BEES AUTO PARTS</h2>
       <p>(317) 243-7777 • Indianapolis</p>
       <p style="margin-top:6px">507 S Tibbs Ave, Indianapolis, IN</p>
@@ -1015,7 +1438,7 @@ function printSheet(){
   location.reload();
 }
 
-/* ✅ FIXED Local admin edit mode (localStorage only) */
+/* ✅ Local admin edit mode (localStorage only) */
 let admin = false;
 const editable = document.querySelectorAll(".admin-edit");
 
@@ -1051,10 +1474,61 @@ editable.forEach(el=>{
     if(admin) localStorage.setItem(el.id, el.innerHTML);
   });
 });
+
+/* ===== Prefill Text buttons for forms ===== */
+function getReqText(){
+  const name = (document.getElementById("rqName").value || "").trim();
+  const phone = (document.getElementById("rqPhone").value || "").trim();
+  const year = (document.getElementById("rqYear").value || "").trim();
+  const mm = (document.getElementById("rqMakeModel").value || "").trim();
+  const part = (document.getElementById("rqPart").value || "").trim();
+  const vin = (document.getElementById("rqVin").value || "").trim();
+  const notes = (document.getElementById("rqNotes").value || "").trim();
+  const photo = (document.getElementById("rqPhotoUrl").value || "").trim();
+  return `Request a Part:
+Name: ${name || "-"}
+Phone: ${phone || "-"}
+Vehicle: ${year || "-"} ${mm || "-"}
+Part: ${part || "-"}
+VIN: ${vin || "-"}
+Photo link: ${photo || "-"}
+Notes: ${notes || "-"}`;
+}
+function getJunkText(){
+  const name = (document.getElementById("jcName").value || "").trim();
+  const phone = (document.getElementById("jcPhone").value || "").trim();
+  const loc = (document.getElementById("jcLocation").value || "").trim();
+  const veh = (document.getElementById("jcVehicle").value || "").trim();
+  const runs = (document.getElementById("jcRuns").value || "").trim();
+  const title = (document.getElementById("jcTitle").value || "").trim();
+  const notes = (document.getElementById("jcNotes").value || "").trim();
+  return `Cash for Junk Cars:
+Name: ${name || "-"}
+Phone: ${phone || "-"}
+Pickup location: ${loc || "-"}
+Vehicle: ${veh || "-"}
+Runs: ${runs || "-"}
+Title: ${title || "-"}
+Notes: ${notes || "-"}`;
+}
+const rqTextPrefill = document.getElementById("rqTextPrefill");
+const jcTextPrefill = document.getElementById("jcTextPrefill");
+function refreshPrefillLinks(){
+  if(rqTextPrefill) rqTextPrefill.href = smsHref(getReqText());
+  if(jcTextPrefill) jcTextPrefill.href = smsHref(getJunkText());
+}
+["rqName","rqPhone","rqYear","rqMakeModel","rqPart","rqVin","rqNotes","rqPhotoUrl","jcName","jcPhone","jcLocation","jcVehicle","jcRuns","jcTitle","jcNotes"]
+  .forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("input", refreshPrefillLinks);
+    el.addEventListener("change", refreshPrefillLinks);
+  });
+refreshPrefillLinks();
 </script>
 
 <!-- ======================
-     FIREBASE GALLERY (UPGRADED + LIGHTBOX)
+     FIREBASE: GALLERY + LEADS (2,6,7)
 ====================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -1105,23 +1579,32 @@ editable.forEach(el=>{
   const addDo = document.getElementById("addDo");
   const photoUrl = document.getElementById("photoUrl");
   const photoCaption = document.getElementById("photoCaption");
+  const photoCategory = document.getElementById("photoCategory");
   const addMsg = document.getElementById("addMsg");
 
+  const rqSubmit = document.getElementById("rqSubmit");
+  const rqStatus = document.getElementById("rqStatus");
+  const jcSubmit = document.getElementById("jcSubmit");
+  const jcStatus = document.getElementById("jcStatus");
+
   const galleryCol = collection(db, "gallery");
+  const leadsCol = collection(db, "leads");
+  const junkCol = collection(db, "junkLeads");
 
   function show(el, on){ el.style.display = on ? "block" : "none"; }
+  function lockScroll(on){ document.body.style.overflow = on ? "hidden" : ""; }
 
   function openLoginModal(){
     show(adminModalBackdrop,true);
     show(adminModal,true);
     adminMsg.textContent = "Sign in with your Firebase user (Authentication → Users).";
     setTimeout(()=> adminEmail.focus(), 50);
-    document.body.style.overflow = "hidden";
+    lockScroll(true);
   }
   function closeLoginModal(){
     show(adminModalBackdrop,false);
     show(adminModal,false);
-    document.body.style.overflow = "";
+    lockScroll(false);
   }
 
   function openAddModal(){
@@ -1129,12 +1612,12 @@ editable.forEach(el=>{
     show(addModal,true);
     addMsg.textContent = "Paste a public direct image URL (jpg/png/webp).";
     setTimeout(()=> photoUrl.focus(), 50);
-    document.body.style.overflow = "hidden";
+    lockScroll(true);
   }
   function closeAddModal(){
     show(addModalBackdrop,false);
     show(addModal,false);
-    document.body.style.overflow = "";
+    lockScroll(false);
   }
 
   adminLoginOpen.addEventListener("click", openLoginModal);
@@ -1195,6 +1678,7 @@ editable.forEach(el=>{
   async function addPhoto(){
     const url = normalizeImgUrl(photoUrl.value);
     const caption = (photoCaption.value || "").trim();
+    const category = (photoCategory.value || "General").trim();
     if(!url){
       addMsg.textContent = "Paste a valid URL first.";
       return;
@@ -1202,9 +1686,10 @@ editable.forEach(el=>{
     addDo.disabled = true;
     addMsg.textContent = "Adding…";
     try{
-      await addDoc(galleryCol, { url, caption, createdAt: serverTimestamp() });
+      await addDoc(galleryCol, { url, caption, category, createdAt: serverTimestamp() });
       photoUrl.value = "";
       photoCaption.value = "";
+      photoCategory.value = "General";
       closeAddModal();
     }catch(e){
       addMsg.textContent = "Add failed: " + (e?.code || "") + " " + (e?.message || e);
@@ -1273,20 +1758,21 @@ editable.forEach(el=>{
     lbIndex = Math.max(0, Math.min(index, lbItems.length - 1));
     renderLightbox();
     lbBackdrop.style.display = "block";
-    document.body.style.overflow = "hidden";
+    lockScroll(true);
     lbBackdrop.setAttribute("aria-hidden","false");
   }
   function closeLightbox(){
     lbBackdrop.style.display = "none";
-    document.body.style.overflow = "";
+    lockScroll(false);
     lbBackdrop.setAttribute("aria-hidden","true");
   }
   function renderLightbox(){
     const item = lbItems[lbIndex];
     lbImg.src = item?.url || "";
     lbCap.textContent = item?.caption || "";
-    lbPrev.disabled = (lbItems.length <= 1);
-    lbNext.disabled = (lbItems.length <= 1);
+    const disabled = (lbItems.length <= 1);
+    lbPrev.disabled = disabled;
+    lbNext.disabled = disabled;
   }
   function prevLightbox(){
     if(lbItems.length <= 1) return;
@@ -1312,6 +1798,20 @@ editable.forEach(el=>{
     if(e.key === "ArrowRight") nextLightbox();
   });
 
+  // Category filter
+  const tabs = Array.from(document.querySelectorAll("#galleryTabs .tab"));
+  let activeCat = "All";
+  function setActiveTab(cat){
+    activeCat = cat;
+    tabs.forEach(t=> t.classList.toggle("active", t.dataset.cat === cat));
+    renderGallery();
+  }
+  tabs.forEach(t=> t.addEventListener("click", ()=> setActiveTab(t.dataset.cat || "All")));
+
+  // Store snapshot items so filter can re-render instantly
+  let snapItems = [];
+  let currentUser = null;
+
   function addImgCard(data, isAdmin, index){
     const wrap = document.createElement("div");
     wrap.className = "galleryItem" + (isAdmin ? " admin" : "");
@@ -1329,10 +1829,13 @@ editable.forEach(el=>{
       openLightbox(index);
     });
 
-    if(data.caption){
+    const capText = (data.caption || "").trim();
+    const catText = (data.category || "General").trim();
+
+    if(capText || catText){
       const cap = document.createElement("div");
       cap.className = "cap";
-      cap.textContent = data.caption;
+      cap.textContent = capText ? capText : catText;
       wrap.appendChild(cap);
     }
 
@@ -1356,30 +1859,48 @@ editable.forEach(el=>{
     galleryGrid.appendChild(wrap);
   }
 
-  const q = query(galleryCol, orderBy("createdAt", "desc"));
-  let currentUser = null;
+  function renderGallery(){
+    const isAdmin = !!currentUser;
+    const normalized = snapItems.map(x=>({
+      ...x,
+      category: (x.category || "General").trim() || "General"
+    }));
 
-  onSnapshot(q, (snap)=>{
-    const items = snap.docs.map(d=> ({ id:d.id, ...d.data() })).filter(x=>x?.url);
-    lbItems = items.map(x=>({ url:x.url, caption:x.caption || "" }));
+    const filtered = (activeCat === "All")
+      ? normalized
+      : normalized.filter(x => (x.category || "General") === activeCat);
+
+    // Keep lightbox in sync with filtered view
+    lbItems = filtered.map(x=>({ url:x.url, caption: (x.caption || x.category || "").trim() }));
 
     galleryGrid.innerHTML = "";
-    const isAdmin = !!currentUser;
 
-    if(!items.length){
+    if(!filtered.length){
       const d = document.createElement("div");
       d.className = "galleryItem";
-      d.textContent = "No photos yet.";
+      d.textContent = "No photos in this category yet.";
       galleryGrid.appendChild(d);
       requestAnimationFrame(updateArrows);
       return;
     }
 
-    items.forEach((item, idx)=> addImgCard(item, isAdmin, idx));
+    filtered.forEach((item, idx)=> addImgCard(item, isAdmin, idx));
     requestAnimationFrame(updateArrows);
+  }
+
+  const q = query(galleryCol, orderBy("createdAt", "desc"));
+
+  onSnapshot(q, (snap)=>{
+    snapItems = snap.docs.map(d=> ({ id:d.id, ...d.data() })).filter(x=>x?.url);
+    renderGallery();
   }, (err)=>{
     console.error(err);
-    if(galleryLoading) galleryLoading.textContent = "Gallery not loaded (check Firestore rules).";
+    galleryGrid.innerHTML = "";
+    const d = document.createElement("div");
+    d.className = "galleryItem";
+    d.textContent = "Gallery not loaded (check Firestore rules).";
+    galleryGrid.appendChild(d);
+    requestAnimationFrame(updateArrows);
   });
 
   onAuthStateChanged(auth, (user)=>{
@@ -1395,11 +1916,122 @@ editable.forEach(el=>{
     authText.textContent = signedIn ? `Signed in: ${user.email || "admin"}` : "Not signed in";
     galleryHint.textContent = signedIn ? "Admin can add/delete" : "Public view";
 
+    renderGallery();
     requestAnimationFrame(updateArrows);
   });
 
   if(galleryLoading) galleryLoading.remove();
   requestAnimationFrame(updateArrows);
+
+  // ===== Leads: Request a Part (2)
+  function setNotice(el, msg, type){
+    if(!el) return;
+    el.textContent = msg;
+    el.className = "notice " + (type || "");
+    el.style.display = "block";
+  }
+
+  function cleanPhone(p){
+    return String(p||"").replace(/[^\d]/g,"").slice(0, 15);
+  }
+  function cleanVin(v){
+    return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0, 17);
+  }
+  function safeTrim(s, max){
+    const t = String(s||"").trim();
+    return t.length > max ? t.slice(0,max) : t;
+  }
+
+  async function submitRequest(){
+    const name = safeTrim(document.getElementById("rqName").value, 80);
+    const phone = cleanPhone(document.getElementById("rqPhone").value);
+    const year = safeTrim(document.getElementById("rqYear").value, 10);
+    const makeModel = safeTrim(document.getElementById("rqMakeModel").value, 80);
+    const part = safeTrim(document.getElementById("rqPart").value, 80);
+    const vin = cleanVin(document.getElementById("rqVin").value);
+    const notes = safeTrim(document.getElementById("rqNotes").value, 800);
+    const photoUrl = normalizeImgUrl(document.getElementById("rqPhotoUrl").value);
+
+    if(!phone || (!part && !(year || makeModel || vin))){
+      setNotice(rqStatus, "Please enter a phone number and at least a part or vehicle details.", "bad");
+      return;
+    }
+
+    rqSubmit.disabled = true;
+    setNotice(rqStatus, "Sending…", "");
+
+    try{
+      await addDoc(leadsCol, {
+        type: "parts_request",
+        name, phone, year, makeModel, part, vin, notes,
+        photoUrl: photoUrl || "",
+        createdAt: serverTimestamp(),
+        source: "website"
+      });
+      setNotice(rqStatus, "✅ Sent! We’ll contact you soon.", "ok");
+
+      // clear fields (keep phone if you want; here we clear all)
+      document.getElementById("rqName").value = "";
+      document.getElementById("rqPhone").value = "";
+      document.getElementById("rqYear").value = "";
+      document.getElementById("rqMakeModel").value = "";
+      document.getElementById("rqPart").value = "";
+      document.getElementById("rqVin").value = "";
+      document.getElementById("rqNotes").value = "";
+      document.getElementById("rqPhotoUrl").value = "";
+    }catch(e){
+      console.error(e);
+      setNotice(rqStatus, "❌ Failed to send. Please try again or call/text us.", "bad");
+    }finally{
+      rqSubmit.disabled = false;
+    }
+  }
+
+  if(rqSubmit) rqSubmit.addEventListener("click", submitRequest);
+
+  // ===== Leads: Cash for Junk Cars (6)
+  async function submitJunk(){
+    const name = safeTrim(document.getElementById("jcName").value, 80);
+    const phone = cleanPhone(document.getElementById("jcPhone").value);
+    const location = safeTrim(document.getElementById("jcLocation").value, 120);
+    const vehicle = safeTrim(document.getElementById("jcVehicle").value, 120);
+    const runs = safeTrim(document.getElementById("jcRuns").value, 20);
+    const title = safeTrim(document.getElementById("jcTitle").value, 20);
+    const notes = safeTrim(document.getElementById("jcNotes").value, 800);
+
+    if(!phone || !vehicle || !location){
+      setNotice(jcStatus, "Please enter phone + pickup location + vehicle info.", "bad");
+      return;
+    }
+
+    jcSubmit.disabled = true;
+    setNotice(jcStatus, "Sending…", "");
+
+    try{
+      await addDoc(junkCol, {
+        type: "junk_car",
+        name, phone, location, vehicle, runs, title, notes,
+        createdAt: serverTimestamp(),
+        source: "website"
+      });
+      setNotice(jcStatus, "✅ Sent! We’ll text/call you with an offer.", "ok");
+
+      document.getElementById("jcName").value = "";
+      document.getElementById("jcPhone").value = "";
+      document.getElementById("jcLocation").value = "";
+      document.getElementById("jcVehicle").value = "";
+      document.getElementById("jcRuns").value = "";
+      document.getElementById("jcTitle").value = "";
+      document.getElementById("jcNotes").value = "";
+    }catch(e){
+      console.error(e);
+      setNotice(jcStatus, "❌ Failed to send. Please try again or call/text us.", "bad");
+    }finally{
+      jcSubmit.disabled = false;
+    }
+  }
+
+  if(jcSubmit) jcSubmit.addEventListener("click", submitJunk);
 </script>
 
 </body>
