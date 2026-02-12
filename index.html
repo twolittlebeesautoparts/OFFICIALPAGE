@@ -350,9 +350,7 @@ select{
 }
 .quoteCard p{color:#e5e7eb;line-height:1.45;font-weight:800}
 .quoteCard small{display:block;margin-top:8px;color:var(--muted);font-weight:900}
-.trustList{
-  display:grid; gap:10px;
-}
+.trustList{display:grid; gap:10px;}
 .trustItem{
   border:1px solid rgba(255,255,255,.14);
   background:rgba(15,23,42,.40);
@@ -681,7 +679,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 .modalActions button{flex:1}
 .helper{margin-top:10px;color:var(--muted);font-size:.85rem;line-height:1.35;}
 
-/* ============ Sticky Mobile Action Bar (Click-to-Text + Call) ============ */
+/* ============ Sticky Mobile Action Bar (CALL ONLY) ============ */
 #ctaDock{
   position:fixed;
   left:0; right:0;
@@ -719,13 +717,11 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   color:#0b0f14;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
-.ctaBtn small{display:none}
 
 /* ============ Responsive ============ */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr; padding:28px 0 14px;}
 }
-
 @media(max-width:600px){
   .header-inner{
     flex-wrap:wrap;
@@ -751,14 +747,12 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
     font-size:.92rem;
     flex-shrink:0;
   }
-
   .container{padding:0 12px;}
   .btnRow .btn{width:100%}
   .stats{grid-template-columns:1fr}
   .grid2{grid-template-columns:1fr}
   .formGrid{grid-template-columns:1fr}
   .trustGrid{grid-template-columns:1fr}
-
   #vin-panel{
     left:0; right:0;
     bottom:env(safe-area-inset-bottom);
@@ -770,12 +764,6 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   .galleryItem{width:78vw; max-width:340px;}
   .galleryNav{display:none;}
   #lightboxModal{height:90vh;}
-
-  .ctaInner{
-    grid-template-columns: repeat(4, 1fr);
-    gap:8px;
-  }
-  .ctaBtn{padding:12px 8px; font-size:.92rem}
 }
 </style>
 
@@ -845,8 +833,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
         <div class="btnRow">
           <a class="btn primary" href="https://twolittlebeesautoparts.github.io/">Search Inventory</a>
           <a class="btn secondary" href="#request">💬 Request a Part</a>
-          <a class="btn secondary" href="tel:3172437777">Call (317) 243-7777</a>
-          <a class="btn secondary" id="textLinkTop" href="#">Text Us</a>
+          <a class="btn secondary" href="tel:3172437777">📞 Call (317) 243-7777</a>
           <a class="btn secondary" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Get Directions</a>
         </div>
 
@@ -892,7 +879,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
       </div>
     </section>
 
-    <!-- TRUST + REVIEWS (5) -->
+    <!-- TRUST + REVIEWS -->
     <section class="section" id="trust">
       <div class="card">
         <div class="sectionTitleRow">
@@ -917,29 +904,29 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
                  href="https://www.google.com/search?q=Two+Little+Bees+Auto+Parts+Indianapolis+reviews">
                 ⭐ View / Leave a Google Review
               </a>
-              <a class="btn secondary" href="#request">Request a Part</a>
+              <a class="btn secondary" href="tel:3172437777">📞 Call Now</a>
             </div>
           </div>
 
           <div class="trustList">
             <div class="trustItem"><b>VIN-Verified Fitment</b><br><span>We match parts to real vehicles and confirm details before you pay.</span></div>
-            <div class="trustItem"><b>Fast Support</b><br><span>Call or text — we respond quick and keep the process simple.</span></div>
+            <div class="trustItem"><b>Fast Support</b><br><span>Call — we respond quick and keep the process simple.</span></div>
             <div class="trustItem"><b>Local & Reliable</b><br><span>Indianapolis-based. Built on repeat customers and shop relationships.</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- REQUEST A PART (2) -->
+    <!-- REQUEST A PART -->
     <section class="section" id="request">
       <div class="card">
         <div class="sectionTitleRow">
           <h3>Request a Part</h3>
-          <small>We’ll respond fast</small>
+          <small>We’ll call you back</small>
         </div>
 
         <div class="miniNote">
-          Fill this out and we’ll contact you. If you have a label/photo, paste a link — or just text it to us after submitting.
+          Fill this out and we’ll contact you by phone.
         </div>
 
         <div class="formGrid">
@@ -982,7 +969,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 
           <div class="modalActions full" style="margin-top:2px">
             <button class="btn primary" id="rqSubmit" type="button">Send Request</button>
-            <a class="btn secondary" id="rqTextPrefill" href="#" style="text-align:center">Text This Request</a>
+            <a class="btn secondary" href="tel:3172437777" style="text-align:center">📞 Call Now</a>
           </div>
         </div>
 
@@ -990,7 +977,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
       </div>
     </section>
 
-    <!-- CASH FOR JUNK CARS (6) -->
+    <!-- CASH FOR JUNK CARS -->
     <section class="section" id="junkcars">
       <div class="card">
         <div class="sectionTitleRow">
@@ -1047,7 +1034,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 
           <div class="modalActions full" style="margin-top:2px">
             <button class="btn primary" id="jcSubmit" type="button">Get an Offer</button>
-            <a class="btn secondary" id="jcTextPrefill" href="#" style="text-align:center">Text About This Car</a>
+            <a class="btn secondary" href="tel:3172437777" style="text-align:center">📞 Call Now</a>
           </div>
         </div>
 
@@ -1055,7 +1042,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
       </div>
     </section>
 
-    <!-- GALLERY (7) -->
+    <!-- GALLERY -->
     <section class="section" style="padding-top:0">
       <div class="card">
         <div class="sectionTitleRow">
@@ -1125,11 +1112,11 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   </div>
 </footer>
 
-<!-- Sticky CTA Dock (2) -->
+<!-- Sticky CTA Dock (CALL ONLY + NO TEXT BUTTON) -->
 <div id="ctaDock" role="navigation" aria-label="Quick actions">
   <div class="ctaInner">
     <a class="ctaBtn" href="tel:3172437777" aria-label="Call Two Little Bees">(📞) Call</a>
-    <a class="ctaBtn" id="dockText" href="#" aria-label="Text Two Little Bees">(💬) Text</a>
+    <a class="ctaBtn" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener" aria-label="Directions">(📍) Directions</a>
     <a class="ctaBtn primary" href="#request" aria-label="Request a part">(🧰) Quote</a>
     <a class="ctaBtn" href="#junkcars" aria-label="Cash for junk cars">(🚗) Junk</a>
   </div>
@@ -1221,27 +1208,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   </div>
 </div>
 
-<!-- ======================
-     VIN + LOCAL EDIT MODE
-====================== -->
 <script>
-/* ===== Click-to-Text links (works on iPhone/Android; desktop will open SMS apps if installed) ===== */
-const BUSINESS_PHONE = "3172437777";
-function smsHref(message){
-  const msg = encodeURIComponent(message || "");
-  // iOS uses &body=, most others support ?body=
-  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  return `sms:${BUSINESS_PHONE}${isiOS ? "&" : "?"}body=${msg}`;
-}
-function setTextLinks(){
-  const generic = "Hey Two Little Bees, I need help with parts. My year/make/model is ____ and I need ____.";
-  const top = document.getElementById("textLinkTop");
-  const dock = document.getElementById("dockText");
-  if(top) top.href = smsHref(generic);
-  if(dock) dock.href = smsHref(generic);
-}
-setTextLinks();
-
 /* ===== Smooth hash scrolling ===== */
 (function(){
   const links = document.querySelectorAll('a[href^="#"]');
@@ -1441,32 +1408,25 @@ function printSheet(){
 /* ✅ Local admin edit mode (localStorage only) */
 let admin = false;
 const editable = document.querySelectorAll(".admin-edit");
-
-/* Force admin OFF on load so outline never gets stuck */
 editable.forEach(el=>{
   el.contentEditable = "false";
   el.removeAttribute("contenteditable");
 });
-
 function setAdminMode(state){
   admin = !!state;
   document.body.classList.toggle("adminMode", admin);
-
   editable.forEach(el=>{
     el.contentEditable = admin ? "true" : "false";
     el.style.cursor = admin ? "text" : "default";
     if(!admin) el.blur();
   });
-
   alert(admin ? "Admin Edit Mode ON" : "Admin Edit Mode OFF");
 }
-
 document.addEventListener("keydown", (e)=>{
   if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a"){
     setAdminMode(!admin);
   }
 });
-
 editable.forEach(el=>{
   const saved = localStorage.getItem(el.id);
   if(saved) el.innerHTML = saved;
@@ -1474,66 +1434,14 @@ editable.forEach(el=>{
     if(admin) localStorage.setItem(el.id, el.innerHTML);
   });
 });
-
-/* ===== Prefill Text buttons for forms ===== */
-function getReqText(){
-  const name = (document.getElementById("rqName").value || "").trim();
-  const phone = (document.getElementById("rqPhone").value || "").trim();
-  const year = (document.getElementById("rqYear").value || "").trim();
-  const mm = (document.getElementById("rqMakeModel").value || "").trim();
-  const part = (document.getElementById("rqPart").value || "").trim();
-  const vin = (document.getElementById("rqVin").value || "").trim();
-  const notes = (document.getElementById("rqNotes").value || "").trim();
-  const photo = (document.getElementById("rqPhotoUrl").value || "").trim();
-  return `Request a Part:
-Name: ${name || "-"}
-Phone: ${phone || "-"}
-Vehicle: ${year || "-"} ${mm || "-"}
-Part: ${part || "-"}
-VIN: ${vin || "-"}
-Photo link: ${photo || "-"}
-Notes: ${notes || "-"}`;
-}
-function getJunkText(){
-  const name = (document.getElementById("jcName").value || "").trim();
-  const phone = (document.getElementById("jcPhone").value || "").trim();
-  const loc = (document.getElementById("jcLocation").value || "").trim();
-  const veh = (document.getElementById("jcVehicle").value || "").trim();
-  const runs = (document.getElementById("jcRuns").value || "").trim();
-  const title = (document.getElementById("jcTitle").value || "").trim();
-  const notes = (document.getElementById("jcNotes").value || "").trim();
-  return `Cash for Junk Cars:
-Name: ${name || "-"}
-Phone: ${phone || "-"}
-Pickup location: ${loc || "-"}
-Vehicle: ${veh || "-"}
-Runs: ${runs || "-"}
-Title: ${title || "-"}
-Notes: ${notes || "-"}`;
-}
-const rqTextPrefill = document.getElementById("rqTextPrefill");
-const jcTextPrefill = document.getElementById("jcTextPrefill");
-function refreshPrefillLinks(){
-  if(rqTextPrefill) rqTextPrefill.href = smsHref(getReqText());
-  if(jcTextPrefill) jcTextPrefill.href = smsHref(getJunkText());
-}
-["rqName","rqPhone","rqYear","rqMakeModel","rqPart","rqVin","rqNotes","rqPhotoUrl","jcName","jcPhone","jcLocation","jcVehicle","jcRuns","jcTitle","jcNotes"]
-  .forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.addEventListener("input", refreshPrefillLinks);
-    el.addEventListener("change", refreshPrefillLinks);
-  });
-refreshPrefillLinks();
 </script>
 
-<!-- ======================
-     FIREBASE: GALLERY + LEADS (2,6,7)
-====================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
   import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
   import { getFirestore, collection, addDoc, deleteDoc, doc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+  const NOTIFY_EMAIL = "josueblas971@gmail.com"; // ✅ Email alerts destination (Trigger Email extension reads this)
 
   const firebaseConfig = {
     apiKey: "AIzaSyBbbBWg1x-RVuvfWfKBnOQPldMOWBLHXe8",
@@ -1551,7 +1459,6 @@ refreshPrefillLinks();
 
   const galleryGrid = document.getElementById("galleryGrid");
   const galleryLoading = document.getElementById("galleryLoading");
-
   const gPrev = document.getElementById("gPrev");
   const gNext = document.getElementById("gNext");
 
@@ -1656,7 +1563,6 @@ refreshPrefillLinks();
       adminLoginDo.disabled = false;
     }
   }
-
   adminLoginDo.addEventListener("click", doLogin);
   adminPass.addEventListener("keydown", (e)=>{ if(e.key === "Enter") doLogin(); });
 
@@ -1698,49 +1604,22 @@ refreshPrefillLinks();
       addDo.disabled = false;
     }
   }
-
   addDo.addEventListener("click", addPhoto);
 
   function updateArrows(){
     const max = galleryGrid.scrollWidth - galleryGrid.clientWidth;
-    if(max <= 2){
-      gPrev.disabled = true;
-      gNext.disabled = true;
-      return;
-    }
+    if(max <= 2){ gPrev.disabled = true; gNext.disabled = true; return; }
     gPrev.disabled = galleryGrid.scrollLeft <= 2;
     gNext.disabled = galleryGrid.scrollLeft >= (max - 2);
   }
-
   function scrollByCard(dir){
     const card = galleryGrid.querySelector(".galleryItem");
     const step = (card ? card.getBoundingClientRect().width : 240) + 14;
     galleryGrid.scrollBy({ left: dir * step, behavior: "smooth" });
   }
-
   gPrev.addEventListener("click", ()=> scrollByCard(-1));
   gNext.addEventListener("click", ()=> scrollByCard(1));
   galleryGrid.addEventListener("scroll", ()=> requestAnimationFrame(updateArrows));
-
-  let isDown=false, startX=0, startLeft=0;
-  galleryGrid.addEventListener("mousedown", (e)=>{
-    isDown = true;
-    startX = e.pageX;
-    startLeft = galleryGrid.scrollLeft;
-    galleryGrid.style.cursor = "grabbing";
-    galleryGrid.style.userSelect = "none";
-  });
-  window.addEventListener("mouseup", ()=>{
-    if(!isDown) return;
-    isDown = false;
-    galleryGrid.style.cursor = "";
-    galleryGrid.style.userSelect = "";
-  });
-  window.addEventListener("mousemove", (e)=>{
-    if(!isDown) return;
-    const dx = (e.pageX - startX);
-    galleryGrid.scrollLeft = startLeft - dx;
-  });
 
   // Lightbox
   const lbBackdrop = document.getElementById("lightboxBackdrop");
@@ -1788,9 +1667,7 @@ refreshPrefillLinks();
   lbClose.addEventListener("click", closeLightbox);
   lbPrev.addEventListener("click", prevLightbox);
   lbNext.addEventListener("click", nextLightbox);
-  lbBackdrop.addEventListener("click", (e)=>{
-    if(e.target === lbBackdrop) closeLightbox();
-  });
+  lbBackdrop.addEventListener("click", (e)=>{ if(e.target === lbBackdrop) closeLightbox(); });
   document.addEventListener("keydown", (e)=>{
     if(lbBackdrop.style.display !== "block") return;
     if(e.key === "Escape") closeLightbox();
@@ -1808,7 +1685,6 @@ refreshPrefillLinks();
   }
   tabs.forEach(t=> t.addEventListener("click", ()=> setActiveTab(t.dataset.cat || "All")));
 
-  // Store snapshot items so filter can re-render instantly
   let snapItems = [];
   let currentUser = null;
 
@@ -1847,11 +1723,8 @@ refreshPrefillLinks();
       del.addEventListener("click", async (e)=>{
         e.stopPropagation();
         if(!confirm("Delete this photo from Firestore?")) return;
-        try{
-          await deleteDoc(doc(db, "gallery", data.id));
-        }catch(err){
-          alert("Delete failed: " + (err?.message || err));
-        }
+        try{ await deleteDoc(doc(db, "gallery", data.id)); }
+        catch(err){ alert("Delete failed: " + (err?.message || err)); }
       });
       wrap.appendChild(del);
     }
@@ -1870,7 +1743,6 @@ refreshPrefillLinks();
       ? normalized
       : normalized.filter(x => (x.category || "General") === activeCat);
 
-    // Keep lightbox in sync with filtered view
     lbItems = filtered.map(x=>({ url:x.url, caption: (x.caption || x.category || "").trim() }));
 
     galleryGrid.innerHTML = "";
@@ -1923,7 +1795,43 @@ refreshPrefillLinks();
   if(galleryLoading) galleryLoading.remove();
   requestAnimationFrame(updateArrows);
 
-  // ===== Leads: Request a Part (2)
+  // ===== Email extension helper fields (Trigger Email extension reads these)
+  function buildEmailTextParts(payload){
+    return [
+      "NEW PART REQUEST",
+      "----------------",
+      `Name: ${payload.name || "-"}`,
+      `Phone: ${payload.phone || "-"}`,
+      `Vehicle: ${payload.year || "-"} ${payload.makeModel || "-"}`.trim(),
+      `Part: ${payload.part || "-"}`,
+      `VIN: ${payload.vin || "-"}`,
+      `Photo link: ${payload.photoUrl || "-"}`,
+      "",
+      `Notes: ${payload.notes || "-"}`,
+      "",
+      "Source: Website",
+      `Time: ${new Date().toLocaleString()}`
+    ].join("\n");
+  }
+
+  function buildEmailTextJunk(payload){
+    return [
+      "NEW JUNK CAR LEAD",
+      "-----------------",
+      `Name: ${payload.name || "-"}`,
+      `Phone: ${payload.phone || "-"}`,
+      `Pickup location: ${payload.location || "-"}`,
+      `Vehicle: ${payload.vehicle || "-"}`,
+      `Runs: ${payload.runs || "-"}`,
+      `Title: ${payload.title || "-"}`,
+      "",
+      `Notes: ${payload.notes || "-"}`,
+      "",
+      "Source: Website",
+      `Time: ${new Date().toLocaleString()}`
+    ].join("\n");
+  }
+
   function setNotice(el, msg, type){
     if(!el) return;
     el.textContent = msg;
@@ -1931,28 +1839,30 @@ refreshPrefillLinks();
     el.style.display = "block";
   }
 
-  function cleanPhone(p){
-    return String(p||"").replace(/[^\d]/g,"").slice(0, 15);
-  }
-  function cleanVin(v){
-    return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0, 17);
-  }
+  function cleanPhone(p){ return String(p||"").replace(/[^\d]/g,"").slice(0, 15); }
+  function cleanVin(v){ return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0, 17); }
   function safeTrim(s, max){
     const t = String(s||"").trim();
     return t.length > max ? t.slice(0,max) : t;
   }
 
+  // ===== Leads: Request a Part (writes email fields for Trigger Email extension)
   async function submitRequest(){
-    const name = safeTrim(document.getElementById("rqName").value, 80);
-    const phone = cleanPhone(document.getElementById("rqPhone").value);
-    const year = safeTrim(document.getElementById("rqYear").value, 10);
-    const makeModel = safeTrim(document.getElementById("rqMakeModel").value, 80);
-    const part = safeTrim(document.getElementById("rqPart").value, 80);
-    const vin = cleanVin(document.getElementById("rqVin").value);
-    const notes = safeTrim(document.getElementById("rqNotes").value, 800);
-    const photoUrl = normalizeImgUrl(document.getElementById("rqPhotoUrl").value);
+    const payload = {
+      type: "parts_request",
+      name: safeTrim(document.getElementById("rqName").value, 80),
+      phone: cleanPhone(document.getElementById("rqPhone").value),
+      year: safeTrim(document.getElementById("rqYear").value, 10),
+      makeModel: safeTrim(document.getElementById("rqMakeModel").value, 80),
+      part: safeTrim(document.getElementById("rqPart").value, 80),
+      vin: cleanVin(document.getElementById("rqVin").value),
+      notes: safeTrim(document.getElementById("rqNotes").value, 800),
+      photoUrl: normalizeImgUrl(document.getElementById("rqPhotoUrl").value) || "",
+      createdAt: serverTimestamp(),
+      source: "website"
+    };
 
-    if(!phone || (!part && !(year || makeModel || vin))){
+    if(!payload.phone || (!payload.part && !(payload.year || payload.makeModel || payload.vin))){
       setNotice(rqStatus, "Please enter a phone number and at least a part or vehicle details.", "bad");
       return;
     }
@@ -1962,15 +1872,16 @@ refreshPrefillLinks();
 
     try{
       await addDoc(leadsCol, {
-        type: "parts_request",
-        name, phone, year, makeModel, part, vin, notes,
-        photoUrl: photoUrl || "",
-        createdAt: serverTimestamp(),
-        source: "website"
-      });
-      setNotice(rqStatus, "✅ Sent! We’ll contact you soon.", "ok");
+        ...payload,
 
-      // clear fields (keep phone if you want; here we clear all)
+        // ✅ Trigger Email extension fields:
+        to: NOTIFY_EMAIL,
+        subject: `New Part Request — ${payload.part || "Part"} — ${payload.phone || "No phone"}`,
+        text: buildEmailTextParts(payload)
+      });
+
+      setNotice(rqStatus, "✅ Sent! We’ll call you soon.", "ok");
+
       document.getElementById("rqName").value = "";
       document.getElementById("rqPhone").value = "";
       document.getElementById("rqYear").value = "";
@@ -1981,25 +1892,29 @@ refreshPrefillLinks();
       document.getElementById("rqPhotoUrl").value = "";
     }catch(e){
       console.error(e);
-      setNotice(rqStatus, "❌ Failed to send. Please try again or call/text us.", "bad");
+      setNotice(rqStatus, "❌ Failed to send. Please try again or call us.", "bad");
     }finally{
       rqSubmit.disabled = false;
     }
   }
-
   if(rqSubmit) rqSubmit.addEventListener("click", submitRequest);
 
-  // ===== Leads: Cash for Junk Cars (6)
+  // ===== Leads: Cash for Junk Cars (writes email fields too)
   async function submitJunk(){
-    const name = safeTrim(document.getElementById("jcName").value, 80);
-    const phone = cleanPhone(document.getElementById("jcPhone").value);
-    const location = safeTrim(document.getElementById("jcLocation").value, 120);
-    const vehicle = safeTrim(document.getElementById("jcVehicle").value, 120);
-    const runs = safeTrim(document.getElementById("jcRuns").value, 20);
-    const title = safeTrim(document.getElementById("jcTitle").value, 20);
-    const notes = safeTrim(document.getElementById("jcNotes").value, 800);
+    const payload = {
+      type: "junk_car",
+      name: safeTrim(document.getElementById("jcName").value, 80),
+      phone: cleanPhone(document.getElementById("jcPhone").value),
+      location: safeTrim(document.getElementById("jcLocation").value, 120),
+      vehicle: safeTrim(document.getElementById("jcVehicle").value, 120),
+      runs: safeTrim(document.getElementById("jcRuns").value, 20),
+      title: safeTrim(document.getElementById("jcTitle").value, 20),
+      notes: safeTrim(document.getElementById("jcNotes").value, 800),
+      createdAt: serverTimestamp(),
+      source: "website"
+    };
 
-    if(!phone || !vehicle || !location){
+    if(!payload.phone || !payload.vehicle || !payload.location){
       setNotice(jcStatus, "Please enter phone + pickup location + vehicle info.", "bad");
       return;
     }
@@ -2009,12 +1924,15 @@ refreshPrefillLinks();
 
     try{
       await addDoc(junkCol, {
-        type: "junk_car",
-        name, phone, location, vehicle, runs, title, notes,
-        createdAt: serverTimestamp(),
-        source: "website"
+        ...payload,
+
+        // ✅ Trigger Email extension fields:
+        to: NOTIFY_EMAIL,
+        subject: `New Junk Car Lead — ${payload.vehicle || "Vehicle"} — ${payload.phone || "No phone"}`,
+        text: buildEmailTextJunk(payload)
       });
-      setNotice(jcStatus, "✅ Sent! We’ll text/call you with an offer.", "ok");
+
+      setNotice(jcStatus, "✅ Sent! We’ll call you with an offer.", "ok");
 
       document.getElementById("jcName").value = "";
       document.getElementById("jcPhone").value = "";
@@ -2025,12 +1943,11 @@ refreshPrefillLinks();
       document.getElementById("jcNotes").value = "";
     }catch(e){
       console.error(e);
-      setNotice(jcStatus, "❌ Failed to send. Please try again or call/text us.", "bad");
+      setNotice(jcStatus, "❌ Failed to send. Please try again or call us.", "bad");
     }finally{
       jcSubmit.disabled = false;
     }
   }
-
   if(jcSubmit) jcSubmit.addEventListener("click", submitJunk);
 </script>
 
