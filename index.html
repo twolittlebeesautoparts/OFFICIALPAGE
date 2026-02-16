@@ -807,6 +807,121 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
   .galleryNav{display:none;}
   #lightboxModal{height:90vh;}
 }
+
+/* ==========================================
+   ✅ APPLE-ISH POLISH LAYER (OVERRIDES ONLY)
+   Keeps your colors/logic/info — just makes it feel premium
+   (leave at end of CSS)
+========================================== */
+html{scroll-behavior:smooth;}
+body{
+  text-rendering:optimizeLegibility;
+  letter-spacing:-0.2px;
+}
+
+/* Softer header glass + spacing */
+header{
+  background:rgba(11,15,20,.72);
+  backdrop-filter: blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.header-inner{padding:12px 16px;}
+
+/* Nav pills: cleaner + tighter */
+nav a{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(255,255,255,.018);
+}
+nav a:hover{
+  border-color: rgba(255,255,255,.16);
+  background: rgba(255,255,255,.03);
+  transform: translateY(-1px);
+}
+nav a.cta{
+  box-shadow: 0 18px 46px rgba(244,196,48,.14);
+}
+
+/* Hero: more Apple rhythm */
+.hero{padding:52px 0 20px;}
+.hero h1{
+  letter-spacing:-1.1px;
+}
+.hero p{font-size:1.02rem}
+
+/* Cards: more depth, more “glass”, cleaner edges */
+.card{
+  border-color: rgba(255,255,255,.12);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)),
+    rgba(17,24,39,.62);
+  box-shadow: 0 26px 70px rgba(0,0,0,.48);
+}
+
+/* Buttons: more premium feel */
+.btn{
+  border-radius:16px;
+}
+.btn.primary{
+  box-shadow: 0 24px 70px rgba(244,196,48,.16);
+}
+.btn.secondary{
+  background: rgba(255,255,255,.035);
+  border-color: rgba(255,255,255,.12);
+}
+.btn.secondary:hover{
+  border-color: rgba(255,255,255,.20);
+  box-shadow: 0 16px 40px rgba(0,0,0,.28);
+}
+
+/* Inputs: Apple-like fields */
+.field input, textarea, select{
+  border-color: rgba(255,255,255,.12);
+  background: rgba(12,18,26,.92);
+}
+.field input:hover, textarea:hover, select:hover{
+  border-color: rgba(255,255,255,.18);
+}
+.field input:focus, textarea:focus, select:focus{
+  border-color: rgba(244,196,48,.45);
+  box-shadow: 0 0 0 3px rgba(244,196,48,.14);
+}
+
+/* Gallery items feel nicer */
+.galleryItem{
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 26px 70px rgba(0,0,0,.40);
+}
+.galleryItem:hover{
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,.18);
+}
+
+/* Dock: cleaner */
+#ctaDock{
+  background:rgba(11,15,20,.72);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.ctaBtn{
+  border-color: rgba(255,255,255,.12);
+  background: rgba(255,255,255,.02);
+}
+.ctaBtn:hover{
+  transform: translateY(-1px);
+}
+
+/* Reduce motion for people who want it */
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto !important;}
+  nav a, .btn, .pillItem, .stat, .galleryItem, .ctaBtn{transition:none !important;}
+}
+
+/* ==========================================
+   ✅ REMOVE "Car Parts" LINKS (HEADER + FOOTER)
+========================================== */
+nav a[href="parts.html"],
+.footerLinks a[href="parts.html"]{
+  display:none !important;
+}
 </style>
 
 <!-- LocalBusiness Structured Data -->
@@ -848,7 +963,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
     <nav>
       <a href="#top">Home</a>
       <a class="cta" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
-      <a href="parts.html">Car Parts</a>
+      <!-- ✅ removed Car Parts link -->
       <a href="#request">Request a Part</a>
       <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" class="vin-btn" onclick="toggleVin()">VIN</a>
@@ -1180,7 +1295,7 @@ footer span{color:var(--muted); font-size:.92rem; line-height:1.35}
 
     <div class="footerLinks">
       <a href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
-      <a href="parts.html">Car Parts</a>
+      <!-- ✅ removed Car Parts link -->
       <a href="#request">Request a Part</a>
       <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" onclick="toggleVin()">VIN Decoder</a>
