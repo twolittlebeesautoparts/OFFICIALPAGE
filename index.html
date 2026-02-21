@@ -1,9 +1,13 @@
-1<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Two Little Bees Auto Parts | VIN-Verified OEM Used Parts | Indianapolis</title>
+
+<!-- Ownership / Rights -->
+<meta name="author" content="Latin Noise LLC">
+<meta name="copyright" content="© 2026 Latin Noise LLC. All Rights Reserved. Licensed for use by Two Little Bees Auto Parts.">
 
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0b0f14">
@@ -30,23 +34,19 @@
 
 <style>
 :root{
-  /* Apple-ish dark */
   --bg:#000000;
   --bg2:#050608;
   --text:#f5f5f7;
   --muted:rgba(245,245,247,.72);
 
-  /* Glass + separators */
   --glass:rgba(18,18,20,.62);
   --glass2:rgba(28,28,30,.55);
   --line:rgba(255,255,255,.10);
   --line2:rgba(255,255,255,.14);
 
-  /* Your brand accent kept */
   --accent:#f4c430;
   --accent2:#ffb703;
 
-  /* Apple radii + shadow */
   --r-xl:28px;
   --r-lg:22px;
   --r-md:16px;
@@ -83,7 +83,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 button{font-family:inherit}
 :focus-visible{outline:none;box-shadow:var(--ring);border-radius:16px}
 
-/* ===== Header (Apple glass) ===== */
+/* ===== Header ===== */
 header{
   position:sticky;top:0;z-index:100;
   background:rgba(10,10,12,.58);
@@ -111,7 +111,7 @@ header{
   filter: drop-shadow(0 14px 28px rgba(0,0,0,.35));
 }
 
-/* Apple-ish nav pills (minimal, soft) */
+/* Nav pills */
 nav{
   display:flex;align-items:center;gap:8px;
   overflow-x:auto;-webkit-overflow-scrolling:touch;
@@ -151,7 +151,7 @@ nav a.vin-btn{
 .container{max-width:1200px;margin:0 auto;padding:0 16px}
 .section{padding:44px 0}
 
-/* HERO like Apple product page */
+/* HERO */
 .hero{
   padding:70px 0 36px;
   display:grid;
@@ -173,7 +173,7 @@ nav a.vin-btn{
   font-size:1.04rem;
 }
 
-/* badges = Apple small chips */
+/* badges */
 .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .badge{
   display:inline-flex;align-items:center;gap:10px;
@@ -190,7 +190,7 @@ nav a.vin-btn{
   box-shadow:0 0 0 4px rgba(244,196,48,.14);
 }
 
-/* Buttons like iOS */
+/* Buttons */
 .btnRow{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
@@ -200,6 +200,7 @@ nav a.vin-btn{
   text-decoration:none;
   user-select:none;
   transition: transform .12s ease, filter .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
+  cursor:pointer;
 }
 .btn:active{transform:scale(.99)}
 .btn.primary{
@@ -218,7 +219,7 @@ nav a.vin-btn{
   box-shadow:0 12px 34px rgba(0,0,0,.30);
 }
 
-/* Cards = Apple glass panels */
+/* Cards */
 .card{
   background:
     linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
@@ -236,7 +237,7 @@ nav a.vin-btn{
   letter-spacing:-.3px;
 }
 
-/* What we sell grid */
+/* What we sell */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 .pillItem{
   display:flex;align-items:center;gap:10px;
@@ -261,7 +262,7 @@ nav a.vin-btn{
   flex:0 0 auto;
 }
 
-/* stats = clean Apple tiles */
+/* stats tiles */
 .stats{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .stat{
   padding:16px 14px;
@@ -287,8 +288,10 @@ body.adminMode .admin-edit{
   border-radius:18px;
   padding:12px;
 }
+#saveAboutBtn{display:none}
+body.adminMode #saveAboutBtn{display:inline-flex}
 
-/* Forms = Apple inputs */
+/* Forms */
 .formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .formGrid .full{grid-column:1 / -1}
 .field label{
@@ -335,7 +338,7 @@ textarea{min-height:120px;resize:vertical}
 .notice.ok{border-color:rgba(34,197,94,.30)}
 .notice.bad{border-color:rgba(239,68,68,.28)}
 
-/* Live stats + trust layouts */
+/* Live stats */
 .liveStatsGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:12px}
 .liveStatCard{
   border:1px solid rgba(255,255,255,.10);
@@ -354,6 +357,7 @@ textarea{min-height:120px;resize:vertical}
 .liveNum{font-weight:800;color:var(--text);letter-spacing:-.3px}
 .liveMeta{color:var(--muted);font-weight:650;font-size:.9rem;line-height:1.45}
 
+/* Trust layouts */
 .trustGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:12px}
 .quoteCard{
   border:1px solid rgba(255,255,255,.10);
@@ -373,6 +377,34 @@ textarea{min-height:120px;resize:vertical}
 }
 .trustItem b{color:var(--text);font-weight:750}
 .trustItem span{color:var(--muted);font-weight:650}
+
+/* Admin bar */
+#adminBar{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+#adminBar .left{display:flex;gap:10px;flex-wrap:wrap}
+.pill{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  color:rgba(245,245,247,.85);
+  font-weight:650;
+}
+.pill .tinyDot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(245,245,247,.35);
+  box-shadow:0 0 0 4px rgba(255,255,255,.08);
+}
+.pill.ok{border-color:rgba(34,197,94,.30)}
+.pill.ok .tinyDot{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.16)}
+.pill.bad{border-color:rgba(239,68,68,.28)}
+.pill.bad .tinyDot{background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.14)}
 
 /* Gallery tabs */
 .tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
@@ -490,7 +522,7 @@ footer span{color:var(--muted);font-size:.95rem;line-height:1.45}
 }
 .footerLinks a:hover{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.06)}
 
-/* VIN panel glass */
+/* VIN panel */
 #vin-panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;z-index:997}
 #vin-panel{
   position:fixed;left:50%;transform:translateX(-50%);
@@ -533,18 +565,12 @@ footer span{color:var(--muted);font-size:.95rem;line-height:1.45}
   background:rgba(255,255,255,.07);
   border-color:rgba(255,255,255,.16);
 }
-
-/* VIN results rows (so it doesn't look raw) */
 #vehicle{
   margin-top:12px;
   font-weight:820;
   letter-spacing:-.3px;
 }
-#results{
-  margin-top:12px;
-  display:grid;
-  gap:10px;
-}
+#results{margin-top:12px;display:grid;gap:10px}
 #results .row{
   display:grid;
   grid-template-columns: .9fr 1.1fr;
@@ -601,7 +627,7 @@ footer span{color:var(--muted);font-size:.95rem;line-height:1.45}
   display:none;
 }
 
-/* Sticky dock = iOS bottom bar */
+/* Sticky dock */
 #ctaDock{
   position:fixed;left:0;right:0;bottom:0;z-index:9990;
   padding:12px 12px calc(env(safe-area-inset-bottom) + 12px);
@@ -654,31 +680,22 @@ footer span{color:var(--muted);font-size:.95rem;line-height:1.45}
   nav a, .btn, .pillItem, .galleryItem, .ctaBtn, .tab{transition:none !important}
 }
 
-/* Hide Car Parts links (your request) */
+/* Hide parts.html links if they exist somewhere */
 nav a[href="parts.html"],
 .footerLinks a[href="parts.html"]{display:none !important}
 
 /* =========================================================
-   ✅ FIXED: MODALS + LIGHTBOX (Apple overlays, centered)
-   This is what was missing and causing your screenshot issue
+   MODALS + LIGHTBOX
    ========================================================= */
-
-/* Backdrops (real overlays) */
-#adminModalBackdrop,
-#addModalBackdrop,
-#lightboxBackdrop{
-  position:fixed;
-  inset:0;
+#adminModalBackdrop,#addModalBackdrop,#lightboxBackdrop{
+  position:fixed;inset:0;
   background: rgba(0,0,0,.62);
   backdrop-filter: blur(10px) saturate(140%);
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   z-index: 99950;
   display:none;
 }
-
-/* Modal base */
-#adminModal,
-#addModal{
+#adminModal,#addModal{
   position: fixed;
   left: 50%;
   top: 50%;
@@ -696,22 +713,11 @@ nav a[href="parts.html"],
   z-index: 99960;
   display:none;
 }
-
-/* Modal header row */
 .modalHead{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-bottom: 10px;
 }
-.modalHead strong{
-  font-size: 1.05rem;
-  font-weight: 820;
-  letter-spacing: -.3px;
-}
-
-/* Close button */
+.modalHead strong{font-size: 1.05rem;font-weight: 820;letter-spacing: -.3px;}
 .iconBtn{
   border:1px solid rgba(255,255,255,.12);
   background: rgba(255,255,255,.06);
@@ -721,24 +727,11 @@ nav a[href="parts.html"],
   font-weight: 750;
   cursor:pointer;
 }
-.iconBtn:hover{
-  background: rgba(255,255,255,.08);
-  border-color: rgba(255,255,255,.16);
-}
-
-/* Modal actions row */
+.iconBtn:hover{background: rgba(255,255,255,.08);border-color: rgba(255,255,255,.16);}
 .modalActions{
-  display:flex;
-  gap:10px;
-  justify-content:flex-end;
-  align-items:center;
-  margin-top: 12px;
+  display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top: 12px;
 }
-.modalActions .btn{
-  padding: 12px 14px;
-}
-
-/* Helper text */
+.modalActions .btn{padding: 12px 14px;}
 .helper{
   margin-top: 10px;
   padding: 12px 14px;
@@ -750,18 +743,8 @@ nav a[href="parts.html"],
   line-height: 1.45;
 }
 
-/* Make fields inside modals look consistent */
-#adminModal .field,
-#addModal .field{
-  margin-top: 10px;
-}
-
-/* LIGHTBOX */
-#lightboxBackdrop{
-  display:none;
-}
+/* Lightbox */
 #lightboxBackdrop[aria-hidden="false"]{ display:block; }
-
 #lightboxModal{
   position: fixed;
   left: 50%;
@@ -775,31 +758,11 @@ nav a[href="parts.html"],
   border: 1px solid rgba(255,255,255,.12);
   box-shadow: var(--shadow);
 }
-
-#lbStage{
-  position:absolute;
-  inset: 0;
-  display:grid;
-  place-items:center;
-  background: radial-gradient(900px 520px at 50% 20%, rgba(255,255,255,.06), transparent 60%);
-}
-#lbImg{
-  max-width: 96%;
-  max-height: 84%;
-  object-fit: contain;
-  border-radius: 18px;
-  box-shadow: var(--shadow2);
-  background: rgba(0,0,0,.18);
-}
-
+#lbStage{position:absolute;inset:0;display:grid;place-items:center;background: radial-gradient(900px 520px at 50% 20%, rgba(255,255,255,.06), transparent 60%);}
+#lbImg{max-width: 96%;max-height: 84%;object-fit: contain;border-radius: 18px;box-shadow: var(--shadow2);background: rgba(0,0,0,.18);}
 #lbClose{
-  position:absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 3;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
+  position:absolute;top: 14px;right: 14px;z-index: 3;
+  width: 44px;height: 44px;border-radius: 999px;
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(10,10,12,.58);
   color: rgba(245,245,247,.95);
@@ -807,15 +770,9 @@ nav a[href="parts.html"],
   cursor:pointer;
   backdrop-filter: blur(18px) saturate(140%);
 }
-
 .lbArrow{
-  position:absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
+  position:absolute;top: 50%;transform: translateY(-50%);z-index: 3;
+  width: 48px;height: 48px;border-radius: 999px;
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(10,10,12,.58);
   color: rgba(245,245,247,.95);
@@ -825,40 +782,57 @@ nav a[href="parts.html"],
 }
 #lbPrev{ left: 14px; }
 #lbNext{ right: 14px; }
-
 .lbCap{
-  position:absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  z-index: 3;
-  padding: 12px 14px;
-  border-radius: 18px;
+  position:absolute;left: 14px;right: 14px;bottom: 14px;z-index: 3;
+  padding: 12px 14px;border-radius: 18px;
   border: 1px solid rgba(255,255,255,.12);
   background: rgba(10,10,12,.58);
   color: rgba(245,245,247,.92);
   font-weight: 650;
   backdrop-filter: blur(18px) saturate(140%);
 }
-
-/* Mobile sheet behavior */
 @media(max-width:600px){
   #adminModal,#addModal{
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transform: none;
-    width: 100%;
-    max-height: 86vh;
-    border-radius: 24px 24px 0 0;
+    top:auto;bottom:0;left:0;right:0;transform:none;width:100%;
+    max-height:86vh;border-radius:24px 24px 0 0;
   }
-  #lightboxModal{
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-  }
+  #lightboxModal{width:100%;height:100%;border-radius:0;}
 }
+
+/* ===== Legal ===== */
+.legalWrap{margin-top:14px;display:grid;gap:12px}
+.legalWrap details{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:24px;
+  padding:14px;
+}
+.legalWrap summary{
+  cursor:pointer;
+  list-style:none;
+  font-weight:800;
+  letter-spacing:-.2px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.legalWrap summary::-webkit-details-marker{display:none}
+.legalWrap summary::after{
+  content:"+";
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(10,10,12,.40);
+  font-weight:900;
+}
+.legalWrap details[open] summary::after{content:"–"}
+.legalBody{margin-top:12px;color:rgba(245,245,247,.84);line-height:1.6;font-weight:600}
+.legalBody h4{margin:10px 0 6px;font-size:.98rem;font-weight:850;color:rgba(245,245,247,.95)}
+.legalBody ul{margin:8px 0 0 18px}
+.legalBody li{margin:6px 0}
+.legalStamp{margin-top:10px;color:var(--muted);font-weight:700;font-size:.9rem}
 </style>
 
 <!-- LocalBusiness Structured Data -->
@@ -899,7 +873,7 @@ nav a[href="parts.html"],
 
     <nav>
       <a href="#top">Home</a>
-      <a class="cta" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
+      <a class="cta" href="https://www.car-part.com/" target="_blank" rel="noopener">car-part.com</a>
       <a href="#request">Request a Part</a>
       <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" class="vin-btn" onclick="toggleVin()">VIN</a>
@@ -916,24 +890,29 @@ nav a[href="parts.html"],
         <h1>The Right Parts.<br>Every Time.<br>Built on Trust.</h1>
 
         <div class="badges">
-          <div class="badge"><span class="dot"></span> Established in Indianapolis</div>
+          <div class="badge"><span class="dot"></span> Established 2005</div>
           <div class="badge"><span class="dot"></span> VIN-Verified</div>
-          <div class="badge"><span class="dot"></span> Fast Counter Support</div>
+          <div class="badge"><span class="dot"></span> Indianapolis • 507 S Tibbs Ave</div>
         </div>
 
         <p>Live inventory tied to real vehicles. Call or request a quote — we verify fitment, move fast, and keep it simple.</p>
 
         <div class="btnRow">
-          <a class="btn primary" href="https://twolittlebeesautoparts.github.io/">Search Inventory</a>
+          <a class="btn primary" href="https://twobeesparts.com" target="_blank" rel="noopener">Visit TwoBeesParts.com</a>
           <a class="btn secondary" href="#request">💬 Request a Part</a>
           <a class="btn secondary" href="tel:3172437777">📞 Call (317) 243-7777</a>
           <a class="btn secondary" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Get Directions</a>
         </div>
 
         <div class="stats">
-          <div class="stat"><strong>10K+</strong><span>OEM Parts</span></div>
+          <div class="stat"><strong>OEM</strong><span>Used Parts</span></div>
           <div class="stat"><strong>1985–2026</strong><span>Coverage</span></div>
-          <div class="stat"><strong>Trusted</strong><span>Local Pros</span></div>
+          <div class="stat"><strong>Fast</strong><span>Counter Support</span></div>
+        </div>
+
+        <div class="miniNote" style="margin-top:14px">
+          Hours: Mon–Fri 9:00 AM–5:00 PM • Sat 9:00 AM–4:00 PM • Sun Closed<br>
+          Phone: (317) 243-7777 • (317) 248-8051
         </div>
       </div>
 
@@ -943,9 +922,15 @@ nav a[href="parts.html"],
           <div class="pillItem"><b>✓</b> Engines & Transmissions</div>
           <div class="pillItem"><b>✓</b> Suspension & Drivetrain</div>
           <div class="pillItem"><b>✓</b> Body & Interior</div>
-          <div class="pillItem"><b>✓</b> Electrical Modules</div>
-          <div class="pillItem"><b>✓</b> OEM Used Parts</div>
-          <div class="pillItem"><b>✓</b> VIN-Verified Fitment</div>
+          <div class="pillItem"><b>✓</b> Electrical Modules (ECU/TCM/BCM)</div>
+          <div class="pillItem"><b>✓</b> Wheels & Tires</div>
+          <div class="pillItem"><b>✓</b> Lights, Mirrors, Glass</div>
+          <div class="pillItem"><b>✓</b> Radiators, Fans, A/C Parts</div>
+          <div class="pillItem"><b>✓</b> Starters, Alternators</div>
+        </div>
+
+        <div class="notice" style="margin-top:14px">
+          <b>Bring your VIN.</b> We verify fitment before you pay — fewer mistakes, faster installs.
         </div>
       </div>
     </section>
@@ -969,7 +954,7 @@ nav a[href="parts.html"],
           </div>
 
           <div class="liveMeta">
-            * Pageviews go up every refresh. Unique Visitors counts once per device/browser (so your own testing won’t spam it).
+            * These are real site-wide counts if Firebase is configured. If not, they show “—”.
           </div>
         </div>
 
@@ -990,7 +975,7 @@ nav a[href="parts.html"],
       <div class="card">
         <div class="sectionTitleRow">
           <h3>About Us</h3>
-          <small>Ctrl + Shift + A to edit</small>
+          <small>Ctrl + Shift + A (admin mode)</small>
         </div>
 
         <div id="aboutText" class="admin-edit">
@@ -1004,10 +989,16 @@ nav a[href="parts.html"],
           <br><br>
           Built in Indianapolis and grounded in trust — accurate parts, straight answers, no wasted time.
         </div>
+
+        <div class="btnRow" style="margin-top:12px">
+          <button class="btn primary" id="saveAboutBtn" type="button">Save About</button>
+        </div>
+
+        <div class="notice" id="aboutSaveStatus" style="display:none"></div>
       </div>
     </section>
 
-    <!-- TRUST + REVIEWS -->
+    <!-- TRUST -->
     <section class="section" id="trust">
       <div class="card">
         <div class="sectionTitleRow">
@@ -1215,24 +1206,156 @@ nav a[href="parts.html"],
       </div>
     </section>
 
+    <!-- LEGAL -->
+    <section class="section" id="legal">
+      <div class="card">
+        <div class="sectionTitleRow">
+          <h3>Legal</h3>
+          <small id="legalUpdated">Last updated: 2026-02-21</small>
+        </div>
+
+        <div class="legalWrap">
+
+          <details id="privacy">
+            <summary>Privacy Policy</summary>
+            <div class="legalBody">
+              <h4>What we collect</h4>
+              <ul>
+                <li><b>Contact / lead info</b> you submit: name, phone, vehicle details, VIN (optional), notes, pickup location, and photo links (optional).</li>
+                <li><b>Basic usage analytics</b>: pageviews and an anonymous “unique visitor” identifier stored in your browser (localStorage) to avoid counting the same device repeatedly.</li>
+                <li><b>Service logs</b>: our hosting/providers (ex: Firebase/Google) may process standard technical data (IP address, device/browser info) for security and performance.</li>
+              </ul>
+
+              <h4>How we use information</h4>
+              <ul>
+                <li>To contact you back about parts, quotes, inventory, or junk car offers.</li>
+                <li>To operate and improve the website (fraud prevention, performance, analytics).</li>
+              </ul>
+
+              <h4>Sharing</h4>
+              <ul>
+                <li>We may share data with service providers that run the site (ex: Firebase/Google) only as needed to operate features.</li>
+                <li>We do <b>not</b> sell your personal information.</li>
+              </ul>
+
+              <h4>Retention</h4>
+              <ul>
+                <li>Lead data may be stored until it’s no longer needed for business and recordkeeping.</li>
+                <li>You can clear the site’s localStorage in your browser settings to reset the unique visitor ID.</li>
+              </ul>
+
+              <h4>Security</h4>
+              <ul>
+                <li>We use reasonable safeguards, but no system is 100% secure.</li>
+              </ul>
+
+              <h4>Contact</h4>
+              <ul>
+                <li>Use the phone number on this site for questions about your info or to request deletion (where applicable).</li>
+              </ul>
+
+              <div class="legalStamp">
+                This policy applies to this website only and may be updated without notice.
+              </div>
+            </div>
+          </details>
+
+          <details id="terms">
+            <summary>Terms of Use</summary>
+            <div class="legalBody">
+              <h4>Acceptance</h4>
+              By using this website, you agree to these Terms.
+
+              <h4>Use of the site</h4>
+              <ul>
+                <li>You may use the site for lawful purposes only.</li>
+                <li>You agree not to attempt to disrupt the site, scrape it at scale, or misuse forms/features.</li>
+              </ul>
+
+              <h4>Inventory & fitment</h4>
+              <ul>
+                <li>Inventory, pricing, and availability may change without notice.</li>
+                <li>Fitment should be verified (VIN recommended). Final confirmation happens with staff.</li>
+              </ul>
+
+              <h4>Third-party services</h4>
+              This site may link to third-party sites (maps, Google, car-part.com, etc.). We are not responsible for their content or policies.
+
+              <h4>Disclaimer</h4>
+              The site is provided “as is” without warranties of any kind.
+
+              <h4>Limitation of liability</h4>
+              To the fullest extent allowed by law, we are not liable for damages arising from use or inability to use this site.
+
+              <h4>Changes</h4>
+              We may update these Terms at any time by posting changes here.
+            </div>
+          </details>
+
+          <details id="license">
+            <summary>License & Intellectual Property (Latin Noise LLC)</summary>
+            <div class="legalBody">
+              <h4>Ownership</h4>
+              The website design, layout, UI, source code, and original creative elements are the intellectual property of <b>Latin Noise LLC</b> unless stated otherwise.
+
+              <h4>Client license</h4>
+              Latin Noise LLC grants <b>Two Little Bees Auto Parts</b> a limited, non-exclusive, non-transferable license to use and display this website for business operations.
+
+              <h4>Restrictions</h4>
+              <ul>
+                <li>No resale, sublicensing, or transferring the site/code to another party without written permission from Latin Noise LLC.</li>
+                <li>Removing copyright/ownership notices is not permitted.</li>
+                <li>Copying the site for another business is not permitted.</li>
+              </ul>
+
+              <h4>Client content</h4>
+              Logos, photos, product images, and business info supplied by the client remain the client’s property (or their licensors).</li>
+
+              <h4>Termination</h4>
+              If the license terms are violated, the license may be revoked and the client must stop using the site materials.
+
+              <div class="legalStamp">
+                Tip: A signed 1-page license agreement is the strongest protection (footer notice helps, but a contract is better).
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
   </div>
 </main>
 
 <footer>
   <div class="footer-inner">
     <div class="footerRow">
-      <span>© 2026 Two Little Bees Auto Parts</span>
       <span>
-        📞 <a href="tel:3172437777" style="color:inherit;text-decoration:none">(317) 243-7777</a><br>
-        📍 <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">507 S Tibbs Ave, Indianapolis</a>
+        © <span id="year"></span> <b>Latin Noise LLC</b>. All Rights Reserved.<br>
+        <span style="color:var(--muted);font-weight:700">
+          Website licensed for use by Two Little Bees Auto Parts.
+        </span>
+      </span>
+
+      <span>
+        📞 <a href="tel:3172437777" style="color:inherit;text-decoration:none">(317) 243-7777</a> •
+           <a href="tel:3172488051" style="color:inherit;text-decoration:none">(317) 248-8051</a><br>
+        📍 <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN"
+              target="_blank" rel="noopener" style="color:inherit;text-decoration:none">
+            507 S Tibbs Ave, Indianapolis
+          </a>
       </span>
     </div>
 
     <div class="footerLinks">
-      <a href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Inventory</a>
+      <a href="https://twobeesparts.com" target="_blank" rel="noopener">TwoBeesParts.com</a>
+      <a href="https://www.car-part.com/" target="_blank" rel="noopener">car-part.com</a>
       <a href="#request">Request a Part</a>
       <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" onclick="toggleVin()">VIN Decoder</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms</a>
+      <a href="#license">License</a>
       <a href="tel:3172437777">Call</a>
       <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Directions</a>
     </div>
@@ -1266,7 +1389,6 @@ nav a[href="parts.html"],
   <div id="vehicle" class="vehicle"></div>
   <div id="results"></div>
 </div>
-<div id="print-sheet" style="display:none"></div>
 
 <!-- Admin Login Modal -->
 <div id="adminModalBackdrop"></div>
@@ -1336,6 +1458,30 @@ nav a[href="parts.html"],
 </div>
 
 <script>
+/* ============ Helpers ============ */
+const $ = (s)=>document.querySelector(s);
+const $$ = (s)=>Array.from(document.querySelectorAll(s));
+
+function showToast(msg){
+  const t = $("#toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> t.style.display="none", 900);
+}
+
+function escapeHtml(str){
+  return String(str ?? "").replace(/[&<>"']/g, (m)=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+  }[m]));
+}
+
+function setNotice(el, msg, kind){
+  el.style.display = "block";
+  el.className = "notice " + (kind || "");
+  el.innerHTML = msg;
+}
+
 /* ===== Smooth hash scrolling ===== */
 (function(){
   const links = document.querySelectorAll('a[href^="#"]');
@@ -1351,8 +1497,587 @@ nav a[href="parts.html"],
     });
   });
 })();
+</script>
 
-/* ===== VIN Decoder ===== */
+<!-- Firebase + Site Logic (module) -->
+<script type="module">
+/* =========================================================
+   ✅ SINGLE-FILE SETUP
+   - Live site stats (pageviews + unique visitors)
+   - Gallery (public read, admin add/delete)
+   - Leads (Request Part + Junk Car) into Firestore
+   - About text saved in Firestore (admin mode)
+   ========================================================= */
+
+/* ============ 1) PASTE YOUR FIREBASE CONFIG HERE ============ */
+const firebaseConfig = {
+  apiKey: "AIzaSyCspSuGyknZoztjBoFz_wdaOpnr4bVjpio",
+  authDomain: "twolittlebeeshomepage.firebaseapp.com",
+  projectId: "twolittlebeeshomepage",
+  storageBucket: "twolittlebeeshomepage.firebasestorage.app",
+  messagingSenderId: "671040515864",
+  appId: "1:671040515864:web:15b5b12775bb950709786d",
+  measurementId: "G-362YBE5VQL"
+};
+/* ========================================================= */
+
+const isFirebaseConfigured = () => {
+  const bad = ["YOUR_API_KEY","YOUR_PROJECT.firebaseapp.com","YOUR_PROJECT_ID","YOUR_PROJECT.appspot.com","YOUR_SENDER_ID","YOUR_APP_ID"];
+  const vals = Object.values(firebaseConfig || {});
+  return vals.length && vals.every(v => v && !bad.includes(v));
+};
+
+let app=null, auth=null, db=null;
+let currentUser=null;
+let adminMode=false;
+
+const metricsUpdated = document.getElementById("metricsUpdated");
+const pvNum = document.getElementById("pvNum");
+const uvNum = document.getElementById("uvNum");
+
+/* UI */
+const authPill = document.getElementById("authPill");
+const authText = document.getElementById("authText");
+const adminLoginOpen = document.getElementById("adminLoginOpen");
+const adminLogout = document.getElementById("adminLogout");
+const addPhotoOpen = document.getElementById("addPhotoOpen");
+const galleryHint = document.getElementById("galleryHint");
+
+const aboutText = document.getElementById("aboutText");
+const saveAboutBtn = document.getElementById("saveAboutBtn");
+const aboutSaveStatus = document.getElementById("aboutSaveStatus");
+
+const rqSubmit = document.getElementById("rqSubmit");
+const rqStatus = document.getElementById("rqStatus");
+const jcSubmit = document.getElementById("jcSubmit");
+const jcStatus = document.getElementById("jcStatus");
+
+/* Modals */
+const adminBackdrop = document.getElementById("adminModalBackdrop");
+const adminModal = document.getElementById("adminModal");
+const addBackdrop = document.getElementById("addModalBackdrop");
+const addModal = document.getElementById("addModal");
+
+const adminModalClose = document.getElementById("adminModalClose");
+const adminCancel = document.getElementById("adminCancel");
+const adminLoginDo = document.getElementById("adminLoginDo");
+const adminEmail = document.getElementById("adminEmail");
+const adminPass = document.getElementById("adminPass");
+const adminMsg = document.getElementById("adminMsg");
+
+const addModalClose = document.getElementById("addModalClose");
+const addCancel = document.getElementById("addCancel");
+const addDo = document.getElementById("addDo");
+const photoUrl = document.getElementById("photoUrl");
+const photoCaption = document.getElementById("photoCaption");
+const photoCategory = document.getElementById("photoCategory");
+const addMsg = document.getElementById("addMsg");
+
+/* Gallery */
+const galleryGrid = document.getElementById("galleryGrid");
+const gPrev = document.getElementById("gPrev");
+const gNext = document.getElementById("gNext");
+const tabs = Array.from(document.querySelectorAll("#galleryTabs .tab"));
+let activeCat = "All";
+let galleryData = [];   // cached docs
+let lightboxIndex = 0;
+
+/* Lightbox */
+const lbBackdrop = document.getElementById("lightboxBackdrop");
+const lbImg = document.getElementById("lbImg");
+const lbCap = document.getElementById("lbCap");
+const lbClose = document.getElementById("lbClose");
+const lbPrev = document.getElementById("lbPrev");
+const lbNext = document.getElementById("lbNext");
+
+/* Utilities */
+const makeUID = () => {
+  const a = crypto.getRandomValues(new Uint8Array(16));
+  return Array.from(a).map(b=>b.toString(16).padStart(2,"0")).join("");
+};
+const getOrCreateVisitorId = () => {
+  const k="tlb_uid";
+  let id = localStorage.getItem(k);
+  if(!id){ id = makeUID(); localStorage.setItem(k,id); }
+  return id;
+};
+
+function openModal(backdrop, modal){
+  backdrop.style.display="block";
+  modal.style.display="block";
+  document.body.style.overflow="hidden";
+}
+function closeModal(backdrop, modal){
+  backdrop.style.display="none";
+  modal.style.display="none";
+  document.body.style.overflow="";
+}
+function setAuthPill(signedIn){
+  if(signedIn){
+    authPill.className = "pill ok";
+    authText.textContent = "Admin signed in";
+    galleryHint.textContent = "Admin view";
+    adminLoginOpen.style.display="none";
+    adminLogout.style.display="inline-flex";
+    addPhotoOpen.style.display="inline-flex";
+  }else{
+    authPill.className = "pill bad";
+    authText.textContent = "Not signed in";
+    galleryHint.textContent = "Public view";
+    adminLoginOpen.style.display="inline-flex";
+    adminLogout.style.display="none";
+    addPhotoOpen.style.display="none";
+    document.body.classList.remove("adminMode");
+    adminMode=false;
+    aboutText.contentEditable = "false";
+  }
+}
+
+/* ============ 2) Firebase Imports ============ */
+let initializeApp, getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut;
+let getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp, runTransaction, increment;
+let collection, addDoc, deleteDoc, query, where, orderBy, getDocs, limit;
+
+async function loadFirebaseSDK(){
+  // These are CDN modules. They work on GitHub Pages.
+  const appMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
+  const authMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js");
+  const fsMod  = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
+
+  initializeApp = appMod.initializeApp;
+  getAuth = authMod.getAuth;
+  signInWithEmailAndPassword = authMod.signInWithEmailAndPassword;
+  onAuthStateChanged = authMod.onAuthStateChanged;
+  signOut = authMod.signOut;
+
+  getFirestore = fsMod.getFirestore;
+  doc = fsMod.doc;
+  getDoc = fsMod.getDoc;
+  setDoc = fsMod.setDoc;
+  updateDoc = fsMod.updateDoc;
+  serverTimestamp = fsMod.serverTimestamp;
+  runTransaction = fsMod.runTransaction;
+  increment = fsMod.increment;
+
+  collection = fsMod.collection;
+  addDoc = fsMod.addDoc;
+  deleteDoc = fsMod.deleteDoc;
+  query = fsMod.query;
+  where = fsMod.where;
+  orderBy = fsMod.orderBy;
+  getDocs = fsMod.getDocs;
+  limit = fsMod.limit;
+}
+
+async function initFirebase(){
+  if(!isFirebaseConfigured()){
+    metricsUpdated.textContent = "Firebase not configured";
+    pvNum.textContent = "—";
+    uvNum.textContent = "—";
+    galleryGrid.innerHTML = `<div class="galleryItem">Gallery needs Firebase config</div>`;
+    addMsg.textContent = "Paste your Firebase config in the code (search: YOUR_API_KEY).";
+    adminMsg.textContent = "Paste Firebase config first (search: YOUR_API_KEY).";
+    setAuthPill(false);
+    return false;
+  }
+  await loadFirebaseSDK();
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  return true;
+}
+
+/* ============ 3) Live Site Stats ============ */
+async function initMetrics(){
+  try{
+    const visitorId = getOrCreateVisitorId();
+    const hasCountedKey = "tlb_uv_counted_v1";
+    const countUnique = localStorage.getItem(hasCountedKey) !== "1";
+
+    const metricsRef = doc(db, "metrics", "global");
+    await runTransaction(db, async (tx)=>{
+      const snap = await tx.get(metricsRef);
+      if(!snap.exists()){
+        tx.set(metricsRef, {
+          pageviews: 0,
+          uniqueVisitors: 0,
+          updatedAt: serverTimestamp()
+        });
+      }
+      tx.update(metricsRef, {
+        pageviews: increment(1),
+        uniqueVisitors: increment(countUnique ? 1 : 0),
+        updatedAt: serverTimestamp()
+      });
+    });
+
+    if(countUnique){
+      localStorage.setItem(hasCountedKey, "1");
+      // Store visitor id for reference (not uploaded unless you want to)
+      localStorage.setItem("tlb_uid", visitorId);
+    }
+
+    const snap = await getDoc(metricsRef);
+    const d = snap.data() || {};
+    pvNum.textContent = String(d.pageviews ?? 0);
+    uvNum.textContent = String(d.uniqueVisitors ?? 0);
+
+    const t = d.updatedAt?.toDate?.();
+    metricsUpdated.textContent = t ? ("Updated: " + t.toLocaleString()) : "Updated";
+  }catch(err){
+    console.error("metrics err", err);
+    metricsUpdated.textContent = "Stats unavailable";
+    pvNum.textContent = "—";
+    uvNum.textContent = "—";
+  }
+}
+
+/* ============ 4) About Text (Firestore) ============ */
+async function loadAbout(){
+  try{
+    const ref = doc(db, "siteContent", "about");
+    const snap = await getDoc(ref);
+    if(snap.exists()){
+      const d = snap.data();
+      if(d?.html) aboutText.innerHTML = d.html;
+    }
+  }catch(e){
+    console.warn("about load fail", e);
+  }
+}
+async function saveAbout(){
+  if(!currentUser) return;
+  try{
+    const ref = doc(db, "siteContent", "about");
+    await setDoc(ref, { html: aboutText.innerHTML, updatedAt: serverTimestamp() }, { merge:true });
+    aboutSaveStatus.style.display="none";
+    aboutSaveStatus.style.display="block";
+    aboutSaveStatus.className="notice ok";
+    aboutSaveStatus.textContent="Saved.";
+  }catch(e){
+    aboutSaveStatus.style.display="block";
+    aboutSaveStatus.className="notice bad";
+    aboutSaveStatus.textContent="Save failed.";
+  }
+}
+
+/* ============ 5) Leads (Request Part + Junk Cars) ============ */
+function getField(id){ return (document.getElementById(id)?.value || "").trim(); }
+function clearFields(ids){ ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); }
+
+async function submitPartRequest(){
+  if(!db){
+    setNotice(rqStatus, "Firebase not configured. Call us at (317) 243-7777.", "bad");
+    return;
+  }
+  const payload = {
+    type: "part_request",
+    name: getField("rqName"),
+    phone: getField("rqPhone"),
+    year: getField("rqYear"),
+    makeModel: getField("rqMakeModel"),
+    part: getField("rqPart"),
+    vin: getField("rqVin").toUpperCase(),
+    notes: getField("rqNotes"),
+    photoUrl: getField("rqPhotoUrl"),
+    createdAt: serverTimestamp()
+  };
+  if(!payload.phone || !payload.part){
+    setNotice(rqStatus, "Add at least <b>Phone</b> and <b>Part Needed</b>.", "bad");
+    return;
+  }
+  try{
+    rqSubmit.disabled = true;
+    await addDoc(collection(db, "leads"), payload);
+    setNotice(rqStatus, "✅ Sent. We’ll contact you soon.", "ok");
+    clearFields(["rqName","rqPhone","rqYear","rqMakeModel","rqPart","rqVin","rqNotes","rqPhotoUrl"]);
+  }catch(e){
+    console.error(e);
+    setNotice(rqStatus, "❌ Failed to send. Please call (317) 243-7777.", "bad");
+  }finally{
+    rqSubmit.disabled = false;
+  }
+}
+
+async function submitJunkCar(){
+  if(!db){
+    setNotice(jcStatus, "Firebase not configured. Call us at (317) 243-7777.", "bad");
+    return;
+  }
+  const payload = {
+    type: "junk_car",
+    name: getField("jcName"),
+    phone: getField("jcPhone"),
+    pickupLocation: getField("jcLocation"),
+    vehicle: getField("jcVehicle"),
+    runs: getField("jcRuns"),
+    title: getField("jcTitle"),
+    notes: getField("jcNotes"),
+    createdAt: serverTimestamp()
+  };
+  if(!payload.phone || !payload.vehicle){
+    setNotice(jcStatus, "Add at least <b>Phone</b> and <b>Vehicle</b>.", "bad");
+    return;
+  }
+  try{
+    jcSubmit.disabled = true;
+    await addDoc(collection(db, "junkLeads"), payload);
+    setNotice(jcStatus, "✅ Sent. We’ll contact you with an offer.", "ok");
+    clearFields(["jcName","jcPhone","jcLocation","jcVehicle","jcRuns","jcTitle","jcNotes"]);
+  }catch(e){
+    console.error(e);
+    setNotice(jcStatus, "❌ Failed to send. Please call (317) 243-7777.", "bad");
+  }finally{
+    jcSubmit.disabled = false;
+  }
+}
+
+/* ============ 6) Gallery ============ */
+function renderGallery(list){
+  if(!list.length){
+    galleryGrid.innerHTML = `<div class="galleryItem">No photos yet.</div>`;
+    return;
+  }
+
+  galleryGrid.innerHTML = "";
+  list.forEach((it, idx)=>{
+    const div = document.createElement("div");
+    div.className = "galleryItem" + (currentUser ? " admin" : "");
+    div.dataset.index = String(idx);
+
+    const img = document.createElement("img");
+    img.loading="lazy";
+    img.alt = it.caption || it.category || "Gallery photo";
+    img.src = it.url;
+
+    const cap = document.createElement("div");
+    cap.className="cap";
+    cap.textContent = it.caption || it.category || "Photo";
+
+    div.appendChild(img);
+    div.appendChild(cap);
+
+    if(currentUser){
+      const del = document.createElement("button");
+      del.className="del";
+      del.type="button";
+      del.textContent="Delete";
+      del.addEventListener("click", async (e)=>{
+        e.stopPropagation();
+        if(!confirm("Delete this photo?")) return;
+        try{
+          await deleteDoc(doc(db, "gallery", it.id));
+          await loadGallery();
+          showToast("Deleted");
+        }catch(err){
+          alert("Delete failed");
+        }
+      });
+      div.appendChild(del);
+    }
+
+    div.addEventListener("click", ()=> openLightbox(idx));
+    galleryGrid.appendChild(div);
+  });
+
+  updateGalleryNavButtons();
+}
+
+async function loadGallery(){
+  if(!db){
+    galleryGrid.innerHTML = `<div class="galleryItem">Gallery needs Firebase config</div>`;
+    return;
+  }
+
+  const col = collection(db, "gallery");
+  let q = null;
+  if(activeCat === "All"){
+    q = query(col, orderBy("createdAt","desc"), limit(60));
+  }else{
+    q = query(col, where("category","==", activeCat), orderBy("createdAt","desc"), limit(60));
+  }
+
+  const snaps = await getDocs(q);
+  galleryData = snaps.docs.map(d=>({ id:d.id, ...d.data() }))
+    .filter(x=>x.url);
+
+  renderGallery(galleryData);
+}
+
+async function addPhoto(){
+  if(!currentUser) return;
+  const url = (photoUrl.value || "").trim();
+  const caption = (photoCaption.value || "").trim();
+  const category = (photoCategory.value || "General").trim();
+
+  if(!url){
+    addMsg.textContent = "Photo URL required.";
+    return;
+  }
+
+  try{
+    addDo.disabled = true;
+    await addDoc(collection(db, "gallery"), {
+      url,
+      caption,
+      category,
+      createdAt: serverTimestamp()
+    });
+    photoUrl.value=""; photoCaption.value=""; photoCategory.value="General";
+    addMsg.textContent = "✅ Added.";
+    closeModal(addBackdrop, addModal);
+    await loadGallery();
+  }catch(e){
+    console.error(e);
+    addMsg.textContent = "❌ Add failed. Check Firestore rules / permissions.";
+  }finally{
+    addDo.disabled = false;
+  }
+}
+
+/* Gallery scroll */
+function scrollGallery(dx){
+  galleryGrid.scrollBy({ left: dx, behavior: "smooth" });
+  setTimeout(updateGalleryNavButtons, 220);
+}
+function updateGalleryNavButtons(){
+  const max = galleryGrid.scrollWidth - galleryGrid.clientWidth - 1;
+  gPrev.disabled = galleryGrid.scrollLeft <= 2;
+  gNext.disabled = galleryGrid.scrollLeft >= max;
+}
+
+/* ============ 7) Lightbox ============ */
+function openLightbox(idx){
+  if(!galleryData.length) return;
+  lightboxIndex = idx;
+  lbBackdrop.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  renderLightbox();
+}
+function closeLightbox(){
+  lbBackdrop.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+}
+function renderLightbox(){
+  const it = galleryData[lightboxIndex];
+  if(!it) return;
+  lbImg.src = it.url;
+  lbCap.textContent = it.caption || it.category || "";
+  lbPrev.disabled = (lightboxIndex <= 0);
+  lbNext.disabled = (lightboxIndex >= galleryData.length - 1);
+}
+function stepLightbox(dir){
+  const next = lightboxIndex + dir;
+  if(next < 0 || next >= galleryData.length) return;
+  lightboxIndex = next;
+  renderLightbox();
+}
+
+/* ============ 8) Auth ============ */
+function wireAuthUI(){
+  adminLoginOpen.addEventListener("click", ()=> openModal(adminBackdrop, adminModal));
+  adminModalClose.addEventListener("click", ()=> closeModal(adminBackdrop, adminModal));
+  adminCancel.addEventListener("click", ()=> closeModal(adminBackdrop, adminModal));
+  adminBackdrop.addEventListener("click", ()=> closeModal(adminBackdrop, adminModal));
+
+  addPhotoOpen.addEventListener("click", ()=> openModal(addBackdrop, addModal));
+  addModalClose.addEventListener("click", ()=> closeModal(addBackdrop, addModal));
+  addCancel.addEventListener("click", ()=> closeModal(addBackdrop, addModal));
+  addBackdrop.addEventListener("click", ()=> closeModal(addBackdrop, addModal));
+
+  adminLoginDo.addEventListener("click", async ()=>{
+    try{
+      adminMsg.textContent = "Signing in…";
+      await signInWithEmailAndPassword(auth, adminEmail.value.trim(), adminPass.value);
+      adminEmail.value=""; adminPass.value="";
+      closeModal(adminBackdrop, adminModal);
+      adminMsg.textContent = "Signed in.";
+    }catch(e){
+      console.error(e);
+      adminMsg.textContent = "Login failed. Check email/password.";
+    }
+  });
+
+  adminLogout.addEventListener("click", async ()=>{
+    await signOut(auth);
+  });
+}
+
+/* Ctrl+Shift+A: toggle adminMode (requires login) */
+document.addEventListener("keydown", (e)=>{
+  if(e.key.toLowerCase() === "a" && e.ctrlKey && e.shiftKey){
+    if(!currentUser){
+      showToast("Admin login required");
+      return;
+    }
+    adminMode = !adminMode;
+    document.body.classList.toggle("adminMode", adminMode);
+    aboutText.contentEditable = adminMode ? "true" : "false";
+    if(adminMode) aboutText.focus();
+    showToast(adminMode ? "Admin mode on" : "Admin mode off");
+  }
+});
+
+/* ============ 9) Wire non-module buttons ============ */
+rqSubmit.addEventListener("click", submitPartRequest);
+jcSubmit.addEventListener("click", submitJunkCar);
+
+saveAboutBtn.addEventListener("click", saveAbout);
+
+gPrev.addEventListener("click", ()=> scrollGallery(-420));
+gNext.addEventListener("click", ()=> scrollGallery(420));
+galleryGrid.addEventListener("scroll", ()=> requestAnimationFrame(updateGalleryNavButtons));
+
+tabs.forEach(t=>{
+  t.addEventListener("click", async ()=>{
+    tabs.forEach(x=>x.classList.remove("active"));
+    t.classList.add("active");
+    activeCat = t.dataset.cat || "All";
+    await loadGallery();
+  });
+});
+
+/* Lightbox events */
+lbClose.addEventListener("click", closeLightbox);
+lbBackdrop.addEventListener("click", (e)=>{
+  if(e.target === lbBackdrop) closeLightbox();
+});
+lbPrev.addEventListener("click", ()=> stepLightbox(-1));
+lbNext.addEventListener("click", ()=> stepLightbox(1));
+
+document.addEventListener("keydown", (e)=>{
+  if(lbBackdrop.getAttribute("aria-hidden") === "false"){
+    if(e.key === "Escape") closeLightbox();
+    if(e.key === "ArrowLeft") stepLightbox(-1);
+    if(e.key === "ArrowRight") stepLightbox(1);
+  }
+});
+
+/* ============ 10) Boot ============ */
+(async function boot(){
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const ok = await initFirebase();
+  wireAuthUI();
+
+  if(!ok) return;
+
+  onAuthStateChanged(auth, async (u)=>{
+    currentUser = u || null;
+    setAuthPill(!!currentUser);
+    await loadGallery();
+  });
+
+  await initMetrics();
+  await loadAbout();
+  await loadGallery();
+})();
+</script>
+
+<script>
+/* =========================================================
+   VIN Decoder (non-module so your existing onclick still works)
+   ========================================================= */
 const vinPanel = document.getElementById("vin-panel");
 const vinBackdrop = document.getElementById("vin-panel-backdrop");
 const vinInput = document.getElementById("vin");
@@ -1360,7 +2085,6 @@ const resultsEl = document.getElementById("results");
 const vehicleEl = document.getElementById("vehicle");
 const vinStatus = document.getElementById("vin-status");
 const vinStatusText = document.getElementById("vin-status-text");
-const toast = document.getElementById("toast");
 
 let vinBusy = false;
 let lastVinCache = { vin:"", d:null, ts:0 };
@@ -1369,7 +2093,6 @@ function setVinStatus(msg, type=""){
   vinStatusText.textContent = msg || "";
   vinStatus.className = type ? type : "";
 }
-
 function toggleVin(force){
   const isOpen = vinPanel.style.display === "block";
   const next = (force === undefined) ? !isOpen : !!force;
@@ -1378,11 +2101,9 @@ function toggleVin(force){
   document.body.style.overflow = next ? "hidden" : "";
   if(next) setTimeout(()=> vinInput.focus(), 60);
 }
-
 document.addEventListener("keydown", (e)=>{
   if(e.key === "Escape" && vinPanel.style.display === "block") toggleVin(false);
 });
-
 function cleanVIN(v){ return (v||"").toUpperCase().replace(/[^A-Z0-9]/g,""); }
 function validVIN(v){ return v.length === 17 && !/[IOQ]/.test(v); }
 
@@ -1393,7 +2114,6 @@ vinInput.addEventListener("input", ()=>{
   else if(c.length) setVinStatus("Enter 17 chars (no I/O/Q).", "warn");
   else setVinStatus("", "");
 });
-
 vinInput.addEventListener("keydown", (e)=>{
   if(e.key === "Enter"){ e.preventDefault(); decode(); }
 });
@@ -1411,30 +2131,14 @@ async function fetchDecode(v){
     return await r2.json();
   }
 }
-
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, (m)=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
-  }[m]));
-}
-
 function row(k, v){
   if(!v || v === "Not Applicable") return;
-  const safeK = escapeHtml(k);
-  const safeV = escapeHtml(v);
   resultsEl.insertAdjacentHTML("beforeend", `
-    <div class="row" data-copy="${safeV}">
-      <div class="k">${safeK}</div>
-      <div class="v">${safeV}</div>
+    <div class="row" data-copy="${escapeHtml(v)}">
+      <div class="k">${escapeHtml(k)}</div>
+      <div class="v">${escapeHtml(v)}</div>
     </div>
   `);
-}
-
-function showToast(msg){
-  toast.textContent = msg;
-  toast.style.display = "block";
-  clearTimeout(showToast._t);
-  showToast._t = setTimeout(()=> toast.style.display="none", 900);
 }
 
 document.addEventListener("click", async (e)=>{
@@ -1446,13 +2150,7 @@ document.addEventListener("click", async (e)=>{
     await navigator.clipboard.writeText(text);
     showToast("Copied");
   }catch{
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    ta.remove();
-    showToast("Copied");
+    showToast("Copy failed");
   }
 });
 
@@ -1515,616 +2213,36 @@ function renderVin(d, v){
 }
 
 function printSheet(){
-  const ps = document.getElementById("print-sheet");
-  ps.innerHTML = `
-    <div style="background:#fff;color:#000;padding:20px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
-      <img src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true" alt="Two Little Bees" style="height:60px">
-      <h2 style="margin:10px 0 6px">TWO LITTLE BEES AUTO PARTS</h2>
-      <p>(317) 243-7777 • Indianapolis</p>
-      <p style="margin-top:6px">507 S Tibbs Ave, Indianapolis, IN</p>
-      <hr style="margin:12px 0">
-      <div style="font-weight:900">${escapeHtml(vehicleEl.innerText)}</div>
-      <div>${resultsEl.innerHTML}</div>
-    </div>
-  `;
-  document.body.innerHTML = ps.outerHTML;
-  window.print();
-  location.reload();
+  const vinVal = cleanVIN(vinInput.value);
+  const title = vehicleEl.textContent || "Vehicle";
+  const rows = Array.from(resultsEl.querySelectorAll(".row")).map(r=>{
+    const k = r.querySelector(".k")?.textContent || "";
+    const v = r.querySelector(".v")?.textContent || "";
+    return `<tr><td>${escapeHtml(k)}</td><td>${escapeHtml(v)}</td></tr>`;
+  }).join("");
+
+  const w = window.open("", "_blank");
+  if(!w) return;
+
+  w.document.write(`
+    <!doctype html><html><head><meta charset="utf-8">
+    <title>VIN Sheet</title>
+    <style>
+      body{font-family:Arial,system-ui;padding:18px}
+      h1{font-size:18px;margin:0 0 8px}
+      .meta{color:#444;margin:0 0 14px}
+      table{width:100%;border-collapse:collapse}
+      td{border:1px solid #ddd;padding:8px;font-size:13px}
+      td:first-child{width:38%;font-weight:700;background:#f7f7f7}
+    </style></head><body>
+    <h1>Two Little Bees Auto Parts — VIN Decode Sheet</h1>
+    <div class="meta">${escapeHtml(title)} • VIN: ${escapeHtml(vinVal)}</div>
+    <table>${rows}</table>
+    <script>window.print();<\/script>
+    </body></html>
+  `);
+  w.document.close();
 }
-
-/* ✅ Local admin edit mode (localStorage only) */
-let admin = false;
-const editable = document.querySelectorAll(".admin-edit");
-editable.forEach(el=>{
-  el.contentEditable = "false";
-  el.removeAttribute("contenteditable");
-});
-function setAdminMode(state){
-  admin = !!state;
-  document.body.classList.toggle("adminMode", admin);
-  editable.forEach(el=>{
-    el.contentEditable = admin ? "true" : "false";
-    el.style.cursor = admin ? "text" : "default";
-    if(!admin) el.blur();
-  });
-  alert(admin ? "Admin Edit Mode ON" : "Admin Edit Mode OFF");
-}
-document.addEventListener("keydown", (e)=>{
-  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a"){
-    setAdminMode(!admin);
-  }
-});
-editable.forEach(el=>{
-  const saved = localStorage.getItem(el.id);
-  if(saved) el.innerHTML = saved;
-  el.addEventListener("blur", ()=>{
-    if(admin) localStorage.setItem(el.id, el.innerHTML);
-  });
-});
-</script>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-  import {
-    getFirestore, collection, addDoc, deleteDoc, doc,
-    serverTimestamp, query, orderBy, onSnapshot,
-    setDoc, getDoc, increment
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBbbBWg1x-RVuvfWfKBnOQPldMOWBLHXe8",
-    authDomain: "twolittlebeeshomepage.firebaseapp.com",
-    projectId: "twolittlebeeshomepage",
-    storageBucket: "twolittlebeeshomepage.firebasestorage.app",
-    messagingSenderId: "671040515864",
-    appId: "1:671040515864:web:15b5b12775bb950709786d",
-    measurementId: "G-362YBE5VQL"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  // ====== COUNTER (FIXED) ======
-  const pvNum = document.getElementById("pvNum");
-  const uvNum = document.getElementById("uvNum");
-  const metricsUpdated = document.getElementById("metricsUpdated");
-  const metricsRef = doc(db, "metrics", "site");
-
-  function getVisitorId(){
-    const KEY = "tlb_visitor_id";
-    let vid = localStorage.getItem(KEY);
-    if(!vid){
-      vid = (crypto?.randomUUID ? crypto.randomUUID() : ("v_" + Math.random().toString(36).slice(2)));
-      localStorage.setItem(KEY, vid);
-    }
-    return vid;
-  }
-
-  async function trackVisit(){
-    try{
-      const vid = getVisitorId();
-
-      // Always increment pageviews
-      await setDoc(metricsRef, { pageviews: increment(1), updatedAt: serverTimestamp() }, { merge:true });
-
-      // Unique visitors: only once per device/browser
-      const visitorRef = doc(db, "visitors", vid);
-      const exists = await getDoc(visitorRef);
-      if(!exists.exists()){
-        await setDoc(visitorRef, { createdAt: serverTimestamp() }, { merge:true });
-        await setDoc(metricsRef, { uniqueVisitors: increment(1), updatedAt: serverTimestamp() }, { merge:true });
-      }
-    }catch(e){
-      console.warn("Visit tracking failed:", e);
-    }
-  }
-
-  // Listen and display stats (real-time)
-  onSnapshot(metricsRef, (snap)=>{
-    const d = snap.data() || {};
-    pvNum.textContent = (d.pageviews ?? 0).toLocaleString();
-    uvNum.textContent = (d.uniqueVisitors ?? 0).toLocaleString();
-    metricsUpdated.textContent = d.updatedAt?.toDate ? ("Updated: " + d.updatedAt.toDate().toLocaleString()) : "Live";
-  }, ()=>{
-    metricsUpdated.textContent = "Stats unavailable";
-  });
-
-  // Run counter once per page load
-  trackVisit();
-
-  // ====== Your existing stuff below ======
-  const galleryGrid = document.getElementById("galleryGrid");
-  const galleryLoading = document.getElementById("galleryLoading");
-  const gPrev = document.getElementById("gPrev");
-  const gNext = document.getElementById("gNext");
-
-  const adminLoginOpen = document.getElementById("adminLoginOpen");
-  const adminLogout = document.getElementById("adminLogout");
-  const addPhotoOpen = document.getElementById("addPhotoOpen");
-
-  const authPill = document.getElementById("authPill");
-  const authText = document.getElementById("authText");
-  const galleryHint = document.getElementById("galleryHint");
-
-  const adminModalBackdrop = document.getElementById("adminModalBackdrop");
-  const adminModal = document.getElementById("adminModal");
-  const adminModalClose = document.getElementById("adminModalClose");
-  const adminCancel = document.getElementById("adminCancel");
-  const adminLoginDo = document.getElementById("adminLoginDo");
-  const adminEmail = document.getElementById("adminEmail");
-  const adminPass = document.getElementById("adminPass");
-  const adminMsg = document.getElementById("adminMsg");
-
-  const addModalBackdrop = document.getElementById("addModalBackdrop");
-  const addModal = document.getElementById("addModal");
-  const addModalClose = document.getElementById("addModalClose");
-  const addCancel = document.getElementById("addCancel");
-  const addDo = document.getElementById("addDo");
-  const photoUrl = document.getElementById("photoUrl");
-  const photoCaption = document.getElementById("photoCaption");
-  const photoCategory = document.getElementById("photoCategory");
-  const addMsg = document.getElementById("addMsg");
-
-  const rqSubmit = document.getElementById("rqSubmit");
-  const rqStatus = document.getElementById("rqStatus");
-  const jcSubmit = document.getElementById("jcSubmit");
-  const jcStatus = document.getElementById("jcStatus");
-
-  const NOTIFY_EMAIL = "josueblas971@gmail.com";
-
-  const galleryCol = collection(db, "gallery");
-  const leadsCol = collection(db, "leads");
-  const junkCol = collection(db, "junkLeads");
-
-  function show(el, on){ el.style.display = on ? "block" : "none"; }
-  function lockScroll(on){ document.body.style.overflow = on ? "hidden" : ""; }
-
-  function openLoginModal(){
-    show(adminModalBackdrop,true);
-    show(adminModal,true);
-    adminMsg.textContent = "Sign in with your Firebase user (Authentication → Users).";
-    setTimeout(()=> adminEmail.focus(), 50);
-    lockScroll(true);
-  }
-  function closeLoginModal(){
-    show(adminModalBackdrop,false);
-    show(adminModal,false);
-    lockScroll(false);
-  }
-
-  function openAddModal(){
-    show(addModalBackdrop,true);
-    show(addModal,true);
-    addMsg.textContent = "Paste a public direct image URL (jpg/png/webp).";
-    setTimeout(()=> photoUrl.focus(), 50);
-    lockScroll(true);
-  }
-  function closeAddModal(){
-    show(addModalBackdrop,false);
-    show(addModal,false);
-    lockScroll(false);
-  }
-
-  adminLoginOpen.addEventListener("click", openLoginModal);
-  adminModalClose.addEventListener("click", closeLoginModal);
-  adminCancel.addEventListener("click", closeLoginModal);
-  adminModalBackdrop.addEventListener("click", closeLoginModal);
-
-  addPhotoOpen.addEventListener("click", openAddModal);
-  addModalClose.addEventListener("click", closeAddModal);
-  addCancel.addEventListener("click", closeAddModal);
-  addModalBackdrop.addEventListener("click", closeAddModal);
-
-  document.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape"){
-      if(adminModal.style.display === "block") closeLoginModal();
-      if(addModal.style.display === "block") closeAddModal();
-    }
-  });
-
-  async function doLogin(){
-    const email = (adminEmail.value || "").trim();
-    const pass = adminPass.value || "";
-    if(!email || !pass){
-      adminMsg.textContent = "Enter email and password.";
-      return;
-    }
-    adminLoginDo.disabled = true;
-    adminMsg.textContent = "Signing in…";
-    try{
-      await signInWithEmailAndPassword(auth, email, pass);
-      closeLoginModal();
-    }catch(e){
-      adminMsg.textContent = "Login failed: " + (e?.code || "") + " " + (e?.message || e);
-      console.error(e);
-    }finally{
-      adminLoginDo.disabled = false;
-    }
-  }
-  adminLoginDo.addEventListener("click", doLogin);
-  adminPass.addEventListener("keydown", (e)=>{ if(e.key === "Enter") doLogin(); });
-
-  adminLogout.addEventListener("click", async ()=>{
-    try{ await signOut(auth); }catch(e){ console.error(e); }
-  });
-
-  function normalizeImgUrl(url){
-    const u = (url || "").trim();
-    if(!u) return "";
-    try{
-      const parsed = new URL(u);
-      return parsed.toString();
-    }catch{
-      return "";
-    }
-  }
-
-  async function addPhoto(){
-    const url = normalizeImgUrl(photoUrl.value);
-    const caption = (photoCaption.value || "").trim();
-    const category = (photoCategory.value || "General").trim();
-    if(!url){
-      addMsg.textContent = "Paste a valid URL first.";
-      return;
-    }
-    addDo.disabled = true;
-    addMsg.textContent = "Adding…";
-    try{
-      await addDoc(galleryCol, { url, caption, category, createdAt: serverTimestamp() });
-      photoUrl.value = "";
-      photoCaption.value = "";
-      photoCategory.value = "General";
-      closeAddModal();
-    }catch(e){
-      addMsg.textContent = "Add failed: " + (e?.code || "") + " " + (e?.message || e);
-      console.error(e);
-    }finally{
-      addDo.disabled = false;
-    }
-  }
-  addDo.addEventListener("click", addPhoto);
-
-  function updateArrows(){
-    const max = galleryGrid.scrollWidth - galleryGrid.clientWidth;
-    if(max <= 2){ gPrev.disabled = true; gNext.disabled = true; return; }
-    gPrev.disabled = galleryGrid.scrollLeft <= 2;
-    gNext.disabled = galleryGrid.scrollLeft >= (max - 2);
-  }
-  function scrollByCard(dir){
-    const card = galleryGrid.querySelector(".galleryItem");
-    const step = (card ? card.getBoundingClientRect().width : 240) + 14;
-    galleryGrid.scrollBy({ left: dir * step, behavior: "smooth" });
-  }
-  gPrev.addEventListener("click", ()=> scrollByCard(-1));
-  gNext.addEventListener("click", ()=> scrollByCard(1));
-  galleryGrid.addEventListener("scroll", ()=> requestAnimationFrame(updateArrows));
-
-  // Lightbox
-  const lbBackdrop = document.getElementById("lightboxBackdrop");
-  const lbImg = document.getElementById("lbImg");
-  const lbCap = document.getElementById("lbCap");
-  const lbClose = document.getElementById("lbClose");
-  const lbPrev = document.getElementById("lbPrev");
-  const lbNext = document.getElementById("lbNext");
-
-  let lbItems = [];
-  let lbIndex = 0;
-
-  function openLightbox(index){
-    if(!lbItems.length) return;
-    lbIndex = Math.max(0, Math.min(index, lbItems.length - 1));
-    renderLightbox();
-    lbBackdrop.style.display = "block";
-    lockScroll(true);
-    lbBackdrop.setAttribute("aria-hidden","false");
-  }
-  function closeLightbox(){
-    lbBackdrop.style.display = "none";
-    lockScroll(false);
-    lbBackdrop.setAttribute("aria-hidden","true");
-  }
-  function renderLightbox(){
-    const item = lbItems[lbIndex];
-    lbImg.src = item?.url || "";
-    lbCap.textContent = item?.caption || "";
-    const disabled = (lbItems.length <= 1);
-    lbPrev.disabled = disabled;
-    lbNext.disabled = disabled;
-  }
-  function prevLightbox(){
-    if(lbItems.length <= 1) return;
-    lbIndex = (lbIndex - 1 + lbItems.length) % lbItems.length;
-    renderLightbox();
-  }
-  function nextLightbox(){
-    if(lbItems.length <= 1) return;
-    lbIndex = (lbIndex + 1) % lbItems.length;
-    renderLightbox();
-  }
-
-  lbClose.addEventListener("click", closeLightbox);
-  lbPrev.addEventListener("click", prevLightbox);
-  lbNext.addEventListener("click", nextLightbox);
-  lbBackdrop.addEventListener("click", (e)=>{ if(e.target === lbBackdrop) closeLightbox(); });
-  document.addEventListener("keydown", (e)=>{
-    if(lbBackdrop.style.display !== "block") return;
-    if(e.key === "Escape") closeLightbox();
-    if(e.key === "ArrowLeft") prevLightbox();
-    if(e.key === "ArrowRight") nextLightbox();
-  });
-
-  // Category filter
-  const tabs = Array.from(document.querySelectorAll("#galleryTabs .tab"));
-  let activeCat = "All";
-  function setActiveTab(cat){
-    activeCat = cat;
-    tabs.forEach(t=> t.classList.toggle("active", t.dataset.cat === cat));
-    renderGallery();
-  }
-  tabs.forEach(t=> t.addEventListener("click", ()=> setActiveTab(t.dataset.cat || "All")));
-
-  let snapItems = [];
-  let currentUser = null;
-
-  function addImgCard(data, isAdmin, index){
-    const wrap = document.createElement("div");
-    wrap.className = "galleryItem" + (isAdmin ? " admin" : "");
-    wrap.style.padding = "0";
-
-    const img = document.createElement("img");
-    img.src = data.url;
-    img.alt = data.caption || "Gallery photo";
-    img.loading = "lazy";
-    wrap.appendChild(img);
-
-    wrap.addEventListener("click", (e)=>{
-      const clickedDelete = e.target.closest(".del");
-      if(clickedDelete) return;
-      openLightbox(index);
-    });
-
-    const capText = (data.caption || "").trim();
-    const catText = (data.category || "General").trim();
-
-    if(capText || catText){
-      const cap = document.createElement("div");
-      cap.className = "cap";
-      cap.textContent = capText ? capText : catText;
-      wrap.appendChild(cap);
-    }
-
-    if(isAdmin && data.id){
-      const del = document.createElement("button");
-      del.className = "del";
-      del.type = "button";
-      del.textContent = "Delete";
-      del.addEventListener("click", async (e)=>{
-        e.stopPropagation();
-        if(!confirm("Delete this photo from Firestore?")) return;
-        try{ await deleteDoc(doc(db, "gallery", data.id)); }
-        catch(err){ alert("Delete failed: " + (err?.message || err)); }
-      });
-      wrap.appendChild(del);
-    }
-
-    galleryGrid.appendChild(wrap);
-  }
-
-  function renderGallery(){
-    const isAdmin = !!currentUser;
-    const normalized = snapItems.map(x=>({
-      ...x,
-      category: (x.category || "General").trim() || "General"
-    }));
-
-    const filtered = (activeCat === "All")
-      ? normalized
-      : normalized.filter(x => (x.category || "General") === activeCat);
-
-    lbItems = filtered.map(x=>({ url:x.url, caption: (x.caption || x.category || "").trim() }));
-
-    galleryGrid.innerHTML = "";
-
-    if(!filtered.length){
-      const d = document.createElement("div");
-      d.className = "galleryItem";
-      d.textContent = "No photos in this category yet.";
-      galleryGrid.appendChild(d);
-      requestAnimationFrame(updateArrows);
-      return;
-    }
-
-    filtered.forEach((item, idx)=> addImgCard(item, isAdmin, idx));
-    requestAnimationFrame(updateArrows);
-  }
-
-  const q = query(galleryCol, orderBy("createdAt", "desc"));
-
-  onSnapshot(q, (snap)=>{
-    snapItems = snap.docs.map(d=> ({ id:d.id, ...d.data() })).filter(x=>x?.url);
-    renderGallery();
-  }, (err)=>{
-    console.error(err);
-    galleryGrid.innerHTML = "";
-    const d = document.createElement("div");
-    d.className = "galleryItem";
-    d.textContent = "Gallery not loaded (check Firestore rules).";
-    galleryGrid.appendChild(d);
-    requestAnimationFrame(updateArrows);
-  });
-
-  onAuthStateChanged(auth, (user)=>{
-    currentUser = user || null;
-    const signedIn = !!user;
-
-    adminLoginOpen.style.display = signedIn ? "none" : "inline-flex";
-    adminLogout.style.display = signedIn ? "inline-flex" : "none";
-    addPhotoOpen.style.display = signedIn ? "inline-flex" : "none";
-
-    authPill.classList.toggle("ok", signedIn);
-    authPill.classList.toggle("bad", !signedIn);
-    authText.textContent = signedIn ? `Signed in: ${user.email || "admin"}` : "Not signed in";
-    galleryHint.textContent = signedIn ? "Admin can add/delete" : "Public view";
-
-    renderGallery();
-    requestAnimationFrame(updateArrows);
-  });
-
-  if(galleryLoading) galleryLoading.remove();
-  requestAnimationFrame(updateArrows);
-
-  // ===== Email extension helper fields
-  function buildEmailTextParts(payload){
-    return [
-      "NEW PART REQUEST",
-      "----------------",
-      `Name: ${payload.name || "-"}`,
-      `Phone: ${payload.phone || "-"}`,
-      `Vehicle: ${payload.year || "-"} ${payload.makeModel || "-"}`.trim(),
-      `Part: ${payload.part || "-"}`,
-      `VIN: ${payload.vin || "-"}`,
-      `Photo link: ${payload.photoUrl || "-"}`,
-      "",
-      `Notes: ${payload.notes || "-"}`,
-      "",
-      "Source: Website",
-      `Time: ${new Date().toLocaleString()}`
-    ].join("\n");
-  }
-
-  function buildEmailTextJunk(payload){
-    return [
-      "NEW JUNK CAR LEAD",
-      "-----------------",
-      `Name: ${payload.name || "-"}`,
-      `Phone: ${payload.phone || "-"}`,
-      `Pickup location: ${payload.location || "-"}`,
-      `Vehicle: ${payload.vehicle || "-"}`,
-      `Runs: ${payload.runs || "-"}`,
-      `Title: ${payload.title || "-"}`,
-      "",
-      `Notes: ${payload.notes || "-"}`,
-      "",
-      "Source: Website",
-      `Time: ${new Date().toLocaleString()}`
-    ].join("\n");
-  }
-
-  function setNotice(el, msg, type){
-    if(!el) return;
-    el.textContent = msg;
-    el.className = "notice " + (type || "");
-    el.style.display = "block";
-  }
-
-  function cleanPhone(p){ return String(p||"").replace(/[^\d]/g,"").slice(0, 15); }
-  function cleanVin(v){ return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0, 17); }
-  function safeTrim(s, max){
-    const t = String(s||"").trim();
-    return t.length > max ? t.slice(0,max) : t;
-  }
-
-  // ===== Leads: Request a Part
-  async function submitRequest(){
-    const payload = {
-      type: "parts_request",
-      name: safeTrim(document.getElementById("rqName").value, 80),
-      phone: cleanPhone(document.getElementById("rqPhone").value),
-      year: safeTrim(document.getElementById("rqYear").value, 10),
-      makeModel: safeTrim(document.getElementById("rqMakeModel").value, 80),
-      part: safeTrim(document.getElementById("rqPart").value, 80),
-      vin: cleanVin(document.getElementById("rqVin").value),
-      notes: safeTrim(document.getElementById("rqNotes").value, 800),
-      photoUrl: normalizeImgUrl(document.getElementById("rqPhotoUrl").value) || "",
-      createdAt: serverTimestamp(),
-      source: "website"
-    };
-
-    if(!payload.phone || (!payload.part && !(payload.year || payload.makeModel || payload.vin))){
-      setNotice(rqStatus, "Please enter a phone number and at least a part or vehicle details.", "bad");
-      return;
-    }
-
-    rqSubmit.disabled = true;
-    setNotice(rqStatus, "Sending…", "");
-
-    try{
-      await addDoc(leadsCol, {
-        ...payload,
-        to: NOTIFY_EMAIL,
-        subject: `New Part Request — ${payload.part || "Part"} — ${payload.phone || "No phone"}`,
-        text: buildEmailTextParts(payload)
-      });
-
-      setNotice(rqStatus, "✅ Sent! We’ll call you soon.", "ok");
-
-      document.getElementById("rqName").value = "";
-      document.getElementById("rqPhone").value = "";
-      document.getElementById("rqYear").value = "";
-      document.getElementById("rqMakeModel").value = "";
-      document.getElementById("rqPart").value = "";
-      document.getElementById("rqVin").value = "";
-      document.getElementById("rqNotes").value = "";
-      document.getElementById("rqPhotoUrl").value = "";
-    }catch(e){
-      console.error(e);
-      setNotice(rqStatus, "❌ Failed to send. Please try again or call us.", "bad");
-    }finally{
-      rqSubmit.disabled = false;
-    }
-  }
-  if(rqSubmit) rqSubmit.addEventListener("click", submitRequest);
-
-  // ===== Leads: Cash for Junk Cars
-  async function submitJunk(){
-    const payload = {
-      type: "junk_car",
-      name: safeTrim(document.getElementById("jcName").value, 80),
-      phone: cleanPhone(document.getElementById("jcPhone").value),
-      location: safeTrim(document.getElementById("jcLocation").value, 120),
-      vehicle: safeTrim(document.getElementById("jcVehicle").value, 120),
-      runs: safeTrim(document.getElementById("jcRuns").value, 20),
-      title: safeTrim(document.getElementById("jcTitle").value, 20),
-      notes: safeTrim(document.getElementById("jcNotes").value, 800),
-      createdAt: serverTimestamp(),
-      source: "website"
-    };
-
-    if(!payload.phone || !payload.vehicle || !payload.location){
-      setNotice(jcStatus, "Please enter phone + pickup location + vehicle info.", "bad");
-      return;
-    }
-
-    jcSubmit.disabled = true;
-    setNotice(jcStatus, "Sending…", "");
-
-    try{
-      await addDoc(junkCol, {
-        ...payload,
-        to: NOTIFY_EMAIL,
-        subject: `New Junk Car Lead — ${payload.vehicle || "Vehicle"} — ${payload.phone || "No phone"}`,
-        text: buildEmailTextJunk(payload)
-      });
-
-      setNotice(jcStatus, "✅ Sent! We’ll call you with an offer.", "ok");
-
-      document.getElementById("jcName").value = "";
-      document.getElementById("jcPhone").value = "";
-      document.getElementById("jcLocation").value = "";
-      document.getElementById("jcVehicle").value = "";
-      document.getElementById("jcRuns").value = "";
-      document.getElementById("jcTitle").value = "";
-      document.getElementById("jcNotes").value = "";
-    }catch(e){
-      console.error(e);
-      setNotice(jcStatus, "❌ Failed to send. Please try again or call us.", "bad");
-    }finally{
-      jcSubmit.disabled = false;
-    }
-  }
-  if(jcSubmit) jcSubmit.addEventListener("click", submitJunk);
 </script>
 
 </body>
