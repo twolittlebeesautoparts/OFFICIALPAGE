@@ -838,6 +838,41 @@ nav a[href="parts.html"],
 .legalBody ul{margin:8px 0 0 18px}
 .legalBody li{margin:6px 0}
 .legalStamp{margin-top:10px;color:var(--muted);font-weight:700;font-size:.9rem}
+
+
+/* ===== Gallery Frame Fix (real selectors) ===== */
+.galleryWrap{
+  position:relative;
+  margin-top:12px;
+  overflow:hidden;               /* keeps cards inside the frame */
+  border-radius:26px;            /* match card rounding vibe */
+}
+
+#galleryGrid{
+  display:flex;
+  gap:14px;
+  padding:10px 6px 14px;
+
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+
+  overflow-x:auto;               /* enables side scrolling */
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+
+  padding-left:58px;             /* space so first card isn't under left arrow */
+  padding-right:58px;            /* space so last card isn't under right arrow */
+}
+
+#galleryGrid::-webkit-scrollbar{height:8px}
+#galleryGrid::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.14);
+  border-radius:999px;
+}
+
 </style>
 
 <!-- LocalBusiness Structured Data -->
