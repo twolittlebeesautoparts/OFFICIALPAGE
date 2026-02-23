@@ -113,11 +113,16 @@ header{
 
 /* Nav pills */
 nav{
-  display:flex;align-items:center;gap:8px;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  /* Fix "chopped" pills: allow wrapping and avoid clipping */
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  max-width:100%;
+  overflow:visible;
 }
-nav::-webkit-scrollbar{display:none}
 nav a{
   text-decoration:none;
   font-weight:650;
@@ -129,6 +134,9 @@ nav a{
   border:1px solid rgba(255,255,255,.10);
   transition: transform .12s ease, background .12s ease, border-color .12s ease, filter .12s ease;
   white-space:nowrap;
+
+  display:inline-flex;align-items:center;justify-content:center;
+  line-height:1;min-height:40px;
 }
 nav a:hover{
   background:rgba(255,255,255,.07);
@@ -429,13 +437,10 @@ textarea{min-height:120px;resize:vertical}
 .galleryWrap{position:relative;margin-top:12px}
 #galleryGrid{
   display:flex;gap:14px;
-  overflow-x:auto;
   padding:10px 6px 14px;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-}
+  -webkit-overflow-scrolling:touch;}
 #galleryGrid::-webkit-scrollbar{display:none}
 .galleryItem{
   flex:0 0 auto;
@@ -873,7 +878,8 @@ nav a[href="parts.html"],
 
     <nav>
       <a href="#top">Home</a>
-      <a class="cta" href="https://www.car-part.com/" target="_blank" rel="noopener">car-part.com</a>
+      <a class="cta" href="http://search3784.used-auto-parts.biz/inventory/retail.htm" target="_blank" rel="noopener">🔎 Search Inventory</a>
+      <a href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Our Inventory</a>
       <a href="#request">Request a Part</a>
       <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" class="vin-btn" onclick="toggleVin()">VIN</a>
@@ -898,7 +904,8 @@ nav a[href="parts.html"],
         <p>Live inventory tied to real vehicles. Call or request a quote — we verify fitment, move fast, and keep it simple.</p>
 
         <div class="btnRow">
-          <a class="btn primary" href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Inventory</a>
+          <a class="btn primary" href="http://search3784.used-auto-parts.biz/inventory/retail.htm" target="_blank" rel="noopener">🔎 Search Inventory</a>
+          <a class="btn secondary" href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Browse Our Inventory</a>
           <a class="btn secondary" href="#request">💬 Request a Part</a>
           <a class="btn secondary" href="tel:3172437777">📞 Call (317) 243-7777</a>
           <a class="btn secondary" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Get Directions</a>
@@ -1339,7 +1346,9 @@ nav a[href="parts.html"],
 
     <div class="footerLinks">
       <a href="https://twobeesparts.com" target="_blank" rel="noopener">TwoBeesParts.com</a>
-      <a href="https://www.car-part.com/" target="_blank" rel="noopener">car-part.com</a>
+      <a href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Our Inventory</a>
+      <a href="http://search3784.used-auto-parts.biz/inventory/retail.htm" target="_blank" rel="noopener">Search Inventory (Car-Part)</a>
+      <a href="https://www.car-part.com/" target="_blank" rel="noopener">Car-Part.com</a>
       <a href="#request">Request a Part</a>
       <a href="#junkcars">Cash for Junk Cars</a>
       <a href="javascript:void(0)" onclick="toggleVin()">VIN Decoder</a>
