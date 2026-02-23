@@ -3,966 +3,526 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Two Little Bees Auto Parts | VIN-Verified OEM Used Parts | Indianapolis</title>
-
-<!-- Ownership / Rights -->
-<meta name="author" content="Latin Noise LLC">
-<meta name="copyright" content="© 2026 Latin Noise LLC. All Rights Reserved. Licensed for use by Two Little Bees Auto Parts.">
+<title>Two Little Bees – Inventory</title>
 
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0b0f14">
-<meta name="description" content="Two Little Bees Auto Parts in Indianapolis — VIN-verified OEM used parts. Engines, transmissions, modules, body parts, wheels, and more. Fast counter support.">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">
+<meta name="description" content="Two Little Bees Auto Parts inventory — VIN-verified OEM used parts in Indianapolis.">
 
-<!-- Open Graph / Social Preview -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Two Little Bees Auto Parts — VIN-Verified OEM Used Parts">
-<meta property="og:description" content="Indianapolis OEM used parts. Engines, transmissions, modules, body parts, wheels & more. Request a part, decode VIN, or get directions.">
-<meta property="og:url" content="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">
-<meta property="og:image" content="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Two Little Bees Auto Parts — VIN-Verified OEM Used Parts">
-<meta name="twitter:description" content="Indianapolis OEM used parts. Request a part, decode VIN, or call now.">
-<meta name="twitter:image" content="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
-
-<link rel="preconnect" href="https://vpic.nhtsa.dot.gov">
-<link rel="preconnect" href="https://www.gstatic.com">
-<link rel="preconnect" href="https://identitytoolkit.googleapis.com">
-<link rel="preconnect" href="https://github.com">
-<link rel="preload" as="image" href="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true">
+<!-- Firebase (COMPAT SDK for single-file HTML) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <style>
 :root{
+  /* Apple-ish dark glass */
   --bg:#000000;
-  --bg2:#050608;
-  --text:#f5f5f7;
-  --muted:rgba(245,245,247,.72);
-
-  --glass:rgba(18,18,20,.62);
-  --glass2:rgba(28,28,30,.55);
-  --line:rgba(255,255,255,.10);
-  --line2:rgba(255,255,255,.14);
+  --bg2:#000000;
+  --panel:rgba(16, 20, 30, .62);
+  --panel2:rgba(16, 20, 30, .40);
+  --stroke:rgba(255,255,255,.10);
+  --stroke2:rgba(255,255,255,.14);
+  --text:#f5f7fb;
+  --muted:rgba(245,247,251,.68);
+  --muted2:rgba(245,247,251,.52);
 
   --accent:#f4c430;
   --accent2:#ffb703;
 
-  --r-xl:28px;
-  --r-lg:22px;
-  --r-md:16px;
+  --ok:#34c759;
+  --warn:#ff9f0a;
+  --danger:#ff453a;
 
-  --shadow: 0 18px 60px rgba(0,0,0,.55);
-  --shadow2: 0 10px 30px rgba(0,0,0,.38);
+  --r:20px;
+  --r2:14px;
 
-  --ring: 0 0 0 4px rgba(244,196,48,.18);
+  --shadow:0 16px 55px rgba(0,0,0,.55);
+  --shadow2:0 26px 80px rgba(0,0,0,.62);
+
+  --blur:14px;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
 html,body{width:100%;max-width:100%;overflow-x:hidden}
-html{scroll-behavior:smooth}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto}
+::selection{background:rgba(244,196,48,.20)}
 
 body{
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color:var(--text);
   background:
-    radial-gradient(1200px 650px at 10% -20%, rgba(244,196,48,.16), transparent 55%),
-    radial-gradient(900px 520px at 90% 0%, rgba(255,183,3,.10), transparent 55%),
-    radial-gradient(900px 520px at 40% 120%, rgba(244,196,48,.08), transparent 55%),
-    linear-gradient(180deg, rgba(255,255,255,.04), transparent 24%),
-    linear-gradient(180deg, var(--bg2), var(--bg));
+    radial-gradient(900px 650px at 15% -10%, rgba(244,196,48,.14), transparent 60%),
+    radial-gradient(900px 650px at 90% 0%, rgba(255,183,3,.10), transparent 60%),
+    radial-gradient(900px 650px at 50% 115%, rgba(255,255,255,.04), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.03), transparent 18%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
   padding-left:env(safe-area-inset-left);
   padding-right:env(safe-area-inset-right);
-  padding-top:env(safe-area-inset-top);
-  padding-bottom:calc(env(safe-area-inset-bottom) + 86px);
+  padding-bottom:calc(env(safe-area-inset-bottom) + 18px);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  letter-spacing:-.15px;
 }
 
-a,button{-webkit-tap-highlight-color:transparent}
-button{font-family:inherit}
-:focus-visible{outline:none;box-shadow:var(--ring);border-radius:16px}
+/* Reduce motion */
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto !important; transition:none !important; animation:none !important;}
+}
 
-/* ===== Header ===== */
+/* Glass helpers */
+.glass{
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)), var(--panel);
+  border:1px solid var(--stroke2);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .glass{
+    -webkit-backdrop-filter: blur(var(--blur));
+    backdrop-filter: blur(var(--blur));
+  }
+}
+@media(max-width:700px){
+  /* blur is heavy on phones */
+  .glass{ -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+}
+
+/* Header */
 header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(10,10,12,.58);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  position:sticky; top:0; z-index:100;
+  background:rgba(6,7,10,.70);
   border-bottom:1px solid rgba(255,255,255,.08);
 }
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  header{-webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);}
+}
+@media(max-width:700px){
+  header{-webkit-backdrop-filter:none !important; backdrop-filter:none !important;}
+}
+
 .header-inner{
-  max-width:1200px;margin:0 auto;
-  padding:14px 16px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  max-width:1200px; margin:auto;
+  padding:12px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; flex-wrap:wrap;
 }
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.logoMark{
-  height:54px;
-  width:min(560px, 42vw);
-  display:flex;align-items:center;justify-content:flex-start;
-}
-.logoMark img{
-  max-height:200%;
-  max-width:100%;
-  width:auto;height:auto;
-  display:block;
+
+.brand{display:flex; align-items:center; gap:12px; min-width:240px;}
+.logo{
+  width:58px; height:58px;
   object-fit:contain;
-  filter: drop-shadow(0 14px 28px rgba(0,0,0,.35));
+  cursor:pointer;
+  filter:drop-shadow(0 12px 22px rgba(0,0,0,.50));
+}
+.titleWrap h2{
+  font-size:1.15rem; font-weight:900; letter-spacing:.2px;
+}
+.titleWrap .sub{
+  margin-top:2px; font-size:.86rem; color:var(--muted);
 }
 
-/* Nav pills */
-nav{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.header-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
 
-  /* Fix "chopped" pills: allow wrapping and avoid clipping */
-  flex-wrap:wrap;
-  justify-content:flex-end;
-  max-width:100%;
-  overflow:visible;
-}
-nav a{
-  text-decoration:none;
-  font-weight:650;
-  font-size:.92rem;
-  color:rgba(245,245,247,.88);
-  padding:10px 14px;
+.pill{
+  padding:9px 12px;
   border-radius:999px;
+  border:1px solid var(--stroke);
   background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.10);
-  transition: transform .12s ease, background .12s ease, border-color .12s ease, filter .12s ease;
-  white-space:nowrap;
-
-  display:inline-flex;align-items:center;justify-content:center;
-  line-height:1;min-height:40px;
+  font-weight:850;
+  color:var(--text);
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
 }
-nav a:hover{
-  background:rgba(255,255,255,.07);
-  border-color:rgba(255,255,255,.16);
-  transform: translateY(-1px);
-}
-nav a:active{transform:translateY(0) scale(.99)}
-nav a.cta{
-  color:#0b0f14;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+.pill.primary{
   border:none;
-  box-shadow:0 16px 40px rgba(244,196,48,.18);
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#000;
 }
-nav a.vin-btn{
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.10);
+.pill:active{transform:scale(.99)}
+
+/* Main */
+main{max-width:1200px; margin:auto; padding:22px 16px 42px;}
+
+/* Cards */
+.card{padding:18px; margin-bottom:18px;}
+.cardHead{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:12px; flex-wrap:wrap;
 }
+.card h3{font-size:1.05rem; font-weight:900;}
+.mini{font-size:.85rem; font-weight:800; color:var(--muted);}
 
-/* ===== Layout ===== */
-.container{max-width:1200px;margin:0 auto;padding:0 16px}
-.section{padding:44px 0}
+.sep{border:none; height:1px; background:rgba(255,255,255,.10); margin:14px 0;}
 
-/* HERO */
-.hero{
-  padding:70px 0 36px;
+.grid{
   display:grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap:22px;
-  align-items:start;
-}
-.hero h1{
-  font-weight:780;
-  font-size:clamp(2.25rem, 4.9vw, 3.6rem);
-  line-height:1.02;
-  letter-spacing:-1.2px;
-}
-.hero p{
-  margin-top:16px;
-  color:var(--muted);
-  max-width:62ch;
-  line-height:1.6;
-  font-size:1.04rem;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
 }
 
-/* badges */
-.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-.badge{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.10);
-  font-weight:650;
-  color:rgba(245,245,247,.92);
+input,button,select,textarea{
+  background:rgba(12,14,20,.78);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.14);
+  padding:12px;
+  border-radius:var(--r2);
+  outline:none;
 }
-.badge .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--accent);
+textarea{min-height:44px; resize:vertical}
+input::placeholder, textarea::placeholder{color:rgba(245,247,251,.45)}
+
+input:focus,select:focus,textarea:focus{
+  border-color:rgba(244,196,48,.65);
   box-shadow:0 0 0 4px rgba(244,196,48,.14);
 }
 
-/* Buttons */
-.btnRow{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  padding:14px 16px;
-  border-radius:999px;
-  font-weight:680;
-  text-decoration:none;
-  user-select:none;
-  transition: transform .12s ease, filter .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
-  cursor:pointer;
+button{cursor:pointer; font-weight:900;}
+button[disabled]{opacity:.6; cursor:not-allowed;}
+button.primary{border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#000;}
+button.ghost{background:rgba(255,255,255,.06);}
+button.danger{border:none; background:var(--danger); color:#000;}
+
+.note{
+  margin-top:10px;
+  font-size:12px;
+  min-height:18px;
+  color:var(--muted);
+  display:flex; align-items:center; gap:8px;
 }
-.btn:active{transform:scale(.99)}
-.btn.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#0b0f14;border:none;
-  box-shadow:0 18px 52px rgba(244,196,48,.16);
+.note .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);box-shadow:0 0 0 3px rgba(255,255,255,.06);}
+.note.ok{color:var(--ok)} .note.ok .dot{background:var(--ok);box-shadow:0 0 0 3px rgba(52,199,89,.18)}
+.note.bad{color:var(--danger)} .note.bad .dot{background:var(--danger);box-shadow:0 0 0 3px rgba(255,69,58,.18)}
+.note.warn{color:var(--warn)} .note.warn .dot{background:var(--warn);box-shadow:0 0 0 3px rgba(255,159,10,.18)}
+
+/* Toolbar */
+.toolbar{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px;
 }
-.btn.secondary{
+.toolbar .searchWrap{flex:1 1 320px; position:relative;}
+.searchWrap input{width:100%; padding-left:40px;}
+.searchIcon{
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  width:18px; height:18px; opacity:.75;
+}
+.chips{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+.chip{
+  border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.05);
   color:var(--text);
-  border:1px solid rgba(255,255,255,.10);
-}
-.btn.secondary:hover{
-  background:rgba(255,255,255,.07);
-  border-color:rgba(255,255,255,.16);
-  box-shadow:0 12px 34px rgba(0,0,0,.30);
-}
-
-/* Cards */
-.card{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
-    rgba(20,20,22,.55);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:var(--r-xl);
-  box-shadow:var(--shadow2);
-  padding:20px;
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-}
-.card h3{
-  font-size:1.05rem;
-  font-weight:720;
-  letter-spacing:-.3px;
-}
-
-/* What we sell */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.pillItem{
-  display:flex;align-items:center;gap:10px;
-  padding:14px 14px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:rgba(245,245,247,.80);
-  font-weight:650;
-  transition: transform .12s ease, border-color .12s ease, background .12s ease;
-}
-.pillItem:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,255,255,.16);
-  background:rgba(255,255,255,.055);
-}
-.pillItem b{
-  width:22px;height:22px;border-radius:50%;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#0b0f14;font-size:.74rem;
-  flex:0 0 auto;
-}
-
-/* stats tiles */
-.stats{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stat{
-  padding:16px 14px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  text-align:left;
-}
-.stat strong{display:block;color:var(--text);font-size:1.2rem;font-weight:780}
-.stat span{display:block;margin-top:6px;color:var(--muted);font-size:.92rem;font-weight:650}
-
-/* section headers */
-.sectionTitleRow{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin-bottom:12px
-}
-.sectionTitleRow small{color:var(--muted);font-weight:650}
-
-/* Admin outline ONLY in adminMode */
-body.adminMode .admin-edit{
-  outline:2px dashed rgba(244,196,48,.62);
-  outline-offset:8px;
-  border-radius:18px;
-  padding:12px;
-}
-#saveAboutBtn{display:none}
-body.adminMode #saveAboutBtn{display:inline-flex}
-
-/* Forms */
-.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.formGrid .full{grid-column:1 / -1}
-.field label{
-  display:block;
-  font-size:.88rem;
-  color:var(--muted);
-  font-weight:650;
-  margin-bottom:8px;
-}
-.field input, textarea, select{
-  width:100%;
-  padding:14px 14px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.03);
-  color:var(--text);
-  font-weight:600;
-  transition: border-color .12s ease, background .12s ease, box-shadow .12s ease;
-}
-.field input:hover, textarea:hover, select:hover{
-  border-color:rgba(255,255,255,.16);
-  background:rgba(255,255,255,.04);
-}
-.field input:focus, textarea:focus, select:focus{
-  border-color:rgba(244,196,48,.40);
-  box-shadow:0 0 0 4px rgba(244,196,48,.12);
-  outline:none;
-}
-textarea{min-height:120px;resize:vertical}
-
-.miniNote{margin-top:12px;color:var(--muted);font-size:.92rem;line-height:1.45}
-
-/* Notices */
-.notice{
-  margin-top:12px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  border-radius:20px;
-  padding:14px;
-  color:rgba(245,245,247,.92);
-  font-weight:650;
-  line-height:1.45;
-}
-.notice.ok{border-color:rgba(34,197,94,.30)}
-.notice.bad{border-color:rgba(239,68,68,.28)}
-
-/* Live stats */
-.liveStatsGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:12px}
-.liveStatCard{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  border-radius:24px;
-  padding:16px;
-}
-.liveRow{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:12px 14px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(0,0,0,.18);
-}
-.liveRow b{font-weight:700}
-.liveNum{font-weight:800;color:var(--text);letter-spacing:-.3px}
-.liveMeta{color:var(--muted);font-weight:650;font-size:.9rem;line-height:1.45}
-
-/* Trust layouts */
-.trustGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:12px}
-.quoteCard{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  border-radius:24px;
-  padding:16px;
-}
-.quoteCard p{color:rgba(245,245,247,.92);line-height:1.55;font-weight:600}
-.quoteCard small{display:block;margin-top:10px;color:var(--muted);font-weight:650}
-.trustList{display:grid;gap:12px}
-.trustItem{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  border-radius:24px;
-  padding:14px;
-  line-height:1.45;
-}
-.trustItem b{color:var(--text);font-weight:750}
-.trustItem span{color:var(--muted);font-weight:650}
-
-/* Admin bar */
-#adminBar{
-  margin-top:12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-#adminBar .left{display:flex;gap:10px;flex-wrap:wrap}
-.pill{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:10px 12px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:rgba(245,245,247,.85);
-  font-weight:650;
-}
-.pill .tinyDot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(245,245,247,.35);
-  box-shadow:0 0 0 4px rgba(255,255,255,.08);
-}
-.pill.ok{border-color:rgba(34,197,94,.30)}
-.pill.ok .tinyDot{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.16)}
-.pill.bad{border-color:rgba(239,68,68,.28)}
-.pill.bad .tinyDot{background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.14)}
-
-/* Gallery tabs */
-.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.tab{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:rgba(245,245,247,.85);
+  padding:8px 10px;
   border-radius:999px;
-  padding:10px 14px;
-  font-weight:650;
+  font-weight:850;
+  font-size:12px;
   cursor:pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+  user-select:none;
 }
-.tab:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.16)}
-.tab.active{
-  color:#0b0f14;
-  border:none;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+.chip.on{
+  border-color:rgba(244,196,48,.32);
+  box-shadow:0 0 0 4px rgba(244,196,48,.10) inset;
+}
+.smallHint{font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px;}
+.pulseDot{width:8px;height:8px;border-radius:50%;background:rgba(244,196,48,.85);box-shadow:0 0 0 6px rgba(244,196,48,.12);}
+
+/* Inventory layout */
+.split{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:14px;
+  margin-top:14px;
+}
+@media(max-width:980px){
+  .split{grid-template-columns:1fr;}
 }
 
-/* Gallery carousel cards */
-.galleryWrap{position:relative;margin-top:12px}
-#galleryGrid{
-  display:flex;gap:14px;
-  padding:10px 6px 14px;
-  scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;}
-#galleryGrid::-webkit-scrollbar{display:none}
-.galleryItem{
-  flex:0 0 auto;
-  width:240px;
-  aspect-ratio: 3/4;
-  scroll-snap-align:start;
-  border-radius:26px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
+.list{display:grid; gap:12px;}
+
+.vehicleCard{
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)), rgba(10,12,18,.55);
+  box-shadow:0 10px 30px rgba(0,0,0,.30);
+  padding:12px;
+  display:grid;
+  grid-template-columns:132px 1fr;
+  gap:12px;
+  cursor:pointer;
+  transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.vehicleCard:hover{
+  transform:translateY(-1px);
+  border-color:rgba(244,196,48,.22);
+  box-shadow:0 18px 45px rgba(0,0,0,.42);
+}
+@media(max-width:700px){
+  .vehicleCard{grid-template-columns:120px 1fr;}
+}
+
+.vTitle{font-weight:950; letter-spacing:.2px; font-size:1rem; line-height:1.1;}
+.vSub{margin-top:6px; color:var(--muted); font-size:13px; line-height:1.35;}
+
+.kv{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.tag{
+  font-size:11px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  font-weight:900;
+}
+.tag.ok{border-color:rgba(52,199,89,.30); background:rgba(52,199,89,.10);}
+.tag.bad{border-color:rgba(255,69,58,.30); background:rgba(255,69,58,.10);}
+.tag.miles{border-color:rgba(244,196,48,.30); background:rgba(244,196,48,.10);}
+.tag.stock{border-color:rgba(244,196,48,.30); background:rgba(244,196,48,.08);}
+
+.actionsRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.smallBtn{
+  padding:9px 10px;
+  border-radius:12px;
+  font-weight:950;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+}
+.smallBtn.primary{border:none; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#000;}
+.smallBtn.danger{border:none; background:var(--danger); color:#000;}
+.smallBtn:active{transform:scale(.99)}
+
+/* Photo square */
+.photoSquare{
+  width:132px; height:132px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  background:radial-gradient(120px 120px at 30% 20%, rgba(244,196,48,.14), transparent 60%), rgba(255,255,255,.04);
   overflow:hidden;
   position:relative;
-  box-shadow:var(--shadow2);
-  cursor:pointer;
-  transition: transform .14s ease, border-color .14s ease;
-  display:grid;
-  place-items:center;
-  color:rgba(245,245,247,.75);
-  font-weight:650;
+  box-shadow:0 12px 28px rgba(0,0,0,.32);
 }
-.galleryItem:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.16)}
-.galleryItem img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* Gallery polish (Pass 2) */
-.galleryItem{will-change:transform}
-.galleryItem img{opacity:0;transform:scale(1.01);transition:opacity .28s ease, transform .42s ease}
-.galleryItem.loaded img{opacity:1;transform:scale(1)}
-.galleryItem:focus-within{outline:2px solid rgba(255,255,255,.14);outline-offset:3px}
-
-/* Skeleton cards while loading */
-.galleryItem.skeleton{
-  cursor:default;
-  background:rgba(255,255,255,.03);
-  border-color:rgba(255,255,255,.08);
+@media(max-width:700px){
+  .photoSquare{width:120px;height:120px;}
 }
-.galleryItem.skeleton::after{display:none}
-.galleryItem.skeleton::before{
-  content:"";
-  position:absolute;inset:0;
-  background:
-    linear-gradient(110deg,
-      rgba(255,255,255,.03) 0%,
-      rgba(255,255,255,.10) 45%,
-      rgba(255,255,255,.03) 80%);
-  transform:translateX(-60%);
-  animation:shimmer 1.2s linear infinite;
+.photoTrack{
+  width:100%; height:100%;
+  display:flex;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  touch-action:pan-x;
+  cursor:grab;
 }
-@keyframes shimmer{
-  to{transform:translateX(60%)}
-}
-.galleryItem.skeleton .cap{
-  left:12px;right:12px;bottom:12px;
-  height:18px;
-  color:transparent;
-  border-color:rgba(255,255,255,.08);
-}
-
-/* Empty + error state */
-.galleryEmpty{
-  min-width:320px;
-  max-width:520px;
-  padding:18px 18px 16px;
-  border-radius:26px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  box-shadow:var(--shadow2);
-}
-.galleryEmpty h4{margin:0 0 6px;font-size:1.05rem}
-.galleryEmpty p{margin:0 0 12px;color:var(--muted);line-height:1.35}
-.galleryEmpty .row{display:flex;gap:10px;flex-wrap:wrap}
-.galleryEmpty .miniBtn{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.06);
-  color:#fff;border-radius:14px;
-  padding:10px 12px;
-  font-weight:700;
+.photoTrack::-webkit-scrollbar{display:none}
+.photoTrack:active{cursor:grabbing}
+.photoTrack img{
+  width:132px; height:132px;
+  object-fit:cover;
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  user-select:none;
+  -webkit-user-drag:none;
   cursor:pointer;
 }
-.galleryEmpty .miniBtn.primary{
-  border:none;color:#0b0f14;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+.photoCover{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(1.05) contrast(1.05);
 }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce){
-  #galleryGrid{scroll-behavior:auto}
-  .galleryItem, .tab{transition:none !important}
-  .galleryItem.skeleton::before{animation:none}
+.photoSquare.hasPhotos .photoTrack{
+  position:relative;
+  z-index:2;
+  background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.25));
 }
+.photoSquare.hasPhotos .photoBadge{ z-index:3; }
 
-.galleryItem::after{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(180deg, transparent 58%, rgba(0,0,0,.65) 100%);
+@media(max-width:700px){
+  .photoTrack img{width:120px;height:120px;}
+}
+.photoFallback{
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(245,247,251,.55);
+  font-weight:950; font-size:12px;
+  letter-spacing:.2px;
+}
+.photoBadge{
+  position:absolute; top:8px; left:8px;
+  padding:6px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:11px; font-weight:950;
+  color:#fff;
+  display:none;
   pointer-events:none;
 }
-.galleryItem .cap{
-  position:absolute;left:12px;right:12px;bottom:12px;
-  background:rgba(10,10,12,.55);
-  border:1px solid rgba(255,255,255,.10);
-  padding:9px 12px;border-radius:16px;
-  color:rgba(245,245,247,.95);
-  font-size:.85rem;font-weight:650;
-  backdrop-filter: blur(16px) saturate(140%);
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .photoBadge{-webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);}
 }
-.galleryItem .del{
-  position:absolute;top:12px;right:12px;
-  background:rgba(10,10,12,.55);
-  border:1px solid rgba(255,255,255,.12);
-  color:#fff;border-radius:14px;padding:8px 10px;
-  font-weight:700;cursor:pointer;display:none;
-  backdrop-filter: blur(16px) saturate(140%);
-}
-.galleryItem.admin .del{display:block}
+.photoSquare.hasPhotos .photoBadge{display:inline-block}
+.photoBadge span{color:rgba(244,196,48,.95)}
 
-/* Gallery nav */
-.galleryNav{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:44px;height:44px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(10,10,12,.55);
-  color:rgba(245,245,247,.95);
-  cursor:pointer;
-  box-shadow:var(--shadow2);
-  backdrop-filter: blur(18px) saturate(140%);
-  z-index:3;
+/* Detail pane */
+.detailPane{
+  position:sticky;
+  top:92px;
+  align-self:start;
+  padding:14px;
 }
-.galleryNav:active{transform:translateY(-50%) scale(.98)}
-.galleryNav.left{left:10px}
-.galleryNav.right{right:10px}
-.galleryNav[disabled]{opacity:.35;pointer-events:none}
+@media(max-width:980px){
+  .detailPane{position:relative; top:auto;}
+}
+.dHead{display:flex; align-items:flex-start; justify-content:space-between; gap:12px;}
+.dTitle{font-weight:950; font-size:1.05rem; letter-spacing:.2px;}
+.dMini{color:var(--muted); font-size:12px; font-weight:850; margin-top:4px;}
+.dBlock{margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,.10);}
+.dLine{display:flex; justify-content:space-between; gap:10px; font-size:13px; color:var(--muted);}
+.dLine b{color:var(--text); font-weight:900;}
+.dBtns{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+.emptyDetail{display:none;} /* <<< removed the placeholder look */
 
-/* Footer */
-footer{
-  margin-top:10px;
-  border-top:1px solid rgba(255,255,255,.08);
-  padding:30px 16px 96px;
-}
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;gap:14px}
-.footerRow{
-  display:flex;flex-wrap:wrap;
-  justify-content:space-between;gap:14px;
-}
-footer span{color:var(--muted);font-size:.95rem;line-height:1.45}
-.footerLinks{display:flex;flex-wrap:wrap;gap:10px}
-.footerLinks a{
-  color:rgba(245,245,247,.92);
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  padding:10px 14px;border-radius:999px;
-  font-weight:650;font-size:.9rem;
-}
-.footerLinks a:hover{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.06)}
-
-/* VIN panel */
-#vin-panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;z-index:997}
-#vin-panel{
-  position:fixed;left:50%;transform:translateX(-50%);
-  bottom:18px;width:380px;max-height:82vh;
-  background:rgba(10,10,12,.68);
-  border-radius:24px;padding:14px;
-  display:none;z-index:998;
-  border:1px solid rgba(255,255,255,.10);
-  backdrop-filter: blur(20px) saturate(150%);
-  box-shadow:var(--shadow);
-}
-#vin-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-#vin-close{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.06);
-  color:#fff;border-radius:14px;padding:10px 12px;
-  font-weight:650;cursor:pointer;
-}
-#vin-meta{color:var(--muted);font-size:.88rem;margin-bottom:10px;line-height:1.35}
-#vin-panel input{
-  width:100%;padding:14px;border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:#fff;text-transform:uppercase;letter-spacing:.7px;
-}
-#vin-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-#vin-panel button{
-  width:100%;padding:12px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.05);
-  color:#fff;font-weight:650;cursor:pointer;
-}
-#vin-panel button.primary{
-  border:none;
-  color:#0b0f14;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-}
-#vin-panel button.secondary:hover,
-#vin-panel button:hover{
-  background:rgba(255,255,255,.07);
-  border-color:rgba(255,255,255,.16);
-}
-#vehicle{
-  margin-top:12px;
-  font-weight:820;
-  letter-spacing:-.3px;
-}
-#results{margin-top:12px;display:grid;gap:10px}
-#results .row{
-  display:grid;
-  grid-template-columns: .9fr 1.1fr;
-  gap:10px;
-  padding:12px 12px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  cursor:pointer;
-}
-#results .row .k{color:var(--muted);font-weight:750}
-#results .row .v{color:rgba(245,245,247,.95);font-weight:750;word-break:break-word}
-
-/* VIN status strip */
-#vin-status{
-  margin-top:10px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.03);
-  color:rgba(245,245,247,.92);
-  font-weight:650;
-}
-#vin-status .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(245,245,247,.35);
-  box-shadow:0 0 0 4px rgba(255,255,255,.10);
-}
-#vin-status.ok{border-color:rgba(34,197,94,.30)}
-#vin-status.ok .dot{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
-#vin-status.bad{border-color:rgba(239,68,68,.28)}
-#vin-status.bad .dot{background:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.16)}
-#vin-status.warn{border-color:rgba(244,196,48,.26)}
-#vin-status.warn .dot{background:var(--accent);box-shadow:0 0 0 4px rgba(244,196,48,.14)}
+/* Admin visibility */
+.admin-only{display:none;}
+body.is-admin .admin-flex{display:inline-flex;}
+body.is-admin .admin-block{display:block;}
 
 /* Toast */
 .toast{
   position:fixed;
   left:50%;
-  bottom:92px;
   transform:translateX(-50%);
-  z-index:99999;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(10,10,12,.72);
+  bottom:calc(env(safe-area-inset-bottom) + 14px);
+  background:rgba(16, 20, 30, .92);
   border:1px solid rgba(255,255,255,.12);
-  color:rgba(245,245,247,.95);
-  font-weight:750;
-  box-shadow:var(--shadow2);
-  backdrop-filter: blur(18px) saturate(140%);
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:12px;
+  color:var(--text);
   display:none;
+  z-index:9999;
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
-/* Sticky dock */
-#ctaDock{
-  position:fixed;left:0;right:0;bottom:0;z-index:9990;
-  padding:12px 12px calc(env(safe-area-inset-bottom) + 12px);
-  background:rgba(10,10,12,.58);
-  backdrop-filter: blur(22px) saturate(160%);
-  border-top:1px solid rgba(255,255,255,.08);
-}
-.ctaInner{
-  max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-}
-.ctaBtn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:12px 10px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:#fff;text-decoration:none;font-weight:650;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-.ctaBtn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);transform:translateY(-1px)}
-.ctaBtn.primary{
-  border:none;color:#0b0f14;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-}
-
-/* Responsive */
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding:52px 0 28px}
-  .liveStatsGrid{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .header-inner{flex-wrap:wrap;justify-content:center;gap:10px}
-  .brand{width:100%;justify-content:center}
-  .logoMark{width:min(720px, 92vw);height:64px;justify-content:center}
-  nav{width:100%;justify-content:flex-start;padding-bottom:6px}
-  .container{padding:0 12px}
-  .btnRow .btn{width:100%}
-  .stats{grid-template-columns:1fr}
-  .grid2{grid-template-columns:1fr}
-  .formGrid{grid-template-columns:1fr}
-  .trustGrid{grid-template-columns:1fr}
-  #vin-panel{left:0;right:0;bottom:env(safe-area-inset-bottom);width:100%;transform:none;border-radius:24px 24px 0 0}
-  .galleryItem{width:78vw;max-width:360px}
-  .galleryNav{display:none}
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  *{scroll-behavior:auto !important}
-  nav a, .btn, .pillItem, .galleryItem, .ctaBtn, .tab{transition:none !important}
-}
-
-/* Hide parts.html links if they exist somewhere */
-nav a[href="parts.html"],
-.footerLinks a[href="parts.html"]{display:none !important}
-
-/* =========================================================
-   MODALS + LIGHTBOX
-   ========================================================= */
-#adminModalBackdrop,#addModalBackdrop,#lightboxBackdrop{
-  position:fixed;inset:0;
-  background: rgba(0,0,0,.62);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  z-index: 99950;
+/* Modal */
+.modalBack{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.66);
   display:none;
+  z-index:9998;
+  padding:18px;
 }
-#adminModal,#addModal{
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(520px, calc(100vw - 24px));
-  max-height: min(82vh, 760px);
-  overflow:auto;
-  padding: 16px;
-  border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)),
-    rgba(10,10,12,.72);
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: var(--shadow);
-  z-index: 99960;
-  display:none;
+.modal{
+  max-width:920px;
+  margin:6vh auto 0;
+  padding:18px;
 }
 .modalHead{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  margin-bottom: 10px;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
 }
-.modalHead strong{font-size: 1.05rem;font-weight: 820;letter-spacing: -.3px;}
-.iconBtn{
+.modalHead h3{font-size:1.05rem;font-weight:950;}
+.modalActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+.xBtn{
+  width:42px;height:42px;border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.06);
-  color: rgba(245,245,247,.95);
-  padding: 10px 12px;
-  border-radius: 999px;
-  font-weight: 750;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  font-weight:950;
   cursor:pointer;
-}
-.iconBtn:hover{background: rgba(255,255,255,.08);border-color: rgba(255,255,255,.16);}
-.modalActions{
-  display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top: 12px;
-}
-.modalActions .btn{padding: 12px 14px;}
-.helper{
-  margin-top: 10px;
-  padding: 12px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.03);
-  color: var(--muted);
-  font-weight: 650;
-  line-height: 1.45;
 }
 
-/* Lightbox */
-#lightboxBackdrop[aria-hidden="false"]{ display:block; }
-#lightboxModal{
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(980px, calc(100vw - 24px));
-  height: min(86vh, 860px);
-  border-radius: 28px;
-  overflow:hidden;
-  background: rgba(10,10,12,.72);
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: var(--shadow);
-}
-#lbStage{position:absolute;inset:0;display:grid;place-items:center;background: radial-gradient(900px 520px at 50% 20%, rgba(255,255,255,.06), transparent 60%);}
-#lbImg{max-width: 96%;max-height: 84%;object-fit: contain;border-radius: 18px;box-shadow: var(--shadow2);background: rgba(0,0,0,.18);}
-#lbClose{
-  position:absolute;top: 14px;right: 14px;z-index: 3;
-  width: 44px;height: 44px;border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(10,10,12,.58);
-  color: rgba(245,245,247,.95);
-  font-weight: 900;
-  cursor:pointer;
-  backdrop-filter: blur(18px) saturate(140%);
-}
-.lbArrow{
-  position:absolute;top: 50%;transform: translateY(-50%);z-index: 3;
-  width: 48px;height: 48px;border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(10,10,12,.58);
-  color: rgba(245,245,247,.95);
-  font-size: 26px;
-  cursor:pointer;
-  backdrop-filter: blur(18px) saturate(140%);
-}
-#lbPrev{ left: 14px; }
-#lbNext{ right: 14px; }
-.lbCap{
-  position:absolute;left: 14px;right: 14px;bottom: 14px;z-index: 3;
-  padding: 12px 14px;border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(10,10,12,.58);
-  color: rgba(245,245,247,.92);
-  font-weight: 650;
-  backdrop-filter: blur(18px) saturate(140%);
-}
-@media(max-width:600px){
-  #adminModal,#addModal{
-    top:auto;bottom:0;left:0;right:0;transform:none;width:100%;
-    max-height:86vh;border-radius:24px 24px 0 0;
-  }
-  #lightboxModal{width:100%;height:100%;border-radius:0;}
-}
-
-/* ===== Legal ===== */
-.legalWrap{margin-top:14px;display:grid;gap:12px}
-.legalWrap details{
+/* Parts styles (kept) */
+.partsWrap{
   border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  border-radius:24px;
-  padding:14px;
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.03);
 }
-.legalWrap summary{
-  cursor:pointer;
-  list-style:none;
-  font-weight:800;
-  letter-spacing:-.2px;
+.partsHeader{
   display:flex;
+  gap:10px;
+  flex-wrap:wrap;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  padding:12px;
+  border-bottom:1px solid rgba(255,255,255,.10);
 }
-.legalWrap summary::-webkit-details-marker{display:none}
-.legalWrap summary::after{
-  content:"+";
-  width:34px;height:34px;
-  display:grid;place-items:center;
+.partsHeader .mini{margin:0}
+.partsTable{width:100%;border-collapse:collapse;}
+.partsTable th,.partsTable td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);}
+.partsTable th{color:rgba(244,196,48,.95);font-size:.85rem;text-align:left;}
+.partsTable td{font-size:.92rem;}
+.partsTools{display:flex; gap:8px; flex-wrap:wrap;}
+.badgeQty{
+  display:inline-flex; align-items:center; gap:6px;
+  font-weight:950; font-size:12px;
+  padding:6px 10px;
   border-radius:999px;
   border:1px solid rgba(255,255,255,.12);
-  background:rgba(10,10,12,.40);
-  font-weight:900;
+  background:rgba(255,255,255,.06);
 }
-.legalWrap details[open] summary::after{content:"–"}
-.legalBody{margin-top:12px;color:rgba(245,245,247,.84);line-height:1.6;font-weight:600}
-.legalBody h4{margin:10px 0 6px;font-size:.98rem;font-weight:850;color:rgba(245,245,247,.95)}
-.legalBody ul{margin:8px 0 0 18px}
-.legalBody li{margin:6px 0}
-.legalStamp{margin-top:10px;color:var(--muted);font-weight:700;font-size:.9rem}
+.badgeQty span{color:rgba(244,196,48,.95);}
+.money{font-weight:950;}
+.muted{color:var(--muted); font-size:12px;}
 
-
-/* ===== Gallery Frame Fix (real selectors) ===== */
-.galleryWrap{
-  position:relative;
-  margin-top:12px;
-  overflow:hidden;               /* keeps cards inside the frame */
-  border-radius:26px;            /* match card rounding vibe */
-}
-
-#galleryGrid{
-  display:flex;
-  gap:14px;
-  padding:10px 6px 14px;
-
+/* Photo viewer */
+.photoViewer{display:flex; flex-direction:column; gap:12px;}
+.photoViewerTop{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.photoViewerImgWrap{
   width:100%;
-  max-width:100%;
-  box-sizing:border-box;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+  background:rgba(255,255,255,.04);
+  max-height:70vh;
+  display:flex; align-items:center; justify-content:center;
+}
+#photoView{max-width:100%;max-height:70vh;object-fit:contain;display:block;}
+.photoViewerNav{display:flex; gap:10px; flex-wrap:wrap;}
 
-  overflow-x:auto;               /* enables side scrolling */
-  overflow-y:hidden;
-  scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;
+/* === Pass 3 polish === */
+.vehicleCard{ will-change: transform; }
+.vehicleCard.selected{
+  border-color: rgba(65,214,178,.45);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55), 0 0 0 1px rgba(65,214,178,.18) inset;
+}
+.vehicleCard.selected:hover{ transform: translateY(-1px); }
 
-  padding-left:58px;             /* space so first card isn't under left arrow */
-  padding-right:58px;            /* space so last card isn't under right arrow */
+.photoTrack img{
+  opacity:0;
+  transform: scale(1.01);
+  transition: opacity .28s ease, transform .28s ease;
+}
+.photoTrack img.loaded{
+  opacity:1;
+  transform:none;
 }
 
-#galleryGrid::-webkit-scrollbar{height:8px}
-#galleryGrid::-webkit-scrollbar-thumb{
-  background:rgba(255,255,255,.14);
-  border-radius:999px;
+.quickBar{
+  position: sticky;
+  top: 14px;
+  z-index: 3;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)), rgba(10,12,18,.52);
+  backdrop-filter: blur(10px);
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
 }
+.quickBar .qbLabel{
+  font-size:12px;
+  color: var(--muted);
+  margin-right: 6px;
+}
+.quickBar .spacer{ flex:1 1 auto; min-width: 6px; }
 
 </style>
-
-<!-- LocalBusiness Structured Data -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"AutoPartsStore",
-  "name":"Two Little Bees Auto Parts",
-  "url":"https://twolittlebeesautoparts.github.io/OFFICIALPAGE/",
-  "image":"https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true",
-  "telephone":"+1-317-243-7777",
-  "address":{
-    "@type":"PostalAddress",
-    "streetAddress":"507 S Tibbs Ave",
-    "addressLocality":"Indianapolis",
-    "addressRegion":"IN",
-    "addressCountry":"US"
-  },
-  "areaServed":"Indianapolis, IN",
-  "description":"VIN-verified OEM used parts — engines, transmissions, modules, body parts, wheels and more."
-}
-</script>
 </head>
 
 <body>
@@ -971,1475 +531,1538 @@ nav a[href="parts.html"],
 <header>
   <div class="header-inner">
     <div class="brand">
-      <div class="logoMark">
-        <img
-          alt="Two Little Bees Auto Parts"
-          src="https://github.com/twolittlebeesautoparts/OFFICIALPAGE/blob/main/new.logo.png?raw=true"
-        />
+      <img
+        src="https://github.com/twolittlebeesautoparts/twolittlebeesautoparts.github.io/blob/main/new.logo@2x.png%20(2000%E2%80%933000px%20wide).png?raw=true"
+        class="logo"
+        alt="Two Little Bees Auto Parts Logo"
+        onclick="beeSecret()"
+      />
+      <div class="titleWrap">
+        <h2>Inventory</h2>
+        <div class="sub">Live list • VIN-verified • Indianapolis</div>
       </div>
     </div>
 
-    <nav>
-      <a href="#top">Home</a>
-      <a class="cta" href="http://search3784.used-auto-parts.biz/inventory/retail.htm" target="_blank" rel="noopener">🔎 Search Inventory</a>
-      <a href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Our Inventory</a>
-      <a href="#request">Request a Part</a>
-      <a href="#junkcars">Cash for Junk Cars</a>
-      <a href="javascript:void(0)" class="vin-btn" onclick="toggleVin()">VIN</a>
-    </nav>
+    <div class="header-actions">
+      <a class="pill" href="https://twolittlebeesautoparts.github.io/OFFICIALPAGE/">Home</a>
+      <a class="pill primary" href="https://twolittlebeesautoparts.github.io/">Search Inventory</a>
+      <a class="pill admin-only admin-flex" href="javascript:void(0)" onclick="logout()">Logout</a>
+    </div>
   </div>
 </header>
 
-<main id="top">
-  <div class="container">
+<main>
 
-    <!-- HERO -->
-    <section class="hero">
+  <!-- LOGIN (hidden until secret tap) -->
+  <div class="card glass" id="loginCard" style="display:none">
+    <div class="cardHead">
       <div>
-        <h1>The Right Parts.<br>Every Time.<br>Built on Trust.</h1>
-
-        <div class="badges">
-          <div class="badge"><span class="dot"></span> Established 2005</div>
-          <div class="badge"><span class="dot"></span> VIN-Verified</div>
-          <div class="badge"><span class="dot"></span> Indianapolis • 507 S Tibbs Ave</div>
-        </div>
-
-        <p>Live inventory tied to real vehicles. Call or request a quote — we verify fitment, move fast, and keep it simple.</p>
-
-        <div class="btnRow">
-          <a class="btn primary" href="http://search3784.used-auto-parts.biz/inventory/retail.htm" target="_blank" rel="noopener">🔎 Search Inventory</a>
-          <a class="btn secondary" href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Browse Our Inventory</a>
-          <a class="btn secondary" href="#request">💬 Request a Part</a>
-          <a class="btn secondary" href="tel:3172437777">📞 Call (317) 243-7777</a>
-          <a class="btn secondary" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Get Directions</a>
-        </div>
-
-        <div class="stats">
-          <div class="stat"><strong>OEM</strong><span>Used Parts</span></div>
-          <div class="stat"><strong>1985–2026</strong><span>Coverage</span></div>
-          <div class="stat"><strong>Fast</strong><span>Counter Support</span></div>
-        </div>
-
-        <div class="miniNote" style="margin-top:14px">
-          Hours: Mon–Fri 9:00 AM–5:00 PM • Sat 9:00 AM–4:00 PM • Sun Closed<br>
-          Phone: (317) 243-7777 • (317) 248-8051
-        </div>
+        <h3>Admin Login</h3>
+        <div class="mini">Tap logo 3 times to open this screen</div>
       </div>
-
-      <div class="card">
-        <h3>What We Sell</h3>
-        <div class="grid2">
-          <div class="pillItem"><b>✓</b> Engines & Transmissions</div>
-          <div class="pillItem"><b>✓</b> Suspension & Drivetrain</div>
-          <div class="pillItem"><b>✓</b> Body & Interior</div>
-          <div class="pillItem"><b>✓</b> Electrical Modules (ECU/TCM/BCM)</div>
-          <div class="pillItem"><b>✓</b> Wheels & Tires</div>
-          <div class="pillItem"><b>✓</b> Lights, Mirrors, Glass</div>
-          <div class="pillItem"><b>✓</b> Radiators, Fans, A/C Parts</div>
-          <div class="pillItem"><b>✓</b> Starters, Alternators</div>
-        </div>
-
-        <div class="notice" style="margin-top:14px">
-          <b>Bring your VIN.</b> We verify fitment before you pay — fewer mistakes, faster installs.
-        </div>
-      </div>
-    </section>
-
-    <!-- LIVE SITE STATS -->
-    <section class="liveStatsWrap" aria-label="Live Site Stats">
-      <div class="liveStatsGrid">
-        <div class="liveStatCard">
-          <div class="sectionTitleRow" style="margin-bottom:0">
-            <h3>Live Site Stats</h3>
-            <small id="metricsUpdated">Loading…</small>
-          </div>
-
-          <div class="liveRow">
-            <b>Pageviews</b>
-            <span class="liveNum" id="pvNum">—</span>
-          </div>
-          <div class="liveRow">
-            <b>Unique Visitors</b>
-            <span class="liveNum" id="uvNum">—</span>
-          </div>
-
-          <div class="liveMeta">
-            * These are real site-wide counts if Firebase is configured. If not, they show “—”.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section">
-      <div class="card">
-        <div class="sectionTitleRow">
-          <h3>About Us</h3>
-          <small>Ctrl + Shift + A (admin mode)</small>
-        </div>
-
-        <div id="aboutText" class="admin-edit">
-          Two Little Bees Auto Parts is a locally owned auto parts business based in Indianapolis, focused on providing quality OEM used parts pulled from real vehicles.
-          <br><br>
-          We specialize in VIN-verified parts, making sure every engine, transmission, module, or body component is correctly matched before it ever leaves our yard.
-          That means fewer mistakes, no guesswork, and confidence that the part you’re buying is the right one.
-          <br><br>
-          Serving local repair shops, dealerships, and walk-in customers, we cover vehicles from 1985–2026 and maintain live inventory tied directly to the cars we dismantle.
-          When you call, you talk to someone who knows parts.
-          <br><br>
-          Built in Indianapolis and grounded in trust — accurate parts, straight answers, no wasted time.
-        </div>
-
-        <div class="btnRow" style="margin-top:12px">
-          <button class="btn primary" id="saveAboutBtn" type="button">Save About</button>
-        </div>
-
-        <div class="notice" id="aboutSaveStatus" style="display:none"></div>
-      </div>
-    </section>
-
-    <!-- TRUST -->
-    <section class="section" id="trust">
-      <div class="card">
-        <div class="sectionTitleRow">
-          <h3>Trust & Reviews</h3>
-          <small>What customers care about</small>
-        </div>
-
-        <div class="trustGrid">
-          <div class="quoteCard">
-            <p>“We verify fitment using VIN and vehicle data so you don’t waste time. If it doesn’t match, we’ll tell you before you buy.”</p>
-            <small>— Two Little Bees Auto Parts</small>
-
-            <div class="notice" style="margin-top:12px">
-              <b>Warranty / Returns:</b>
-              <div style="margin-top:6px;color:var(--muted);font-weight:850;line-height:1.35">
-                Ask your salesperson for warranty options on engines/transmissions and any return rules for your specific part. We keep it simple and clear at the counter.
-              </div>
-            </div>
-
-            <div class="btnRow" style="margin-top:12px">
-              <a class="btn secondary" target="_blank" rel="noopener"
-                 href="https://www.google.com/search?q=Two+Little+Bees+Auto+Parts+Indianapolis+reviews">
-                ⭐ View / Leave a Google Review
-              </a>
-              <a class="btn secondary" href="tel:3172437777">📞 Call Now</a>
-            </div>
-          </div>
-
-          <div class="trustList">
-            <div class="trustItem"><b>VIN-Verified Fitment</b><br><span>We match parts to real vehicles and confirm details before you pay.</span></div>
-            <div class="trustItem"><b>Fast Support</b><br><span>Call — we respond quick and keep the process simple.</span></div>
-            <div class="trustItem"><b>Local & Reliable</b><br><span>Indianapolis-based. Built on repeat customers and shop relationships.</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- REQUEST A PART -->
-    <section class="section" id="request">
-      <div class="card">
-        <div class="sectionTitleRow">
-          <h3>Request a Part</h3>
-          <small>We’ll call you back</small>
-        </div>
-
-        <div class="miniNote">
-          Fill this out and we’ll contact you by phone.
-        </div>
-
-        <div class="formGrid">
-          <div class="field">
-            <label for="rqName">Name</label>
-            <input id="rqName" type="text" placeholder="Your name" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="rqPhone">Phone</label>
-            <input id="rqPhone" type="tel" placeholder="(317) 555-1234" autocomplete="tel">
-          </div>
-
-          <div class="field">
-            <label for="rqYear">Year</label>
-            <input id="rqYear" type="text" placeholder="2016" inputmode="numeric">
-          </div>
-          <div class="field">
-            <label for="rqMakeModel">Make / Model</label>
-            <input id="rqMakeModel" type="text" placeholder="Chevy Malibu">
-          </div>
-
-          <div class="field">
-            <label for="rqPart">Part Needed</label>
-            <input id="rqPart" type="text" placeholder="Transmission, engine, bumper, wheel...">
-          </div>
-          <div class="field">
-            <label for="rqVin">VIN (optional)</label>
-            <input id="rqVin" type="text" placeholder="17-char VIN" maxlength="17" style="text-transform:uppercase;letter-spacing:.6px">
-          </div>
-
-          <div class="field full">
-            <label for="rqNotes">Notes (optional)</label>
-            <textarea id="rqNotes" placeholder="Any details: trim, engine size, 2WD/4WD, color, part number, etc."></textarea>
-          </div>
-
-          <div class="field full">
-            <label for="rqPhotoUrl">Photo link (optional)</label>
-            <input id="rqPhotoUrl" type="url" placeholder="https://... (label/photo link)">
-          </div>
-
-          <div class="modalActions full" style="margin-top:2px">
-            <button class="btn primary" id="rqSubmit" type="button">Send Request</button>
-            <a class="btn secondary" href="tel:3172437777" style="text-align:center">📞 Call Now</a>
-          </div>
-        </div>
-
-        <div id="rqStatus" class="notice" style="display:none"></div>
-      </div>
-    </section>
-
-    <!-- CASH FOR JUNK CARS -->
-    <section class="section" id="junkcars">
-      <div class="card">
-        <div class="sectionTitleRow">
-          <h3>Cash for Junk Cars</h3>
-          <small>Same-day pickup (when available)</small>
-        </div>
-
-        <div class="notice">
-          <b>We buy junk cars.</b> Top dollar paid. Quick pickup. Title helps — if you’re unsure, still submit and we’ll tell you what you need.
-        </div>
-
-        <div class="formGrid" style="margin-top:12px">
-          <div class="field">
-            <label for="jcName">Name</label>
-            <input id="jcName" type="text" placeholder="Your name" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="jcPhone">Phone</label>
-            <input id="jcPhone" type="tel" placeholder="(317) 555-1234" autocomplete="tel">
-          </div>
-
-          <div class="field">
-            <label for="jcLocation">Pickup Location</label>
-            <input id="jcLocation" type="text" placeholder="Address or zip code">
-          </div>
-          <div class="field">
-            <label for="jcVehicle">Vehicle (Year / Make / Model)</label>
-            <input id="jcVehicle" type="text" placeholder="2010 Honda Accord">
-          </div>
-
-          <div class="field">
-            <label for="jcRuns">Does it run?</label>
-            <select id="jcRuns">
-              <option value="">Select</option>
-              <option>Yes</option>
-              <option>No</option>
-              <option>Not sure</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="jcTitle">Do you have the title?</label>
-            <select id="jcTitle">
-              <option value="">Select</option>
-              <option>Yes</option>
-              <option>No</option>
-              <option>Not sure</option>
-            </select>
-          </div>
-
-          <div class="field full">
-            <label for="jcNotes">Notes (optional)</label>
-            <textarea id="jcNotes" placeholder="Any info: damage, missing wheels, location details, best time to pickup, etc."></textarea>
-          </div>
-
-          <div class="modalActions full" style="margin-top:2px">
-            <button class="btn primary" id="jcSubmit" type="button">Get an Offer</button>
-            <a class="btn secondary" href="tel:3172437777" style="text-align:center">📞 Call Now</a>
-          </div>
-        </div>
-
-        <div id="jcStatus" class="notice" style="display:none"></div>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="section" style="padding-top:0">
-      <div class="card">
-        <div class="sectionTitleRow">
-          <h3>Gallery</h3>
-          <small id="galleryHint">Public view</small>
-        </div>
-
-        <div id="adminBar">
-          <div class="left">
-            <button class="btn secondary" id="adminLoginOpen" type="button">Admin Login</button>
-            <button class="btn secondary" id="adminLogout" type="button" style="display:none">Logout</button>
-            <button class="btn primary" id="addPhotoOpen" type="button" style="display:none">Add Photo</button>
-          </div>
-
-          <div class="pill bad" id="authPill">
-            <span class="tinyDot"></span>
-            <span id="authText">Not signed in</span>
-          </div>
-        </div>
-
-        <div class="tabs" id="galleryTabs" aria-label="Gallery categories">
-          <button class="tab active" type="button" data-cat="All">All</button>
-          <button class="tab" type="button" data-cat="Engines">Engines</button>
-          <button class="tab" type="button" data-cat="Transmissions">Transmissions</button>
-          <button class="tab" type="button" data-cat="New Arrivals">New Arrivals</button>
-          <button class="tab" type="button" data-cat="Yard">Yard</button>
-          <button class="tab" type="button" data-cat="General">General</button>
-        </div>
-
-        <div class="galleryWrap">
-          <button class="galleryNav left" id="gPrev" type="button" aria-label="Scroll left">‹</button>
-          <button class="galleryNav right" id="gNext" type="button" aria-label="Scroll right">›</button>
-
-          <div id="galleryGrid">
-            <div class="galleryItem" id="galleryLoading">Loading gallery…</div>
-          </div>
-        </div>
-
-        <div class="miniNote">
-          Tip: Tap a photo to open full screen. Categories help customers see what you have fast.
-        </div>
-      </div>
-    </section>
-
-    <!-- LEGAL -->
-    <section class="section" id="legal">
-      <div class="card">
-        <div class="sectionTitleRow">
-          <h3>Legal</h3>
-          <small id="legalUpdated">Last updated: 2026-02-21</small>
-        </div>
-
-        <div class="legalWrap">
-
-          <details id="privacy">
-            <summary>Privacy Policy</summary>
-            <div class="legalBody">
-              <h4>What we collect</h4>
-              <ul>
-                <li><b>Contact / lead info</b> you submit: name, phone, vehicle details, VIN (optional), notes, pickup location, and photo links (optional).</li>
-                <li><b>Basic usage analytics</b>: pageviews and an anonymous “unique visitor” identifier stored in your browser (localStorage) to avoid counting the same device repeatedly.</li>
-                <li><b>Service logs</b>: our hosting/providers (ex: Firebase/Google) may process standard technical data (IP address, device/browser info) for security and performance.</li>
-              </ul>
-
-              <h4>How we use information</h4>
-              <ul>
-                <li>To contact you back about parts, quotes, inventory, or junk car offers.</li>
-                <li>To operate and improve the website (fraud prevention, performance, analytics).</li>
-              </ul>
-
-              <h4>Sharing</h4>
-              <ul>
-                <li>We may share data with service providers that run the site (ex: Firebase/Google) only as needed to operate features.</li>
-                <li>We do <b>not</b> sell your personal information.</li>
-              </ul>
-
-              <h4>Retention</h4>
-              <ul>
-                <li>Lead data may be stored until it’s no longer needed for business and recordkeeping.</li>
-                <li>You can clear the site’s localStorage in your browser settings to reset the unique visitor ID.</li>
-              </ul>
-
-              <h4>Security</h4>
-              <ul>
-                <li>We use reasonable safeguards, but no system is 100% secure.</li>
-              </ul>
-
-              <h4>Contact</h4>
-              <ul>
-                <li>Use the phone number on this site for questions about your info or to request deletion (where applicable).</li>
-              </ul>
-
-              <div class="legalStamp">
-                This policy applies to this website only and may be updated without notice.
-              </div>
-            </div>
-          </details>
-
-          <details id="terms">
-            <summary>Terms of Use</summary>
-            <div class="legalBody">
-              <h4>Acceptance</h4>
-              By using this website, you agree to these Terms.
-
-              <h4>Use of the site</h4>
-              <ul>
-                <li>You may use the site for lawful purposes only.</li>
-                <li>You agree not to attempt to disrupt the site, scrape it at scale, or misuse forms/features.</li>
-              </ul>
-
-              <h4>Inventory & fitment</h4>
-              <ul>
-                <li>Inventory, pricing, and availability may change without notice.</li>
-                <li>Fitment should be verified (VIN recommended). Final confirmation happens with staff.</li>
-              </ul>
-
-              <h4>Third-party services</h4>
-              This site may link to third-party sites (maps, Google, car-part.com, etc.). We are not responsible for their content or policies.
-
-              <h4>Disclaimer</h4>
-              The site is provided “as is” without warranties of any kind.
-
-              <h4>Limitation of liability</h4>
-              To the fullest extent allowed by law, we are not liable for damages arising from use or inability to use this site.
-
-              <h4>Changes</h4>
-              We may update these Terms at any time by posting changes here.
-            </div>
-          </details>
-
-          <details id="license">
-            <summary>License & Intellectual Property (Latin Noise LLC)</summary>
-            <div class="legalBody">
-              <h4>Ownership</h4>
-              The website design, layout, UI, source code, and original creative elements are the intellectual property of <b>Latin Noise LLC</b> unless stated otherwise.
-
-              <h4>Client license</h4>
-              Latin Noise LLC grants <b>Two Little Bees Auto Parts</b> a limited, non-exclusive, non-transferable license to use and display this website for business operations.
-
-              <h4>Restrictions</h4>
-              <ul>
-                <li>No resale, sublicensing, or transferring the site/code to another party without written permission from Latin Noise LLC.</li>
-                <li>Removing copyright/ownership notices is not permitted.</li>
-                <li>Copying the site for another business is not permitted.</li>
-              </ul>
-
-              <h4>Client content</h4>
-              Logos, photos, product images, and business info supplied by the client remain the client’s property (or their licensors).</li>
-
-              <h4>Termination</h4>
-              If the license terms are violated, the license may be revoked and the client must stop using the site materials.
-
-              <div class="legalStamp">
-                Tip: A signed 1-page license agreement is the strongest protection (footer notice helps, but a contract is better).
-              </div>
-            </div>
-          </details>
-
-        </div>
-      </div>
-    </section>
-
+    </div>
+    <hr class="sep">
+    <div class="grid">
+      <input id="username" placeholder="Admin Email (Firebase Auth)" autocomplete="username">
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+      <button class="primary" onclick="login()">Login</button>
+    </div>
+    <div id="loginMsg" class="note"><span class="dot"></span><span id="loginMsgText"></span></div>
   </div>
+
+  <!-- INVENTORY -->
+  <div class="card glass" id="invCard">
+    <div class="cardHead">
+      <div>
+        <h3>Current Inventory</h3>
+        <div class="mini" id="countLine">Loading…</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <div class="smallHint"><span class="pulseDot"></span><span id="liveHint">Connecting…</span></div>
+        <button class="smallBtn admin-only admin-flex" onclick="scrollToAdmin()">+ Add Vehicle</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="searchWrap">
+        <svg class="searchIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="rgba(245,247,251,.65)" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="rgba(245,247,251,.65)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="search" placeholder="Search stock #, year, make, model, VIN, engine, mileage…" oninput="queueApplyFilters()">
+      </div>
+
+      <select id="sort" onchange="queueApplyFilters()">
+        <option value="newest">Sort: Newest</option>
+        <option value="oldest">Sort: Oldest</option>
+        <option value="yearDesc">Sort: Year (High → Low)</option>
+        <option value="yearAsc">Sort: Year (Low → High)</option>
+        <option value="makeAsc">Sort: Make (A → Z)</option>
+        <option value="milesAsc">Sort: Mileage (Low → High)</option>
+        <option value="milesDesc">Sort: Mileage (High → Low)</option>
+      </select>
+
+      <button class="smallBtn" onclick="clearSearch()">Clear</button>
+
+      <div class="chips" style="width:100%">
+        <div class="chip" id="chipPhotos" onclick="toggleChip('photos')">Has Photos</div>
+        <div class="chip" id="chipGoodMotor" onclick="toggleChip('goodMotor')">Good Motor</div>
+        <div class="chip" id="chipGoodTrans" onclick="toggleChip('goodTrans')">Good Trans</div>
+        <div class="chip" id="chipUnder100k" onclick="toggleChip('under100k')">Under 100k mi</div>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="list" id="inventoryList"></div>
+        <div id="invMsg" class="note" style="margin-top:12px"><span class="dot"></span><span id="invMsgText"></span></div>
+      </div>
+
+      <!-- RIGHT PANEL (clean placeholder removed) -->
+      <div class="detailPane glass" id="detailPane">
+        <div class="dHead">
+          <div>
+            <div class="dTitle" id="dTitle">Select a vehicle</div>
+            <div class="dMini" id="dMini"></div>
+          </div>
+        </div>
+
+        <div class="quickBar" id="quickBar"></div>
+        <div class="dBlock" id="dBody"></div>
+
+        <div class="dBtns admin-only admin-flex" style="margin-top:12px">
+          <button class="smallBtn primary" onclick="openEdit(selectedId)">Edit</button>
+          <button class="smallBtn" onclick="openParts(selectedId)">Parts</button>
+          <button class="smallBtn danger" onclick="removeCar(selectedId)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="card glass admin-only admin-block" id="adminPanel">
+    <div class="cardHead">
+      <div>
+        <h3>Add Vehicle</h3>
+        <div class="mini">Tip: paste VIN and it will auto-fill Year/Make/Model + more.</div>
+      </div>
+    </div>
+    <hr class="sep">
+
+    <div class="grid">
+      <input id="stockNumber" placeholder="Stock # (auto)" disabled>
+      <button class="ghost" type="button" onclick="generateStockToForm(false)">Generate Stock #</button>
+
+      <input id="year" placeholder="Year (e.g. 2017)" inputmode="numeric">
+      <input id="make" placeholder="Make (Brand)">
+      <input id="model" placeholder="Model">
+      <input id="mileage" placeholder="Mileage (e.g. 128000)" inputmode="numeric">
+
+      <input id="vin" placeholder="VIN (17 chars)" maxlength="17">
+      <button class="ghost" type="button" onclick="autoFillFromVIN(false)">Auto-Fill from VIN</button>
+
+      <input id="color" placeholder="Color">
+      <input id="engine" placeholder="Engine Size (e.g. 3.6L)">
+      <input id="transmission" placeholder="Transmission (Auto / Manual / CVT)">
+      <input id="drivetrain" placeholder="Drivetrain (FWD / RWD / AWD)">
+
+      <select id="goodMotor">
+        <option value="">Good Motor? (optional)</option>
+        <option value="yes">Yes ✅</option>
+        <option value="no">No ❌</option>
+      </select>
+      <select id="goodTrans">
+        <option value="">Good Transmission? (optional)</option>
+        <option value="yes">Yes ✅</option>
+        <option value="no">No ❌</option>
+      </select>
+
+      <textarea id="photoUrls" placeholder="Photo URLs (comma-separated)&#10;Example: https://...1.jpg, https://...2.jpg"></textarea>
+
+      <button class="primary" id="addBtn" onclick="addCar()">Add Vehicle</button>
+    </div>
+
+    <div id="adminMsg" class="note"><span class="dot"></span><span id="adminMsgText"></span></div>
+  </div>
+
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footerRow">
-      <span>
-        © <span id="year"></span> <b>Latin Noise LLC</b>. All Rights Reserved.<br>
-        <span style="color:var(--muted);font-weight:700">
-          Website licensed for use by Two Little Bees Auto Parts.
-        </span>
-      </span>
-
-      <span>
-        📞 <a href="tel:3172437777" style="color:inherit;text-decoration:none">(317) 243-7777</a> •
-           <a href="tel:3172488051" style="color:inherit;text-decoration:none">(317) 248-8051</a><br>
-        📍 <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN"
-              target="_blank" rel="noopener" style="color:inherit;text-decoration:none">
-            507 S Tibbs Ave, Indianapolis
-          </a>
-      </span>
-    </div>
-
-    <div class="footerLinks">
-      <a href="https://twobeesparts.com" target="_blank" rel="noopener">TwoBeesParts.com</a>
-      <a href="https://twolittlebeesautoparts.github.io/" target="_blank" rel="noopener">Our Inventory</a>
-      <a href="http://search3784.used-auto-parts.biz/inventory/retail.htm" target="_blank" rel="noopener">Search Inventory (Car-Part)</a>
-      <a href="https://www.car-part.com/" target="_blank" rel="noopener">Car-Part.com</a>
-      <a href="#request">Request a Part</a>
-      <a href="#junkcars">Cash for Junk Cars</a>
-      <a href="javascript:void(0)" onclick="toggleVin()">VIN Decoder</a>
-      <a href="#privacy">Privacy Policy</a>
-      <a href="#terms">Terms</a>
-      <a href="#license">License</a>
-      <a href="tel:3172437777">Call</a>
-      <a href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener">Directions</a>
-    </div>
-  </div>
+<footer style="border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:22px 16px;color:var(--muted)">
+  © 2026 Two Little Bees Auto Parts
 </footer>
 
-<!-- Sticky CTA Dock -->
-<div id="ctaDock" role="navigation" aria-label="Quick actions">
-  <div class="ctaInner">
-    <a class="ctaBtn" href="tel:3172437777" aria-label="Call Two Little Bees">(📞) Call</a>
-    <a class="ctaBtn" href="https://www.google.com/maps?q=507+S+Tibbs+Ave,+Indianapolis,+IN" target="_blank" rel="noopener" aria-label="Directions">(📍) Directions</a>
-    <a class="ctaBtn primary" href="#request" aria-label="Request a part">(🧰) Quote</a>
-    <a class="ctaBtn" href="#junkcars" aria-label="Cash for junk cars">(🚗) Junk</a>
-  </div>
-</div>
-
-<!-- VIN -->
-<div id="vin-panel-backdrop" onclick="toggleVin()"></div>
-<div id="vin-panel" role="dialog" aria-modal="true" aria-label="VIN Decoder">
-  <div id="vin-head">
-    <strong>VIN Decoder</strong>
-    <button id="vin-close" type="button" onclick="toggleVin()">Close</button>
-  </div>
-  <div id="vin-meta">Two Little Bees Auto Parts • (317) 243-7777 • Indianapolis</div>
-  <input id="vin" maxlength="17" placeholder="ENTER 17-CHAR VIN" autocomplete="off" />
-  <div id="vin-actions">
-    <button class="primary" type="button" onclick="decode()">Decode VIN</button>
-    <button class="secondary" type="button" onclick="printSheet()">Print VIN Sheet</button>
-  </div>
-  <div id="vin-status"><span class="dot"></span><span id="vin-status-text"></span></div>
-  <div id="vehicle" class="vehicle"></div>
-  <div id="results"></div>
-</div>
-
-<!-- Admin Login Modal -->
-<div id="adminModalBackdrop"></div>
-<div id="adminModal" role="dialog" aria-modal="true" aria-label="Admin Login">
-  <div class="modalHead">
-    <strong>Admin Login</strong>
-    <button class="iconBtn" id="adminModalClose" type="button">Close</button>
-  </div>
-  <div class="field">
-    <label for="adminEmail">Email</label>
-    <input id="adminEmail" type="email" placeholder="your admin email" autocomplete="username">
-  </div>
-  <div class="field">
-    <label for="adminPass">Password</label>
-    <input id="adminPass" type="password" placeholder="your password" autocomplete="current-password">
-  </div>
-  <div class="modalActions">
-    <button class="btn secondary" id="adminCancel" type="button">Cancel</button>
-    <button class="btn primary" id="adminLoginDo" type="button">Login</button>
-  </div>
-  <div class="helper" id="adminMsg">Sign in using your Firebase user (Authentication → Users).</div>
-</div>
-
-<!-- Add Photo Modal -->
-<div id="addModalBackdrop"></div>
-<div id="addModal" role="dialog" aria-modal="true" aria-label="Add Gallery Photo">
-  <div class="modalHead">
-    <strong>Add Gallery Photo</strong>
-    <button class="iconBtn" id="addModalClose" type="button">Close</button>
-  </div>
-  <div class="field">
-    <label for="photoUrl">Photo URL (public link)</label>
-    <input id="photoUrl" type="url" placeholder="https://..." autocomplete="off">
-  </div>
-  <div class="field">
-    <label for="photoCaption">Caption (optional)</label>
-    <input id="photoCaption" type="text" placeholder="Engine arrivals, shop, yard, etc." autocomplete="off">
-  </div>
-  <div class="field">
-    <label for="photoCategory">Category</label>
-    <select id="photoCategory">
-      <option>General</option>
-      <option>Engines</option>
-      <option>Transmissions</option>
-      <option>New Arrivals</option>
-      <option>Yard</option>
-    </select>
-  </div>
-  <div class="modalActions">
-    <button class="btn secondary" id="addCancel" type="button">Cancel</button>
-    <button class="btn primary" id="addDo" type="button">Add</button>
-  </div>
-  <div class="helper" id="addMsg">Tip: use a direct image URL (ends in .jpg/.png/.webp) or a public Googleusercontent link.</div>
-</div>
-
-<!-- Lightbox -->
-<div id="lightboxBackdrop" aria-hidden="true">
-  <div id="lightboxModal" role="dialog" aria-modal="true" aria-label="Gallery image">
-    <button id="lbClose" type="button" aria-label="Close">✕</button>
-    <button class="lbArrow" id="lbPrev" type="button" aria-label="Previous">‹</button>
-    <button class="lbArrow" id="lbNext" type="button" aria-label="Next">›</button>
-    <div id="lbStage">
-      <img id="lbImg" alt="Gallery large view" />
+<!-- EDIT MODAL (admin) -->
+<div class="modalBack admin-only" id="editBack">
+  <div class="modal glass">
+    <div class="modalHead">
+      <div>
+        <h3>Edit Vehicle</h3>
+        <div class="mini" id="editSub">Update details then hit Save.</div>
+      </div>
+      <button class="xBtn" onclick="closeEdit()">✕</button>
     </div>
-    <div id="lbCap" class="lbCap"></div>
+
+    <hr class="sep">
+
+    <div class="grid">
+      <input id="e_stockNumber" placeholder="Stock # (auto)" disabled>
+      <button class="ghost" type="button" onclick="generateStockToForm(true)">Generate Stock #</button>
+
+      <input id="e_year" placeholder="Year (e.g. 2017)" inputmode="numeric">
+      <input id="e_make" placeholder="Make (Brand)">
+      <input id="e_model" placeholder="Model">
+      <input id="e_mileage" placeholder="Mileage (e.g. 128000)" inputmode="numeric">
+
+      <input id="e_vin" placeholder="VIN (17 chars)" maxlength="17">
+      <button class="ghost" type="button" onclick="autoFillFromVIN(true)">Auto-Fill from VIN</button>
+
+      <input id="e_color" placeholder="Color">
+      <input id="e_engine" placeholder="Engine Size (e.g. 3.6L)">
+      <input id="e_transmission" placeholder="Transmission (Auto / Manual / CVT)">
+      <input id="e_drivetrain" placeholder="Drivetrain (FWD / RWD / AWD)">
+
+      <select id="e_goodMotor">
+        <option value="">Good Motor? (optional)</option>
+        <option value="yes">Yes ✅</option>
+        <option value="no">No ❌</option>
+      </select>
+      <select id="e_goodTrans">
+        <option value="">Good Transmission? (optional)</option>
+        <option value="yes">Yes ✅</option>
+        <option value="no">No ❌</option>
+      </select>
+
+      <textarea id="e_photoUrls" placeholder="Photo URLs (comma-separated)"></textarea>
+    </div>
+
+    <div class="modalActions">
+      <button class="primary" id="saveBtn" onclick="saveEdit()">Save Changes</button>
+      <button class="ghost" onclick="closeEdit()">Cancel</button>
+      <button class="smallBtn" onclick="openParts(editingId)">Parts</button>
+      <button class="danger" onclick="deleteFromEdit()">Delete</button>
+    </div>
+
+    <div id="editMsg" class="note"><span class="dot"></span><span id="editMsgText"></span></div>
+  </div>
+</div>
+
+<!-- PARTS MODAL (PUBLIC VIEW + ADMIN EDIT) -->
+<div class="modalBack" id="partsBack">
+  <div class="modal glass">
+    <div class="modalHead">
+      <div>
+        <h3>Vehicle Parts</h3>
+        <div class="mini" id="partsSub">—</div>
+      </div>
+      <button class="xBtn" onclick="closeParts()">✕</button>
+    </div>
+
+    <hr class="sep">
+
+    <!-- Admin-only add/edit form -->
+    <div class="admin-only admin-block">
+      <div class="grid">
+        <input id="p_partName" placeholder="Part Name (ex: Alternator)">
+        <input id="p_partType" placeholder="Part Type (ex: Engine / Body / Module)">
+        <input id="p_interchange" placeholder="Interchange # (optional)">
+        <input id="p_location" placeholder="Location (ex: Rack A-3)">
+        <input id="p_qty" placeholder="Qty (ex: 1)" inputmode="numeric" value="1">
+        <input id="p_price" placeholder="Price (ex: 150)" inputmode="decimal">
+        <input id="p_core" placeholder="Core (optional)" inputmode="decimal">
+        <textarea id="p_notes" placeholder="Notes (optional)"></textarea>
+
+        <button class="primary" id="p_saveBtn" onclick="savePart()">Save Part</button>
+        <button class="ghost" onclick="resetPartForm()">New Part</button>
+      </div>
+
+      <div class="note" id="partsMsg"><span class="dot"></span><span id="partsMsgText"></span></div>
+      <div style="height:12px"></div>
+    </div>
+
+    <!-- Public note -->
+    <div class="note" id="partsPublicNote"><span class="dot"></span><span id="partsPublicNoteText"></span></div>
+
+    <div class="partsWrap" style="margin-top:12px">
+      <div class="partsHeader">
+        <div>
+          <div class="mini" id="partsCount">0 parts</div>
+          <div class="muted">Public can view. Admin can edit.</div>
+        </div>
+        <div class="partsTools">
+          <button class="smallBtn ghost" onclick="refreshParts()">Refresh</button>
+          <button class="smallBtn" onclick="copyPartsCSV()">Copy CSV</button>
+        </div>
+      </div>
+
+      <div style="max-height:420px; overflow:auto; -webkit-overflow-scrolling:touch">
+        <table class="partsTable">
+          <thead>
+            <tr>
+              <th style="width:34%">Part</th>
+              <th style="width:14%">Qty</th>
+              <th style="width:14%">Price</th>
+              <th style="width:14%">Core</th>
+              <th style="width:24%">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="partsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO VIEWER (anyone can use) -->
+<div class="modalBack" id="photoBack">
+  <div class="modal glass">
+    <div class="photoViewer">
+      <div class="photoViewerTop">
+        <div>
+          <h3 style="font-size:1.05rem;font-weight:950">Photo Viewer</h3>
+          <div class="mini" id="photoSub">—</div>
+        </div>
+        <button class="xBtn" onclick="closePhoto()">✕</button>
+      </div>
+
+      <div class="photoViewerImgWrap">
+        <img id="photoView" alt="Vehicle photo">
+      </div>
+
+      <div class="photoViewerNav">
+        <button class="smallBtn ghost" onclick="prevPhoto()">◀ Prev</button>
+        <button class="smallBtn ghost" onclick="nextPhoto()">Next ▶</button>
+        <button class="smallBtn" onclick="openPhotoInNewTab()">Open in new tab</button>
+        <button class="smallBtn ghost" onclick="copyCurrentPhotoUrl()">Copy URL</button>
+      </div>
+
+      <div class="note" id="photoMsg"><span class="dot"></span><span id="photoMsgText"></span></div>
+    </div>
   </div>
 </div>
 
 <script>
-/* ============ Helpers ============ */
-const $ = (s)=>document.querySelector(s);
-const $$ = (s)=>Array.from(document.querySelectorAll(s));
+/* ========================
+   FIREBASE INIT (COMPAT)
+======================== */
+firebase.initializeApp({
+  apiKey: "AIzaSyBVumo8QP3m18p33ugqx_eNADsjHG0gJS0",
+  authDomain: "two-little-bees-inventory.firebaseapp.com",
+  projectId: "two-little-bees-inventory",
+  storageBucket: "two-little-bees-inventory.firebasestorage.app",
+  messagingSenderId: "669354511397",
+  appId: "1:669354511397:web:a5e4565496e097f85483cc",
+  measurementId: "G-736B95M78E"
+});
 
-function showToast(msg){
-  const t = $("#toast");
-  t.textContent = msg;
-  t.style.display = "block";
-  clearTimeout(showToast._t);
-  showToast._t = setTimeout(()=> t.style.display="none", 900);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const ref = db.collection("inventory");
+const metaRef = db.collection("meta").doc("stockCounter");
+
+/* UI refs */
+const loginCard = document.getElementById("loginCard");
+const inventoryList = document.getElementById("inventoryList");
+const quickBar = document.getElementById("quickBar");
+
+// keyboard: Enter/Space on cards
+inventoryList.addEventListener("keydown", (e)=>{
+  const card = e.target.closest?.(".vehicleCard[data-id]");
+  if(!card) return;
+  if(e.key === "Enter" || e.key === " "){
+    e.preventDefault();
+    setSelected(card.dataset.id);
+  }
+});
+
+// wheel -> horizontal scroll for photo tracks (desktop friendly)
+inventoryList.addEventListener("wheel", (e)=>{
+  const track = e.target.closest?.(".photoTrack");
+  if(!track) return;
+  // translate vertical wheel into horizontal scroll
+  const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+  if(Math.abs(delta) < 1) return;
+  e.preventDefault();
+  track.scrollLeft += delta;
+},{passive:false});
+
+
+const toast = document.getElementById("toast");
+
+const loginMsg = document.getElementById("loginMsg");
+const loginMsgText = document.getElementById("loginMsgText");
+const invMsg = document.getElementById("invMsg");
+const invMsgText = document.getElementById("invMsgText");
+const adminMsg = document.getElementById("adminMsg");
+const adminMsgText = document.getElementById("adminMsgText");
+const editMsg = document.getElementById("editMsg");
+const editMsgText = document.getElementById("editMsgText");
+
+const countLine = document.getElementById("countLine");
+const liveHint = document.getElementById("liveHint");
+
+const searchEl = document.getElementById("search");
+const sortEl = document.getElementById("sort");
+
+/* detail pane */
+const dTitle = document.getElementById("dTitle");
+const dMini  = document.getElementById("dMini");
+const dBody  = document.getElementById("dBody");
+
+let selectedId = null;
+
+let isAdmin = false;
+let beeClicks = 0;
+let liveCars = [];
+let unsub = null;
+
+/* chips */
+const chipState = { photos:false, goodMotor:false, goodTrans:false, under100k:false };
+
+/* EDIT */
+const editBack = document.getElementById("editBack");
+let editingId = null;
+
+/* PHOTO VIEWER */
+const photoBack = document.getElementById("photoBack");
+const photoView = document.getElementById("photoView");
+const photoSub = document.getElementById("photoSub");
+const photoMsg = document.getElementById("photoMsg");
+const photoMsgText = document.getElementById("photoMsgText");
+let __photosByCarId = {};
+let __currentPhoto = { carId:null, idx:0 };
+
+/* PARTS */
+const partsBack = document.getElementById("partsBack");
+const partsSub = document.getElementById("partsSub");
+const partsBody = document.getElementById("partsBody");
+const partsCount = document.getElementById("partsCount");
+const partsPublicNote = document.getElementById("partsPublicNote");
+const partsPublicNoteText = document.getElementById("partsPublicNoteText");
+const partsMsg = document.getElementById("partsMsg");
+const partsMsgText = document.getElementById("partsMsgText");
+
+let __partsCarId = null;
+let __partsUnsub = null;
+let __partsList = [];
+let __editingPartId = null;
+
+/* ===== helpers ===== */
+function setNote(el, textEl, msg, type=""){
+  textEl.textContent = msg || "";
+  el.className = "note" + (type ? " " + type : "");
 }
-
-function escapeHtml(str){
-  return String(str ?? "").replace(/[&<>"']/g, (m)=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+function showToast(msg){
+  toast.textContent = msg;
+  toast.style.display = "block";
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> toast.style.display="none", 950);
+}
+function escHtml(str){
+  return String(str ?? "").replace(/[&<>"']/g,(m)=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[m]));
 }
-
-function setNotice(el, msg, kind){
-  el.style.display = "block";
-  el.className = "notice " + (kind || "");
-  el.innerHTML = msg;
-}
-
-/* ===== Smooth hash scrolling ===== */
-(function(){
-  const links = document.querySelectorAll('a[href^="#"]');
-  links.forEach(a=>{
-    a.addEventListener("click", (e)=>{
-      const href = a.getAttribute("href");
-      if(!href || href === "#") return;
-      const el = document.querySelector(href);
-      if(!el) return;
-      e.preventDefault();
-      el.scrollIntoView({ behavior:"smooth", block:"start" });
-      history.pushState(null, "", href);
-    });
-  });
-})();
-</script>
-
-<!-- Firebase + Site Logic (module) -->
-<script type="module">
-/* =========================================================
-   ✅ SINGLE-FILE SETUP
-   - Live site stats (pageviews + unique visitors)
-   - Gallery (public read, admin add/delete)
-   - Leads (Request Part + Junk Car) into Firestore
-   - About text saved in Firestore (admin mode)
-   ========================================================= */
-
-/* ============ 1) PASTE YOUR FIREBASE CONFIG HERE ============ */
-const firebaseConfig = {
-  apiKey: "AIzaSyCspSuGyknZoztjBoFz_wdaOpnr4bVjpio",
-  authDomain: "twolittlebeeshomepage.firebaseapp.com",
-  projectId: "twolittlebeeshomepage",
-  storageBucket: "twolittlebeeshomepage.firebasestorage.app",
-  messagingSenderId: "671040515864",
-  appId: "1:671040515864:web:15b5b12775bb950709786d",
-  measurementId: "G-362YBE5VQL"
-};
-/* ========================================================= */
-
-const isFirebaseConfigured = () => {
-  const bad = ["YOUR_API_KEY","YOUR_PROJECT.firebaseapp.com","YOUR_PROJECT_ID","YOUR_PROJECT.appspot.com","YOUR_SENDER_ID","YOUR_APP_ID"];
-  const vals = Object.values(firebaseConfig || {});
-  return vals.length && vals.every(v => v && !bad.includes(v));
-};
-
-let app=null, auth=null, db=null;
-let currentUser=null;
-let adminMode=false;
-
-const metricsUpdated = document.getElementById("metricsUpdated");
-const pvNum = document.getElementById("pvNum");
-const uvNum = document.getElementById("uvNum");
-
-/* UI */
-const authPill = document.getElementById("authPill");
-const authText = document.getElementById("authText");
-const adminLoginOpen = document.getElementById("adminLoginOpen");
-const adminLogout = document.getElementById("adminLogout");
-const addPhotoOpen = document.getElementById("addPhotoOpen");
-const galleryHint = document.getElementById("galleryHint");
-
-const aboutText = document.getElementById("aboutText");
-const saveAboutBtn = document.getElementById("saveAboutBtn");
-const aboutSaveStatus = document.getElementById("aboutSaveStatus");
-
-const rqSubmit = document.getElementById("rqSubmit");
-const rqStatus = document.getElementById("rqStatus");
-const jcSubmit = document.getElementById("jcSubmit");
-const jcStatus = document.getElementById("jcStatus");
-
-/* Modals */
-const adminBackdrop = document.getElementById("adminModalBackdrop");
-const adminModal = document.getElementById("adminModal");
-const addBackdrop = document.getElementById("addModalBackdrop");
-const addModal = document.getElementById("addModal");
-
-const adminModalClose = document.getElementById("adminModalClose");
-const adminCancel = document.getElementById("adminCancel");
-const adminLoginDo = document.getElementById("adminLoginDo");
-const adminEmail = document.getElementById("adminEmail");
-const adminPass = document.getElementById("adminPass");
-const adminMsg = document.getElementById("adminMsg");
-
-const addModalClose = document.getElementById("addModalClose");
-const addCancel = document.getElementById("addCancel");
-const addDo = document.getElementById("addDo");
-const photoUrl = document.getElementById("photoUrl");
-const photoCaption = document.getElementById("photoCaption");
-const photoCategory = document.getElementById("photoCategory");
-const addMsg = document.getElementById("addMsg");
-
-/* Gallery */
-const galleryGrid = document.getElementById("galleryGrid");
-const gPrev = document.getElementById("gPrev");
-const gNext = document.getElementById("gNext");
-
-// Make horizontal scrolling feel natural on desktop trackpads/mouse wheels
-galleryGrid.addEventListener("wheel", (e) => {
-  // If user is trying to scroll vertically over the gallery, translate it to horizontal scroll.
-  // (Don't fight genuine horizontal trackpad gestures or Shift+Wheel.)
-  const ax = Math.abs(e.deltaX || 0);
-  const ay = Math.abs(e.deltaY || 0);
-  if (e.shiftKey || ax > ay) return;
-  e.preventDefault();
-  galleryGrid.scrollLeft += e.deltaY;
-  requestAnimationFrame(updateGalleryNavButtons);
-}, { passive: false });
-
-const tabs = Array.from(document.querySelectorAll("#galleryTabs .tab"));
-let activeCat = "All";
-let galleryData = [];   // cached docs
-let lightboxIndex = 0;
-
-/* Lightbox */
-const lbBackdrop = document.getElementById("lightboxBackdrop");
-const lbImg = document.getElementById("lbImg");
-const lbCap = document.getElementById("lbCap");
-const lbClose = document.getElementById("lbClose");
-const lbPrev = document.getElementById("lbPrev");
-const lbNext = document.getElementById("lbNext");
-
-/* Utilities */
-const makeUID = () => {
-  const a = crypto.getRandomValues(new Uint8Array(16));
-  return Array.from(a).map(b=>b.toString(16).padStart(2,"0")).join("");
-};
-const getOrCreateVisitorId = () => {
-  const k="tlb_uid";
-  let id = localStorage.getItem(k);
-  if(!id){ id = makeUID(); localStorage.setItem(k,id); }
-  return id;
-};
-
-function openModal(backdrop, modal){
-  backdrop.style.display="block";
-  modal.style.display="block";
-  document.body.style.overflow="hidden";
-}
-function closeModal(backdrop, modal){
-  backdrop.style.display="none";
-  modal.style.display="none";
-  document.body.style.overflow="";
-}
-function setAuthPill(signedIn){
-  if(signedIn){
-    authPill.className = "pill ok";
-    authText.textContent = "Admin signed in";
-    galleryHint.textContent = "Admin view";
-    adminLoginOpen.style.display="none";
-    adminLogout.style.display="inline-flex";
-    addPhotoOpen.style.display="inline-flex";
-  }else{
-    authPill.className = "pill bad";
-    authText.textContent = "Not signed in";
-    galleryHint.textContent = "Public view";
-    adminLoginOpen.style.display="inline-flex";
-    adminLogout.style.display="none";
-    addPhotoOpen.style.display="none";
-    document.body.classList.remove("adminMode");
-    adminMode=false;
-    aboutText.contentEditable = "false";
-  }
-}
-
-/* ============ 2) Firebase Imports ============ */
-let initializeApp, getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut;
-let getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp, runTransaction, increment;
-let collection, addDoc, deleteDoc, query, where, orderBy, getDocs, limit;
-
-async function loadFirebaseSDK(){
-  // These are CDN modules. They work on GitHub Pages.
-  const appMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
-  const authMod = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js");
-  const fsMod  = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
-
-  initializeApp = appMod.initializeApp;
-  getAuth = authMod.getAuth;
-  signInWithEmailAndPassword = authMod.signInWithEmailAndPassword;
-  onAuthStateChanged = authMod.onAuthStateChanged;
-  signOut = authMod.signOut;
-
-  getFirestore = fsMod.getFirestore;
-  doc = fsMod.doc;
-  getDoc = fsMod.getDoc;
-  setDoc = fsMod.setDoc;
-  updateDoc = fsMod.updateDoc;
-  serverTimestamp = fsMod.serverTimestamp;
-  runTransaction = fsMod.runTransaction;
-  increment = fsMod.increment;
-
-  collection = fsMod.collection;
-  addDoc = fsMod.addDoc;
-  deleteDoc = fsMod.deleteDoc;
-  query = fsMod.query;
-  where = fsMod.where;
-  orderBy = fsMod.orderBy;
-  getDocs = fsMod.getDocs;
-  limit = fsMod.limit;
-}
-
-async function initFirebase(){
-  if(!isFirebaseConfigured()){
-    metricsUpdated.textContent = "Firebase not configured";
-    pvNum.textContent = "—";
-    uvNum.textContent = "—";
-    galleryGrid.innerHTML = `<div class="galleryItem">Gallery needs Firebase config</div>`;
-    addMsg.textContent = "Paste your Firebase config in the code (search: YOUR_API_KEY).";
-    adminMsg.textContent = "Paste Firebase config first (search: YOUR_API_KEY).";
-    setAuthPill(false);
-    return false;
-  }
-  await loadFirebaseSDK();
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-  return true;
-}
-
-/* ============ 3) Live Site Stats ============ */
-async function initMetrics(){
-  try{
-    const visitorId = getOrCreateVisitorId();
-    const hasCountedKey = "tlb_uv_counted_v1";
-    const countUnique = localStorage.getItem(hasCountedKey) !== "1";
-
-    const metricsRef = doc(db, "metrics", "global");
-    await runTransaction(db, async (tx)=>{
-      const snap = await tx.get(metricsRef);
-      if(!snap.exists()){
-        tx.set(metricsRef, {
-          pageviews: 0,
-          uniqueVisitors: 0,
-          updatedAt: serverTimestamp()
-        });
-      }
-      tx.update(metricsRef, {
-        pageviews: increment(1),
-        uniqueVisitors: increment(countUnique ? 1 : 0),
-        updatedAt: serverTimestamp()
-      });
-    });
-
-    if(countUnique){
-      localStorage.setItem(hasCountedKey, "1");
-      // Store visitor id for reference (not uploaded unless you want to)
-      localStorage.setItem("tlb_uid", visitorId);
-    }
-
-    const snap = await getDoc(metricsRef);
-    const d = snap.data() || {};
-    pvNum.textContent = String(d.pageviews ?? 0);
-    uvNum.textContent = String(d.uniqueVisitors ?? 0);
-
-    const t = d.updatedAt?.toDate?.();
-    metricsUpdated.textContent = t ? ("Updated: " + t.toLocaleString()) : "Updated";
-  }catch(err){
-    console.error("metrics err", err);
-    metricsUpdated.textContent = "Stats unavailable";
-    pvNum.textContent = "—";
-    uvNum.textContent = "—";
-  }
-}
-
-/* ============ 4) About Text (Firestore) ============ */
-async function loadAbout(){
-  try{
-    const ref = doc(db, "siteContent", "about");
-    const snap = await getDoc(ref);
-    if(snap.exists()){
-      const d = snap.data();
-      if(d?.html) aboutText.innerHTML = d.html;
-    }
-  }catch(e){
-    console.warn("about load fail", e);
-  }
-}
-async function saveAbout(){
-  if(!currentUser) return;
-  try{
-    const ref = doc(db, "siteContent", "about");
-    await setDoc(ref, { html: aboutText.innerHTML, updatedAt: serverTimestamp() }, { merge:true });
-    aboutSaveStatus.style.display="none";
-    aboutSaveStatus.style.display="block";
-    aboutSaveStatus.className="notice ok";
-    aboutSaveStatus.textContent="Saved.";
-  }catch(e){
-    aboutSaveStatus.style.display="block";
-    aboutSaveStatus.className="notice bad";
-    aboutSaveStatus.textContent="Save failed.";
-  }
-}
-
-/* ============ 5) Leads (Request Part + Junk Cars) ============ */
-function getField(id){ return (document.getElementById(id)?.value || "").trim(); }
-function clearFields(ids){ ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=""; }); }
-
-async function submitPartRequest(){
-  if(!db){
-    setNotice(rqStatus, "Firebase not configured. Call us at (317) 243-7777.", "bad");
-    return;
-  }
-  const payload = {
-    type: "part_request",
-    name: getField("rqName"),
-    phone: getField("rqPhone"),
-    year: getField("rqYear"),
-    makeModel: getField("rqMakeModel"),
-    part: getField("rqPart"),
-    vin: getField("rqVin").toUpperCase(),
-    notes: getField("rqNotes"),
-    photoUrl: getField("rqPhotoUrl"),
-    createdAt: serverTimestamp()
-  };
-  if(!payload.phone || !payload.part){
-    setNotice(rqStatus, "Add at least <b>Phone</b> and <b>Part Needed</b>.", "bad");
-    return;
-  }
-  try{
-    rqSubmit.disabled = true;
-    await addDoc(collection(db, "leads"), payload);
-    setNotice(rqStatus, "✅ Sent. We’ll contact you soon.", "ok");
-    clearFields(["rqName","rqPhone","rqYear","rqMakeModel","rqPart","rqVin","rqNotes","rqPhotoUrl"]);
-  }catch(e){
-    console.error(e);
-    setNotice(rqStatus, "❌ Failed to send. Please call (317) 243-7777.", "bad");
-  }finally{
-    rqSubmit.disabled = false;
-  }
-}
-
-async function submitJunkCar(){
-  if(!db){
-    setNotice(jcStatus, "Firebase not configured. Call us at (317) 243-7777.", "bad");
-    return;
-  }
-  const payload = {
-    type: "junk_car",
-    name: getField("jcName"),
-    phone: getField("jcPhone"),
-    pickupLocation: getField("jcLocation"),
-    vehicle: getField("jcVehicle"),
-    runs: getField("jcRuns"),
-    title: getField("jcTitle"),
-    notes: getField("jcNotes"),
-    createdAt: serverTimestamp()
-  };
-  if(!payload.phone || !payload.vehicle){
-    setNotice(jcStatus, "Add at least <b>Phone</b> and <b>Vehicle</b>.", "bad");
-    return;
-  }
-  try{
-    jcSubmit.disabled = true;
-    await addDoc(collection(db, "junkLeads"), payload);
-    setNotice(jcStatus, "✅ Sent. We’ll contact you with an offer.", "ok");
-    clearFields(["jcName","jcPhone","jcLocation","jcVehicle","jcRuns","jcTitle","jcNotes"]);
-  }catch(e){
-    console.error(e);
-    setNotice(jcStatus, "❌ Failed to send. Please call (317) 243-7777.", "bad");
-  }finally{
-    jcSubmit.disabled = false;
-  }
-}
-
-/* ============ 6) Gallery ============ */
-function renderGallerySkeleton(count=10){
-  galleryGrid.innerHTML = "";
-  for(let i=0;i<count;i++){
-    const div = document.createElement("div");
-    div.className = "galleryItem skeleton";
-    const cap = document.createElement("div");
-    cap.className = "cap";
-    cap.textContent = "Loading";
-    div.appendChild(cap);
-    galleryGrid.appendChild(div);
-  }
-  // While loading, keep nav disabled until we know width.
-  gPrev.disabled = true;
-  gNext.disabled = true;
-}
-
-function renderGalleryEmpty(kind="empty", detail=""){
-  const title = kind === "error" ? "Couldn’t load photos" : "No photos yet";
-  const desc = kind === "error"
-    ? (detail || "Please refresh, or try again in a moment.")
-    : (activeCat === "All"
-        ? "We’ll keep adding new arrivals. Want something specific?"
-        : `No photos posted in “${activeCat}” yet. Want us to check inventory?`);
-
-  const wrap = document.createElement("div");
-  wrap.className = "galleryEmpty";
-  wrap.innerHTML = `
-    <h4>${title}</h4>
-    <p>${desc}</p>
-    <div class="row">
-      <button type="button" class="miniBtn primary" id="gEmptyRequest">Request a Part</button>
-      <button type="button" class="miniBtn" id="gEmptyReload">${kind === "error" ? "Try again" : "Refresh"}</button>
-      ${currentUser ? `<button type="button" class="miniBtn" id="gEmptyAdd">Add Photo</button>` : ``}
-    </div>
-  `;
-  galleryGrid.innerHTML = "";
-  galleryGrid.appendChild(wrap);
-
-  const req = wrap.querySelector("#gEmptyRequest");
-  const rel = wrap.querySelector("#gEmptyReload");
-  const add = wrap.querySelector("#gEmptyAdd");
-
-  req?.addEventListener("click", ()=>{
-    const el = document.querySelector("#requestCard") || document.querySelector("#request") || document.querySelector("[data-section='request']");
-    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
-    showToast("Tell us what you need 👇");
-  });
-  rel?.addEventListener("click", loadGallery);
-  add?.addEventListener("click", ()=> openModal(addBackdrop, addModal));
-}
-
-function renderGallery(list){
-  if(!list || !list.length){
-    renderGalleryEmpty("empty");
-    return;
-  }
-
-  galleryGrid.innerHTML = "";
-  list.forEach((it, idx)=>{
-    const div = document.createElement("div");
-    div.className = "galleryItem" + (currentUser ? " admin" : "");
-    div.dataset.index = String(idx);
-    div.setAttribute("role","button");
-    div.setAttribute("tabindex","0");
-    div.setAttribute("aria-label", (it.caption || it.category || "Gallery photo"));
-
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.alt = it.caption || it.category || "Gallery photo";
-    img.src = it.url;
-
-    // Fade-in when loaded
-    img.addEventListener("load", ()=> div.classList.add("loaded"), { once:true });
-    img.addEventListener("error", ()=>{
-      div.classList.add("loaded");
-      div.innerHTML = `<div style="padding:14px;text-align:center;color:rgba(245,245,247,.75)">Image failed to load</div>`;
-    }, { once:true });
-
-    const cap = document.createElement("div");
-    cap.className="cap";
-    cap.textContent = it.caption || it.category || "Photo";
-
-    div.appendChild(img);
-    div.appendChild(cap);
-
-    if(currentUser){
-      const del = document.createElement("button");
-      del.className="del";
-      del.type="button";
-      del.textContent="Delete";
-      del.addEventListener("click", async (e)=>{
-        e.stopPropagation();
-        if(!confirm("Delete this photo?")) return;
-        try{
-          await deleteDoc(doc(db, "gallery", it.id));
-          await loadGallery();
-          showToast("Deleted");
-        }catch(err){
-          alert("Delete failed");
-        }
-      });
-      div.appendChild(del);
-    }
-
-    const open = ()=> openLightbox(idx);
-    div.addEventListener("click", open);
-    div.addEventListener("keydown", (e)=>{
-      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); open(); }
-    });
-
-    galleryGrid.appendChild(div);
-  });
-
-  updateGalleryNavButtons();
-}
-
-async function loadGallery(){
-  if(!db){
-    renderGalleryEmpty("error", "Gallery needs Firebase config.");
-    return;
-  }
-
-  // Premium feel: show skeletons immediately
-  renderGallerySkeleton(10);
-
-  const col = collection(db, "gallery");
-  let q = null;
-  if(activeCat === "All"){
-    q = query(col, orderBy("createdAt","desc"), limit(60));
-  }else{
-    q = query(col, where("category","==", activeCat), orderBy("createdAt","desc"), limit(60));
-  }
-
-  try{
-    const snaps = await getDocs(q);
-    galleryData = snaps.docs.map(d=>({ id:d.id, ...d.data() }))
-      .filter(x=>x.url);
-
-    renderGallery(galleryData);
-  }catch(err){
-    console.error(err);
-    renderGalleryEmpty("error", "Network or permissions issue. Try again.");
-  }
-}
-async function addPhoto(){
-  if(!currentUser) return;
-  const url = (photoUrl.value || "").trim();
-  const caption = (photoCaption.value || "").trim();
-  const category = (photoCategory.value || "General").trim();
-
-  if(!url){
-    addMsg.textContent = "Photo URL required.";
-    return;
-  }
-
-  try{
-    addDo.disabled = true;
-    await addDoc(collection(db, "gallery"), {
-      url,
-      caption,
-      category,
-      createdAt: serverTimestamp()
-    });
-    photoUrl.value=""; photoCaption.value=""; photoCategory.value="General";
-    addMsg.textContent = "✅ Added.";
-    closeModal(addBackdrop, addModal);
-    await loadGallery();
-  }catch(e){
-    console.error(e);
-    addMsg.textContent = "❌ Add failed. Check Firestore rules / permissions.";
-  }finally{
-    addDo.disabled = false;
-  }
-}
-
-/* Gallery scroll */
-function galleryScrollStep(){
-  const first = galleryGrid.querySelector(".galleryItem");
-  if(!first) return 420;
-  const gap = parseFloat(getComputedStyle(galleryGrid).gap || "0") || 0;
-  const w = first.getBoundingClientRect().width;
-  return Math.max(240, Math.round(w + gap));
-}
-function scrollGallery(dx){
-  const dir = dx === 0 ? 0 : (dx > 0 ? 1 : -1);
-  const step = galleryScrollStep();
-  galleryGrid.scrollBy({ left: dir * step, behavior: "smooth" });
-  setTimeout(updateGalleryNavButtons, 220);
-}
-function updateGalleryNavButtons(){
-  const max = galleryGrid.scrollWidth - galleryGrid.clientWidth - 1;
-  gPrev.disabled = galleryGrid.scrollLeft <= 2;
-  gNext.disabled = galleryGrid.scrollLeft >= max;
-}
-
-/* ============ 7) Lightbox ============ */
-function openLightbox(idx){
-  if(!galleryData.length) return;
-  lightboxIndex = idx;
-  lbBackdrop.setAttribute("aria-hidden","false");
-  document.body.style.overflow="hidden";
-  renderLightbox();
-}
-function closeLightbox(){
-  lbBackdrop.setAttribute("aria-hidden","true");
-  document.body.style.overflow="";
-}
-function renderLightbox(){
-  const it = galleryData[lightboxIndex];
-  if(!it) return;
-  lbImg.src = it.url;
-  lbCap.textContent = it.caption || it.category || "";
-  lbPrev.disabled = (lightboxIndex <= 0);
-  lbNext.disabled = (lightboxIndex >= galleryData.length - 1);
-}
-function stepLightbox(dir){
-  const next = lightboxIndex + dir;
-  if(next < 0 || next >= galleryData.length) return;
-  lightboxIndex = next;
-  renderLightbox();
-}
-
-/* ============ 8) Auth ============ */
-function wireAuthUI(){
-  adminLoginOpen.addEventListener("click", ()=> openModal(adminBackdrop, adminModal));
-  adminModalClose.addEventListener("click", ()=> closeModal(adminBackdrop, adminModal));
-  adminCancel.addEventListener("click", ()=> closeModal(adminBackdrop, adminModal));
-  adminBackdrop.addEventListener("click", ()=> closeModal(adminBackdrop, adminModal));
-
-  addPhotoOpen.addEventListener("click", ()=> openModal(addBackdrop, addModal));
-  addModalClose.addEventListener("click", ()=> closeModal(addBackdrop, addModal));
-  addCancel.addEventListener("click", ()=> closeModal(addBackdrop, addModal));
-  addBackdrop.addEventListener("click", ()=> closeModal(addBackdrop, addModal));
-
-  adminLoginDo.addEventListener("click", async ()=>{
-    try{
-      adminMsg.textContent = "Signing in…";
-      await signInWithEmailAndPassword(auth, adminEmail.value.trim(), adminPass.value);
-      adminEmail.value=""; adminPass.value="";
-      closeModal(adminBackdrop, adminModal);
-      adminMsg.textContent = "Signed in.";
-    }catch(e){
-      console.error(e);
-      adminMsg.textContent = "Login failed. Check email/password.";
-    }
-  });
-
-  adminLogout.addEventListener("click", async ()=>{
-    await signOut(auth);
-  });
-}
-
-/* Ctrl+Shift+A: toggle adminMode (requires login) */
-document.addEventListener("keydown", (e)=>{
-  if(e.key.toLowerCase() === "a" && e.ctrlKey && e.shiftKey){
-    if(!currentUser){
-      showToast("Admin login required");
-      return;
-    }
-    adminMode = !adminMode;
-    document.body.classList.toggle("adminMode", adminMode);
-    aboutText.contentEditable = adminMode ? "true" : "false";
-    if(adminMode) aboutText.focus();
-    showToast(adminMode ? "Admin mode on" : "Admin mode off");
-  }
-});
-
-/* ============ 9) Wire non-module buttons ============ */
-rqSubmit.addEventListener("click", submitPartRequest);
-jcSubmit.addEventListener("click", submitJunkCar);
-
-saveAboutBtn.addEventListener("click", saveAbout);
-
-gPrev.addEventListener("click", ()=> scrollGallery(-420));
-gNext.addEventListener("click", ()=> scrollGallery(420));
-galleryGrid.addEventListener("scroll", ()=> requestAnimationFrame(updateGalleryNavButtons));
-
-tabs.forEach(t=>{
-  t.addEventListener("click", async ()=>{
-    tabs.forEach(x=>x.classList.remove("active"));
-    t.classList.add("active");
-    activeCat = t.dataset.cat || "All";
-    await loadGallery();
-  });
-});
-
-/* Lightbox events */
-lbClose.addEventListener("click", closeLightbox);
-lbBackdrop.addEventListener("click", (e)=>{
-  if(e.target === lbBackdrop) closeLightbox();
-});
-lbPrev.addEventListener("click", ()=> stepLightbox(-1));
-lbNext.addEventListener("click", ()=> stepLightbox(1));
-
-document.addEventListener("keydown", (e)=>{
-  if(lbBackdrop.getAttribute("aria-hidden") === "false"){
-    if(e.key === "Escape") closeLightbox();
-    if(e.key === "ArrowLeft") stepLightbox(-1);
-    if(e.key === "ArrowRight") stepLightbox(1);
-  }
-});
-
-/* ============ 10) Boot ============ */
-(async function boot(){
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  const ok = await initFirebase();
-  wireAuthUI();
-
-  if(!ok) return;
-
-  onAuthStateChanged(auth, async (u)=>{
-    currentUser = u || null;
-    setAuthPill(!!currentUser);
-    await loadGallery();
-  });
-
-  await initMetrics();
-  await loadAbout();
-  await loadGallery();
-})();
-</script>
-
-<script>
-/* =========================================================
-   VIN Decoder (non-module so your existing onclick still works)
-   ========================================================= */
-const vinPanel = document.getElementById("vin-panel");
-const vinBackdrop = document.getElementById("vin-panel-backdrop");
-const vinInput = document.getElementById("vin");
-const resultsEl = document.getElementById("results");
-const vehicleEl = document.getElementById("vehicle");
-const vinStatus = document.getElementById("vin-status");
-const vinStatusText = document.getElementById("vin-status-text");
-
-let vinBusy = false;
-let lastVinCache = { vin:"", d:null, ts:0 };
-
-function setVinStatus(msg, type=""){
-  vinStatusText.textContent = msg || "";
-  vinStatus.className = type ? type : "";
-}
-function toggleVin(force){
-  const isOpen = vinPanel.style.display === "block";
-  const next = (force === undefined) ? !isOpen : !!force;
-  vinPanel.style.display = next ? "block" : "none";
-  vinBackdrop.style.display = next ? "block" : "none";
-  document.body.style.overflow = next ? "hidden" : "";
-  if(next) setTimeout(()=> vinInput.focus(), 60);
-}
-document.addEventListener("keydown", (e)=>{
-  if(e.key === "Escape" && vinPanel.style.display === "block") toggleVin(false);
-});
-function cleanVIN(v){ return (v||"").toUpperCase().replace(/[^A-Z0-9]/g,""); }
+function clean(str){ return String(str ?? "").trim(); }
+function cleanVIN(v){ return clean(v).toUpperCase().replace(/[^A-Z0-9]/g,""); }
 function validVIN(v){ return v.length === 17 && !/[IOQ]/.test(v); }
 
-vinInput.addEventListener("input", ()=>{
-  const c = cleanVIN(vinInput.value);
-  if(vinInput.value !== c) vinInput.value = c;
-  if(c.length === 17 && validVIN(c)) setVinStatus("Ready to decode.", "");
-  else if(c.length) setVinStatus("Enter 17 chars (no I/O/Q).", "warn");
-  else setVinStatus("", "");
-});
-vinInput.addEventListener("keydown", (e)=>{
-  if(e.key === "Enter"){ e.preventDefault(); decode(); }
-});
+function ynToBool(v){ if(v==="yes") return true; if(v==="no") return false; return null; }
+function boolToYN(b){ if(b===true) return "yes"; if(b===false) return "no"; return ""; }
 
-async function fetchDecode(v){
-  const direct = `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/${v}?format=json`;
+function parseMileage(v){
+  const raw = clean(v).replace(/[^\d]/g,"");
+  if(!raw) return null;
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) ? n : null;
+}
+function fmtMiles(n){
+  if(n===null || n===undefined || n==="") return "";
+  const num = typeof n === "number" ? n : parseMileage(String(n));
+  if(num===null) return "";
+  return num.toLocaleString() + " mi";
+}
+function parseMoney(v){
+  const t = clean(v).replace(/[^0-9.]/g,"");
+  if(!t) return null;
+  const n = Number(t);
+  return Number.isFinite(n) ? Math.round(n*100)/100 : null;
+}
+function fmtMoney(n){
+  if(n===null || n===undefined) return "";
+  const num = Number(n);
+  if(!Number.isFinite(num)) return "";
+  return "$" + num.toFixed(2);
+}
+function parseIntSafe(v, fallback=null){
+  const t = clean(v).replace(/[^\d-]/g,"");
+  if(!t) return fallback;
+  const n = parseInt(t,10);
+  return Number.isFinite(n) ? n : fallback;
+}
+function parsePhotoUrls(text){
+  const t = clean(text);
+  if(!t) return [];
+  return t.split(",").map(s=>clean(s)).filter(Boolean).filter(u=>/^https?:\/\//i.test(u));
+}
+
+function setAdminUI(on){
+  isAdmin = !!on;
+  document.body.classList.toggle("is-admin", isAdmin);
+  queueApplyFilters();
+}
+
+function toggleChip(key){
+  chipState[key] = !chipState[key];
+  const map = { photos:"chipPhotos", goodMotor:"chipGoodMotor", goodTrans:"chipGoodTrans", under100k:"chipUnder100k" };
+  const el = document.getElementById(map[key]);
+  if(el) el.classList.toggle("on", chipState[key]);
+  queueApplyFilters();
+}
+
+/* ===== secret logo clicks ===== */
+function beeSecret(){
+  beeClicks++;
+  if(beeClicks===3){
+    loginCard.style.display="block";
+    setNote(loginMsg, loginMsgText, "Login with your Firebase Auth email/password.", "");
+    beeClicks=0;
+  }
+  setTimeout(()=>beeClicks=0, 900);
+}
+
+/* ===== Firebase Auth login/logout ===== */
+async function login(){
+  const email = clean(username.value);
+  const pass  = clean(password.value);
+
+  if(!email || !pass){
+    setNote(loginMsg, loginMsgText, "Enter email and password.", "warn");
+    return;
+  }
+
+  setNote(loginMsg, loginMsgText, "Signing in…", "");
   try{
-    const r1 = await fetch(direct, { cache:"no-store" });
-    if(!r1.ok) throw new Error("Direct failed");
-    return await r1.json();
-  }catch{
-    const proxy = "https://api.allorigins.win/raw?url=" + encodeURIComponent(direct);
-    const r2 = await fetch(proxy, { cache:"no-store" });
-    if(!r2.ok) throw new Error("Proxy failed");
-    return await r2.json();
+    await auth.signInWithEmailAndPassword(email, pass);
+    loginCard.style.display="none";
+    username.value="";
+    password.value="";
+    showToast("Admin enabled");
+  }catch(e){
+    setNote(loginMsg, loginMsgText, "Login failed: " + (e?.message || ""), "bad");
+    console.error(e);
   }
 }
-function row(k, v){
-  if(!v || v === "Not Applicable") return;
-  resultsEl.insertAdjacentHTML("beforeend", `
-    <div class="row" data-copy="${escapeHtml(v)}">
-      <div class="k">${escapeHtml(k)}</div>
-      <div class="v">${escapeHtml(v)}</div>
-    </div>
-  `);
+async function logout(){
+  try{ await auth.signOut(); }catch(e){ console.error(e); }
+  closeEdit();
+  closeParts();
+  showToast("Admin disabled");
+}
+auth.onAuthStateChanged((user)=> setAdminUI(!!user));
+
+/* =========================
+   STOCK NUMBER (transaction)
+   ========================= */
+function pad3(n){ return String(n).padStart(3,"0"); }
+function yyyymmdd(d){
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,"0");
+  const day=String(d.getDate()).padStart(2,"0");
+  return `${y}${m}${day}`;
 }
 
-document.addEventListener("click", async (e)=>{
-  const r = e.target.closest("#results .row");
-  if(!r) return;
-  const text = r.getAttribute("data-copy");
-  if(!text) return;
-  try{
-    await navigator.clipboard.writeText(text);
-    showToast("Copied");
-  }catch{
-    showToast("Copy failed");
-  }
-});
+async function nextStockNumber(){
+  const today = yyyymmdd(new Date());
 
-async function decode(){
-  let v = cleanVIN(vinInput.value);
-  vinInput.value = v;
+  const stock = await db.runTransaction(async (tx)=>{
+    const snap = await tx.get(metaRef);
+    let seq = 0;
+
+    if(!snap.exists){
+      seq = 1;
+      tx.set(metaRef, { date: today, seq: 1, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }else{
+      const data = snap.data() || {};
+      const oldDate = clean(data.date);
+      const oldSeq = Number(data.seq || 0);
+
+      if(oldDate === today){
+        seq = oldSeq + 1;
+        tx.update(metaRef, { seq, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      }else{
+        seq = 1;
+        tx.update(metaRef, { date: today, seq: 1, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+      }
+    }
+    return `TLB-${today}-${pad3(seq)}`;
+  });
+
+  return stock;
+}
+
+async function generateStockToForm(isEdit){
+  const el = isEdit ? document.getElementById("e_stockNumber") : document.getElementById("stockNumber");
+  const msgEl = isEdit ? editMsg : adminMsg;
+  const msgTextEl = isEdit ? editMsgText : adminMsgText;
+
+  if(!auth.currentUser){
+    setNote(msgEl, msgTextEl, "Login first (tap logo 3x). Stock generator requires admin auth.", "warn");
+    return;
+  }
+
+  try{
+    setNote(msgEl, msgTextEl, "Generating Stock #…", "");
+    const s = await nextStockNumber();
+    el.value = s;
+    setNote(msgEl, msgTextEl, `Stock # ready: ${s}`, "ok");
+    showToast("Stock # generated");
+  }catch(e){
+    setNote(msgEl, msgTextEl, "Stock # generator failed: " + (e?.message || "rules/connection"), "bad");
+    console.error(e);
+  }
+}
+
+/* =========================
+   VIN AUTO-FILL (VPIC)
+   ========================= */
+async function decodeVIN(vin){
+  const url = `https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesextended/${encodeURIComponent(vin)}?format=json`;
+  const r = await fetch(url, { cache:"no-store" });
+  if(!r.ok) throw new Error("VIN lookup failed");
+  const j = await r.json();
+  const row = j && j.Results && j.Results[0] ? j.Results[0] : null;
+  if(!row) throw new Error("No VIN data");
+
+  const year = clean(row.ModelYear);
+  const make = clean(row.Make);
+  const model = clean(row.Model);
+
+  let engine = "";
+  const dispL = clean(row.DisplacementL);
+  if(dispL && dispL !== "0") engine = `${dispL}L`;
+  else engine = clean(row.EngineModel) || clean(row.EngineCylinders ? `${row.EngineCylinders} Cyl` : "");
+
+  const transmission = clean(row.TransmissionStyle) || clean(row.TransmissionSpeeds ? `${row.TransmissionSpeeds}-Speed` : "");
+  const drivetrain = clean(row.DriveType);
+
+  return { year, make, model, engine, transmission, drivetrain };
+}
+
+async function autoFillFromVIN(isEdit){
+  const vinEl = isEdit ? document.getElementById("e_vin") : document.getElementById("vin");
+  const v = cleanVIN(vinEl.value);
+
+  const msgEl = isEdit ? editMsg : adminMsg;
+  const msgTextEl = isEdit ? editMsgText : adminMsgText;
 
   if(!validVIN(v)){
-    setVinStatus("Invalid VIN. Must be 17 chars and no I/O/Q.", "bad");
-    return;
-  }
-  if(vinBusy) return;
-  vinBusy = true;
-
-  const now = Date.now();
-  if(lastVinCache.vin === v && lastVinCache.d && (now - lastVinCache.ts) < 60_000){
-    renderVin(lastVinCache.d, v);
-    setVinStatus("Loaded from cache.", "ok");
-    vinBusy = false;
+    setNote(msgEl, msgTextEl, "VIN must be 17 chars (no I/O/Q) to auto-fill.", "warn");
     return;
   }
 
-  setVinStatus("Decoding VIN…", "warn");
-  resultsEl.innerHTML = "";
-  vehicleEl.textContent = "Decoding…";
-
+  setNote(msgEl, msgTextEl, "Decoding VIN…", "");
   try{
-    const json = await fetchDecode(v);
-    const d = json?.Results?.[0] || {};
-    lastVinCache = { vin:v, d, ts:Date.now() };
-    renderVin(d, v);
-    setVinStatus("VIN decoded successfully.", "ok");
-  }catch{
-    vehicleEl.textContent = "Decode failed.";
-    setVinStatus("Decode failed. Check internet and try again.", "bad");
+    const d = await decodeVIN(v);
+
+    const yEl = isEdit ? e_year : year;
+    const mkEl = isEdit ? e_make : make;
+    const mdEl = isEdit ? e_model : model;
+    const engEl = isEdit ? e_engine : engine;
+    const trnEl = isEdit ? e_transmission : transmission;
+    const drvEl = isEdit ? e_drivetrain : drivetrain;
+
+    if(d.year) yEl.value = d.year;
+    if(d.make) mkEl.value = d.make;
+    if(d.model) mdEl.value = d.model;
+
+    if(d.engine && !clean(engEl.value)) engEl.value = d.engine;
+    if(d.transmission && !clean(trnEl.value)) trnEl.value = d.transmission;
+    if(d.drivetrain && !clean(drvEl.value)) drvEl.value = d.drivetrain;
+
+    setNote(msgEl, msgTextEl, `Auto-filled: ${[d.year,d.make,d.model].filter(Boolean).join(" ") || "done"}.`, "ok");
+    showToast("VIN Auto-Fill");
+  }catch(e){
+    setNote(msgEl, msgTextEl, "VIN auto-fill failed: " + (e?.message || "try again"), "bad");
+    console.error(e);
   }
-  vinBusy = false;
 }
 
-function renderVin(d, v){
-  const line = `${d.ModelYear || ""} ${d.Make || ""} ${d.Model || ""}`.trim() || "Vehicle";
-  vehicleEl.textContent = line;
+function hookVinAutoFill(){
+  const vinInput = document.getElementById("vin");
+  const eVinInput = document.getElementById("e_vin");
 
-  row("VIN", v);
-  row("Year", d.ModelYear);
-  row("Make", d.Make);
-  row("Model", d.Model);
-  row("Trim", d.Trim);
-  row("Engine", d.EngineModel || (d.DisplacementL ? `${d.DisplacementL}L` : ""));
-  row("Displacement", d.DisplacementL ? `${d.DisplacementL} L` : "");
-  row("Cylinders", d.EngineCylinders);
-  row("Fuel", d.FuelTypePrimary);
-  row("Transmission", d.TransmissionStyle);
-  row("Trans Speeds", d.TransmissionSpeeds);
-  row("Drive", d.DriveType);
-  row("Body", d.BodyClass);
-  row("Doors", d.Doors);
-  row("Vehicle Type", d.VehicleType);
-  row("GVWR", d.GVWR);
+  vinInput.addEventListener("input", ()=>{
+    const v = cleanVIN(vinInput.value);
+    vinInput.value = v;
+    if(v.length === 17 && validVIN(v)) autoFillFromVIN(false);
+  });
+
+  eVinInput.addEventListener("input", ()=>{
+    const v = cleanVIN(eVinInput.value);
+    eVinInput.value = v;
+    if(v.length === 17 && validVIN(v)) autoFillFromVIN(true);
+  });
 }
 
-function printSheet(){
-  const vinVal = cleanVIN(vinInput.value);
-  const title = vehicleEl.textContent || "Vehicle";
-  const rows = Array.from(resultsEl.querySelectorAll(".row")).map(r=>{
-    const k = r.querySelector(".k")?.textContent || "";
-    const v = r.querySelector(".v")?.textContent || "";
-    return `<tr><td>${escapeHtml(k)}</td><td>${escapeHtml(v)}</td></tr>`;
+/* =========================
+   PHOTO (bind once = no lag)
+   ========================= */
+function enableDragScroll(el){
+  if(el.dataset.bound === "1") return;
+  el.dataset.bound = "1";
+
+  let isDown=false, startX=0, startLeft=0;
+
+  el.addEventListener("mousedown",(e)=>{
+    isDown=true;
+    startX=e.pageX;
+    startLeft=el.scrollLeft;
+    el.style.cursor="grabbing";
+    e.preventDefault();
+  });
+  window.addEventListener("mouseup",()=>{ isDown=false; });
+  el.addEventListener("mouseleave",()=>{ isDown=false; });
+  el.addEventListener("mousemove",(e)=>{
+    if(!isDown) return;
+    const dx = e.pageX - startX;
+    el.scrollLeft = startLeft - dx;
+  });
+
+  el.addEventListener("wheel",(e)=>{
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    if(el.scrollWidth <= el.clientWidth) return;
+    el.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }, { passive:false });
+}
+
+function openPhoto(carId, idx){
+  const arr = __photosByCarId[carId] || [];
+  if(!arr.length) return;
+
+  __currentPhoto.carId = carId;
+  __currentPhoto.idx = Math.max(0, Math.min(idx, arr.length-1));
+
+  photoBack.style.display = "block";
+  setNote(photoMsg, photoMsgText, "Swipe on phone, or use Prev/Next.", "");
+  renderPhoto();
+}
+function renderPhoto(){
+  const arr = __photosByCarId[__currentPhoto.carId] || [];
+  if(!arr.length){ closePhoto(); return; }
+  photoView.src = arr[__currentPhoto.idx];
+  photoSub.textContent = `Photo ${__currentPhoto.idx+1} of ${arr.length}`;
+}
+function closePhoto(){
+  photoBack.style.display = "none";
+  photoView.src = "";
+  __currentPhoto = { carId:null, idx:0 };
+}
+function nextPhoto(){
+  const arr = __photosByCarId[__currentPhoto.carId] || [];
+  if(!arr.length) return;
+  __currentPhoto.idx = (__currentPhoto.idx + 1) % arr.length;
+  renderPhoto();
+}
+function prevPhoto(){
+  const arr = __photosByCarId[__currentPhoto.carId] || [];
+  if(!arr.length) return;
+  __currentPhoto.idx = (__currentPhoto.idx - 1 + arr.length) % arr.length;
+  renderPhoto();
+}
+function openPhotoInNewTab(){
+  const arr = __photosByCarId[__currentPhoto.carId] || [];
+  if(!arr.length) return;
+  window.open(arr[__currentPhoto.idx], "_blank");
+}
+async function copyCurrentPhotoUrl(){
+  const arr = __photosByCarId[__currentPhoto.carId] || [];
+  if(!arr.length) return;
+  await copyText(arr[__currentPhoto.idx]);
+  showToast("Photo URL copied");
+}
+let _swipeX=null;
+photoView.addEventListener("touchstart",(e)=>{ _swipeX = e.touches?.[0]?.clientX ?? null; },{passive:true});
+photoView.addEventListener("touchend",(e)=>{
+  if(_swipeX===null) return;
+  const endX = e.changedTouches?.[0]?.clientX ?? null;
+  if(endX===null) return;
+  const dx = endX - _swipeX;
+  _swipeX=null;
+  if(Math.abs(dx) < 40) return;
+  if(dx < 0) nextPhoto(); else prevPhoto();
+},{passive:true});
+photoBack.addEventListener("click",(e)=>{ if(e.target===photoBack) closePhoto(); });
+
+/* =========================
+   PARTS (PUBLIC READ, ADMIN WRITE)
+   ========================= */
+function partsCol(carId){ return ref.doc(carId).collection("parts"); }
+
+function closeParts(){
+  partsBack.style.display = "none";
+  partsSub.textContent = "—";
+  partsBody.innerHTML = "";
+  partsCount.textContent = "0 parts";
+  __partsCarId = null;
+  __partsList = [];
+  __editingPartId = null;
+  resetPartForm();
+  partsPublicNote.style.display = "none";
+  partsPublicNoteText.textContent = "";
+  setNote(partsMsg, partsMsgText, "", "");
+  if(__partsUnsub){ __partsUnsub(); __partsUnsub = null; }
+}
+
+function openParts(carId){
+  if(!carId) return;
+  __partsCarId = carId;
+
+  const car = liveCars.find(x=>x.id===carId);
+  const stock = clean(car?.stockNumber) || "—";
+  const veh = `${clean(car?.year)} ${clean(car?.make)} ${clean(car?.model)}`.trim();
+
+  partsSub.textContent = `${veh || "Vehicle"} • Stock: ${stock}`;
+  partsBack.style.display = "block";
+
+  if(!isAdmin){
+    partsPublicNote.style.display = "flex";
+    partsPublicNoteText.textContent = "View only. (Admin can add/edit/delete parts.)";
+    partsPublicNote.className = "note";
+  }else{
+    partsPublicNote.style.display = "none";
+    partsPublicNoteText.textContent = "";
+  }
+
+  if(__partsUnsub){ __partsUnsub(); __partsUnsub = null; }
+
+  __partsUnsub = partsCol(carId).orderBy("createdAt","desc").onSnapshot((s)=>{
+    __partsList = [];
+    s.forEach(doc=>{ __partsList.push({ id: doc.id, ...doc.data() }); });
+    partsCount.textContent = `${__partsList.length} part${__partsList.length===1?"":"s"}`;
+    renderParts();
+  }, (e)=>{
+    partsCount.textContent = "Error";
+    partsBody.innerHTML = `<tr><td colspan="5" class="muted">Failed to load parts: ${escHtml(e?.message || "rules/connection")}</td></tr>`;
+    console.error(e);
+  });
+}
+
+function refreshParts(){ showToast("Refreshing…"); }
+
+function renderParts(){
+  if(!__partsList.length){
+    partsBody.innerHTML = `<tr><td colspan="5" class="muted">No parts listed for this vehicle.</td></tr>`;
+    return;
+  }
+
+  const html = __partsList.map(p=>{
+    const name = escHtml(p.partName || "Part");
+    const type = escHtml(p.partType || "");
+    const inter = escHtml(p.interchange || "");
+    const loc = escHtml(p.location || "");
+    const notes = escHtml(p.notes || "");
+    const qty = (typeof p.qty === "number") ? p.qty : (parseIntSafe(p.qty, 1) ?? 1);
+    const price = (typeof p.price === "number") ? p.price : parseMoney(p.price);
+    const core = (typeof p.core === "number") ? p.core : parseMoney(p.core);
+
+    return `
+      <tr>
+        <td>
+          <div style="font-weight:950">${name}</div>
+          <div class="muted">
+            ${type ? `${type}` : ``}
+            ${type && (inter||loc) ? ` • ` : ``}
+            ${inter ? `IC: ${inter}` : ``}
+            ${(inter && loc) ? ` • ` : ``}
+            ${loc ? `Loc: ${loc}` : ``}
+          </div>
+          ${notes ? `<div class="muted" style="margin-top:6px">${notes}</div>` : ``}
+        </td>
+        <td><span class="badgeQty">Qty <span>${qty}</span></span></td>
+        <td class="money">${price!==null ? escHtml(fmtMoney(price)) : "—"}</td>
+        <td class="money">${core!==null ? escHtml(fmtMoney(core)) : "—"}</td>
+        <td>
+          ${isAdmin ? `
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="smallBtn primary" onclick="editPart('${p.id}')">Edit</button>
+              <button class="smallBtn danger" onclick="deletePart('${p.id}')">Delete</button>
+            </div>
+          ` : `<div class="muted">View only</div>`}
+        </td>
+      </tr>
+    `;
   }).join("");
 
-  const w = window.open("", "_blank");
-  if(!w) return;
-
-  w.document.write(`
-    <!doctype html><html><head><meta charset="utf-8">
-    <title>VIN Sheet</title>
-    <style>
-      body{font-family:Arial,system-ui;padding:18px}
-      h1{font-size:18px;margin:0 0 8px}
-      .meta{color:#444;margin:0 0 14px}
-      table{width:100%;border-collapse:collapse}
-      td{border:1px solid #ddd;padding:8px;font-size:13px}
-      td:first-child{width:38%;font-weight:700;background:#f7f7f7}
-    </style></head><body>
-    <h1>Two Little Bees Auto Parts — VIN Decode Sheet</h1>
-    <div class="meta">${escapeHtml(title)} • VIN: ${escapeHtml(vinVal)}</div>
-    <table>${rows}</table>
-    <script>window.print();<\/script>
-    </body></html>
-  `);
-  w.document.close();
+  partsBody.innerHTML = html;
 }
+
+function resetPartForm(){
+  if(typeof p_partName === "undefined") return;
+  p_partName.value = "";
+  p_partType.value = "";
+  p_interchange.value = "";
+  p_location.value = "";
+  p_qty.value = "1";
+  p_price.value = "";
+  p_core.value = "";
+  p_notes.value = "";
+  __editingPartId = null;
+  p_saveBtn.textContent = "Save Part";
+  setNote(partsMsg, partsMsgText, "", "");
+}
+
+function editPart(partId){
+  if(!isAdmin) return;
+  const p = __partsList.find(x=>x.id===partId);
+  if(!p) return;
+
+  __editingPartId = partId;
+  p_partName.value = p.partName || "";
+  p_partType.value = p.partType || "";
+  p_interchange.value = p.interchange || "";
+  p_location.value = p.location || "";
+  p_qty.value = String((typeof p.qty==="number") ? p.qty : (parseIntSafe(p.qty,1) ?? 1));
+  p_price.value = (p.price ?? "") !== "" ? String(p.price ?? "") : "";
+  p_core.value = (p.core ?? "") !== "" ? String(p.core ?? "") : "";
+  p_notes.value = p.notes || "";
+  p_saveBtn.textContent = "Update Part";
+  setNote(partsMsg, partsMsgText, "Editing part…", "");
+  showToast("Editing part");
+}
+
+async function savePart(){
+  if(!isAdmin || !__partsCarId) return;
+
+  const payload = {
+    partName: clean(p_partName.value),
+    partType: clean(p_partType.value),
+    interchange: clean(p_interchange.value),
+    location: clean(p_location.value),
+    qty: Math.max(1, parseIntSafe(p_qty.value, 1) || 1),
+    notes: clean(p_notes.value)
+  };
+
+  const price = parseMoney(p_price.value);
+  const core = parseMoney(p_core.value);
+  if(price !== null) payload.price = price; else payload.price = firebase.firestore.FieldValue.delete();
+  if(core !== null) payload.core = core; else payload.core = firebase.firestore.FieldValue.delete();
+
+  if(!payload.partName){
+    setNote(partsMsg, partsMsgText, "Part name required.", "warn");
+    showToast("Part name required");
+    return;
+  }
+
+  try{
+    p_saveBtn.disabled = true;
+    setNote(partsMsg, partsMsgText, "Saving…", "");
+
+    if(__editingPartId){
+      await partsCol(__partsCarId).doc(__editingPartId).update({
+        ...payload,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      setNote(partsMsg, partsMsgText, "Updated.", "ok");
+      showToast("Updated");
+    }else{
+      await partsCol(__partsCarId).add({
+        ...payload,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      setNote(partsMsg, partsMsgText, "Added.", "ok");
+      showToast("Added part");
+    }
+
+    resetPartForm();
+  }catch(e){
+    setNote(partsMsg, partsMsgText, "Save failed: " + (e?.message || ""), "bad");
+    showToast("Save failed");
+    console.error(e);
+  }finally{
+    p_saveBtn.disabled = false;
+  }
+}
+
+async function deletePart(partId){
+  if(!isAdmin || !__partsCarId) return;
+  if(!confirm("Delete this part?")) return;
+
+  try{
+    await partsCol(__partsCarId).doc(partId).delete();
+    showToast("Part deleted");
+  }catch(e){
+    showToast("Delete failed");
+    console.error(e);
+  }
+}
+
+async function copyPartsCSV(){
+  if(!__partsList.length){ showToast("No parts"); return; }
+
+  const rows = [["PartName","PartType","Interchange","Location","Qty","Price","Core","Notes"]];
+  __partsList.forEach(p=>{
+    rows.push([
+      String(p.partName||""),
+      String(p.partType||""),
+      String(p.interchange||""),
+      String(p.location||""),
+      String((typeof p.qty==="number")?p.qty:(parseIntSafe(p.qty,1)||1)),
+      String((typeof p.price==="number")?p.price:(parseMoney(p.price)||"")),
+      String((typeof p.core==="number")?p.core:(parseMoney(p.core)||"")),
+      String(p.notes||"")
+    ].map(x=>String(x).replace(/"/g,'""')));
+  });
+
+  const csv = rows.map(r => `"${r.join('","')}"`).join("\n");
+  await copyText(csv);
+  showToast("CSV copied");
+}
+
+partsBack.addEventListener("click",(e)=>{ if(e.target === partsBack) closeParts(); });
+
+/* =========================
+   VEHICLES: add/edit/delete
+   ========================= */
+async function addCar(){
+  if(!auth.currentUser){
+    setNote(adminMsg, adminMsgText, "Login first (tap logo 3x).", "warn");
+    return;
+  }
+
+  const stock = clean(stockNumber.value);
+  const y = clean(year.value);
+  const mk = clean(make.value);
+  const md = clean(model.value);
+  const miles = parseMileage(mileage.value);
+  const v = cleanVIN(vin.value);
+  const col = clean(color.value);
+  const eng = clean(engine.value);
+  const trn = clean(transmission.value);
+  const drv = clean(drivetrain.value);
+
+  const gm = ynToBool(document.getElementById("goodMotor").value);
+  const gt = ynToBool(document.getElementById("goodTrans").value);
+
+  const photos = parsePhotoUrls(document.getElementById("photoUrls").value);
+
+  if(!y || !mk || !md){
+    setNote(adminMsg, adminMsgText, "Year, Make, and Model are required.", "warn");
+    return;
+  }
+  if(v && !validVIN(v)){
+    setNote(adminMsg, adminMsgText, "VIN must be 17 chars (no I/O/Q).", "warn");
+    return;
+  }
+
+  addBtn.disabled = true;
+  setNote(adminMsg, adminMsgText, "Saving…", "");
+
+  try{
+    let finalStock = stock;
+    if(!finalStock){
+      finalStock = await nextStockNumber();
+      stockNumber.value = finalStock;
+    }
+
+    const payload = {
+      stockNumber: finalStock,
+      year:y,
+      make:mk,
+      model:md,
+      vin:v,
+      color:col,
+      engine:eng,
+      transmission:trn,
+      drivetrain:drv,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    if(miles !== null) payload.mileage = miles;
+    if(photos.length) payload.photos = photos;
+
+    if(gm !== null) payload.goodMotor = gm;
+    if(gt !== null) payload.goodTrans = gt;
+
+    await ref.add(payload);
+
+    document.querySelectorAll('#adminPanel input').forEach(i=>i.value="");
+    document.getElementById("goodMotor").value = "";
+    document.getElementById("goodTrans").value = "";
+    document.getElementById("photoUrls").value = "";
+
+    setNote(adminMsg, adminMsgText, `Vehicle added. Stock #: ${finalStock}`, "ok");
+    showToast("Added");
+
+  }catch(e){
+    setNote(adminMsg, adminMsgText, "Save failed: " + (e?.message || "rules/connection"), "bad");
+    console.error(e);
+  }
+
+  addBtn.disabled = false;
+}
+
+async function removeCar(id){
+  if(!isAdmin || !id) return;
+  if(!confirm("Delete this vehicle?")) return;
+
+  try{
+    await ref.doc(id).delete();
+    showToast("Deleted");
+    if(selectedId === id) setSelected(null);
+  }catch(e){
+    showToast("Delete failed");
+    console.error(e);
+  }
+}
+
+function scrollToAdmin(){
+  document.getElementById("adminPanel").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function openEdit(id){
+  if(!isAdmin || !id) return;
+  const car = liveCars.find(x=>x.id===id);
+  if(!car) return;
+
+  editingId = id;
+
+  e_stockNumber.value = car.stockNumber || "";
+  e_year.value = car.year || "";
+  e_make.value = car.make || "";
+  e_model.value = car.model || "";
+  e_mileage.value = (car.mileage ?? "") !== "" ? String(car.mileage ?? "") : "";
+  e_vin.value = car.vin || "";
+  e_color.value = car.color || "";
+  e_engine.value = car.engine || "";
+  e_transmission.value = car.transmission || "";
+  e_drivetrain.value = car.drivetrain || "";
+  e_goodMotor.value = boolToYN(car.goodMotor);
+  e_goodTrans.value = boolToYN(car.goodTrans);
+  e_photoUrls.value = Array.isArray(car.photos) ? car.photos.join(", ") : "";
+
+  setNote(editMsg, editMsgText, "", "");
+  editBack.style.display = "block";
+}
+
+function closeEdit(){
+  editBack.style.display = "none";
+  editingId = null;
+  setNote(editMsg, editMsgText, "", "");
+}
+
+async function saveEdit(){
+  if(!isAdmin || !editingId) return;
+
+  const stock = clean(e_stockNumber.value);
+  const y = clean(e_year.value);
+  const mk = clean(e_make.value);
+  const md = clean(e_model.value);
+  const miles = parseMileage(e_mileage.value);
+  const v = cleanVIN(e_vin.value);
+  const col = clean(e_color.value);
+  const eng = clean(e_engine.value);
+  const trn = clean(e_transmission.value);
+  const drv = clean(e_drivetrain.value);
+
+  const gm = ynToBool(e_goodMotor.value);
+  const gt = ynToBool(e_goodTrans.value);
+
+  const photos = parsePhotoUrls(e_photoUrls.value);
+
+  if(!y || !mk || !md){
+    setNote(editMsg, editMsgText, "Year, Make, and Model are required.", "warn");
+    return;
+  }
+  if(v && !validVIN(v)){
+    setNote(editMsg, editMsgText, "VIN must be 17 chars (no I/O/Q).", "warn");
+    return;
+  }
+
+  saveBtn.disabled = true;
+  setNote(editMsg, editMsgText, "Saving…", "");
+
+  try{
+    let finalStock = stock;
+    if(!finalStock){
+      finalStock = await nextStockNumber();
+      e_stockNumber.value = finalStock;
+    }
+
+    const updates = {
+      stockNumber: finalStock,
+      year:y,
+      make:mk,
+      model:md,
+      vin:v,
+      color:col,
+      engine:eng,
+      transmission:trn,
+      drivetrain:drv
+    };
+
+    if(miles === null) updates.mileage = firebase.firestore.FieldValue.delete();
+    else updates.mileage = miles;
+
+    if(!photos.length) updates.photos = firebase.firestore.FieldValue.delete();
+    else updates.photos = photos;
+
+    updates.goodMotor = (gm === null) ? firebase.firestore.FieldValue.delete() : gm;
+    updates.goodTrans = (gt === null) ? firebase.firestore.FieldValue.delete() : gt;
+
+    await ref.doc(editingId).update(updates);
+
+    setNote(editMsg, editMsgText, "Saved.", "ok");
+    showToast("Saved");
+    setTimeout(closeEdit, 450);
+
+  }catch(e){
+    setNote(editMsg, editMsgText, "Save failed: " + (e?.message || "rules/connection"), "bad");
+    console.error(e);
+  }
+
+  saveBtn.disabled = false;
+}
+
+async function deleteFromEdit(){
+  if(!isAdmin || !editingId) return;
+  if(!confirm("Delete this vehicle?")) return;
+
+  try{
+    await ref.doc(editingId).delete();
+    showToast("Deleted");
+    if(selectedId === editingId) setSelected(null);
+    closeEdit();
+  }catch(e){
+    showToast("Delete failed");
+    console.error(e);
+  }
+}
+
+editBack.addEventListener("click",(e)=>{ if(e.target === editBack) closeEdit(); });
+document.addEventListener("keydown",(e)=>{
+  if(e.key === "Escape"){
+    closeEdit();
+    closePhoto();
+    closeParts();
+  }
+});
+
+/* ===== live render ===== */
+function startListener(){
+  if(unsub) unsub();
+
+  setNote(invMsg, invMsgText, "Loading inventory…", "");
+  countLine.textContent = "Loading…";
+  liveHint.textContent = "Connecting…";
+
+  unsub = ref.orderBy("createdAt","desc").onSnapshot(s=>{
+    liveCars = [];
+    s.forEach(doc=>{ liveCars.push({ id: doc.id, ...doc.data() }); });
+
+    countLine.textContent = `${liveCars.length} vehicles`;
+    liveHint.textContent = "Live sync on";
+    setNote(invMsg, invMsgText, liveCars.length ? "Tap a card. Use chips to filter fast." : "No vehicles yet.", liveCars.length ? "" : "warn");
+    queueApplyFilters();
+  }, (err)=>{
+    setNote(invMsg, invMsgText, "Live sync failed: " + (err?.message || "rules/connection"), "bad");
+    countLine.textContent = "Error";
+    liveHint.textContent = "Offline";
+    console.error(err);
+  });
+}
+
+/* ===== filters/sort (smooth) ===== */
+let _filterT = null;
+let _raf = 0;
+
+function queueApplyFilters(){
+  clearTimeout(_filterT);
+  _filterT = setTimeout(()=>{
+    if(_raf) cancelAnimationFrame(_raf);
+    _raf = requestAnimationFrame(()=>{
+      applyFilters();
+      _raf = 0;
+    });
+  }, 120);
+}
+
+function applyFilters(){
+  const q = clean(searchEl.value).toLowerCase();
+  const sort = sortEl.value;
+
+  let list = liveCars.slice();
+
+  for(const c of list){
+    c._ts = getMs(c.createdAt);
+    c._miles = (typeof c.mileage === "number") ? c.mileage : (parseMileage(String(c.mileage||"")) ?? null);
+  }
+
+  if(chipState.photos)    list = list.filter(c => Array.isArray(c.photos) && c.photos.filter(Boolean).length);
+  if(chipState.goodMotor) list = list.filter(c => c.goodMotor === true);
+  if(chipState.goodTrans) list = list.filter(c => c.goodTrans === true);
+  if(chipState.under100k) list = list.filter(c => (c._miles ?? 9e15) < 100000);
+
+  if(q){
+    list = list.filter(c=>{
+      const blob = [
+        c.stockNumber,
+        c.year, c.make, c.model, c.vin, c.color, c.engine, c.transmission, c.drivetrain,
+        c.mileage,
+        (c.goodMotor===true ? "good motor" : c.goodMotor===false ? "bad motor" : ""),
+        (c.goodTrans===true ? "good transmission" : c.goodTrans===false ? "bad transmission" : "")
+      ].map(x=>String(x||"").toLowerCase()).join(" ");
+      return blob.includes(q);
+    });
+  }
+
+  list.sort((a,b)=>{
+    const ay = parseInt(a.year||"0",10) || 0;
+    const by = parseInt(b.year||"0",10) || 0;
+    const am = a._miles ?? 9e15;
+    const bm = b._miles ?? 9e15;
+
+    if(sort==="newest") return (b._ts||0) - (a._ts||0);
+    if(sort==="oldest") return (a._ts||0) - (b._ts||0);
+    if(sort==="yearDesc") return by - ay;
+    if(sort==="yearAsc") return ay - by;
+    if(sort==="makeAsc") return String(a.make||"").localeCompare(String(b.make||""));
+    if(sort==="milesAsc") return am - bm;
+    if(sort==="milesDesc") return bm - am;
+    return 0;
+  });
+
+  renderList(list);
+  document.querySelectorAll(".photoTrack").forEach(enableDragScroll);
+
+  if(selectedId && !list.some(x=>x.id===selectedId)) setSelected(null);
+}
+
+function getMs(t){
+  try{
+    if(!t) return 0;
+    if(typeof t.toMillis === "function") return t.toMillis();
+    return 0;
+  }catch{return 0;}
+}
+
+function ynLabel(b, what){
+  if(b===true) return `${what}: Good ✅`;
+  if(b===false) return `${what}: Bad ❌`;
+  return "";
+}
+
+function buildPhotoSquare(carId, photos){
+  const arr = Array.isArray(photos) ? photos.filter(Boolean) : [];
+  __photosByCarId[carId] = arr;
+
+  if(!arr.length){
+    return `<div class="photoSquare"><div class="photoFallback">NO PHOTOS</div></div>`;
+  }
+
+  // NOTE: we intentionally avoid HTML-escaping URLs here (escaping can break some signed URLs).
+  const url0 = String(arr[0] ?? "");
+  const safe0 = url0.replace(/"/g, "%22").replace(/'/g, "%27");
+
+  // Keep the horizontal strip (optional), but also render a "cover" image so thumbnails always show.
+  const imgs = arr.map((u,i)=>{
+    const url = String(u ?? "");
+    const safe = url.replace(/"/g, "%22").replace(/'/g, "%27");
+    return `<img src="${safe}" alt="Vehicle photo" loading="lazy" decoding="async"
+      onclick="openPhoto('${carId}', ${i}); event.stopPropagation();"
+      onerror="this.style.display='none'">`;
+  }).join("");
+
+  return `
+    <div class="photoSquare hasPhotos">
+      <div class="photoBadge"><span>${arr.length}</span></div>
+      <img class="photoCover" src="${safe0}" alt="Vehicle photo" loading="lazy" decoding="async"
+           onclick="openPhoto('${carId}', 0); event.stopPropagation();"
+           onerror="this.style.display='none'">
+      <div class="photoTrack" aria-label="Vehicle photos">${imgs}</div>
+    </div>
+  `;
+}
+
+
+function renderList(list){
+  // FLIP list animation (smooth re-order / filter)
+  const prev = new Map();
+  document.querySelectorAll("#inventoryList .vehicleCard[data-id]").forEach(el=>{
+    prev.set(el.dataset.id, el.getBoundingClientRect());
+  });
+  if(!list.length){
+    inventoryList.innerHTML = "";
+    return;
+  }
+
+  const html = list.map(c=>{
+    const vehicleLine = `${escHtml(c.year||"")} ${escHtml(c.make||"")} ${escHtml(c.model||"")}`.trim() || "Vehicle";
+    const vinVal = escHtml(c.vin||"");
+    const stockVal = escHtml(c.stockNumber||"");
+
+    const specsArr = [c.color, c.engine, c.transmission, c.drivetrain].filter(Boolean).map(escHtml);
+    const gmText = ynLabel(c.goodMotor, "Motor");
+    const gtText = ynLabel(c.goodTrans, "Trans");
+    if(gmText) specsArr.push(escHtml(gmText));
+    if(gtText) specsArr.push(escHtml(gtText));
+    const specs = specsArr.join(" · ");
+
+    const tags = [];
+    const milesLabel = fmtMiles(c.mileage);
+    if(stockVal) tags.push(`<span class="tag stock">Stock: ${stockVal}</span>`);
+    if(milesLabel) tags.push(`<span class="tag miles">${escHtml(milesLabel)}</span>`);
+    if(c.goodMotor===true) tags.push(`<span class="tag ok">Good Motor ✅</span>`);
+    if(c.goodMotor===false) tags.push(`<span class="tag bad">Bad Motor ❌</span>`);
+    if(c.goodTrans===true) tags.push(`<span class="tag ok">Good Trans ✅</span>`);
+    if(c.goodTrans===false) tags.push(`<span class="tag bad">Bad Trans ❌</span>`);
+
+    const photoSquare = buildPhotoSquare(c.id, c.photos);
+
+    return `
+      <div class="vehicleCard" onclick="setSelected('${c.id}')">
+        ${photoSquare}
+        <div style="min-width:0">
+          <div class="vTitle">${vehicleLine}</div>
+          ${specs ? `<div class="vSub">${specs}</div>` : `<div class="vSub">—</div>`}
+          <div class="kv">${tags.join("")}</div>
+
+          <div class="actionsRow" onclick="event.stopPropagation()">
+            ${stockVal ? `<button class="smallBtn" onclick="copyText('${stockVal}')">Copy Stock</button>` : ``}
+            ${vinVal ? `<button class="smallBtn ghost" onclick="copyText('${vinVal}')">Copy VIN</button>` : ``}
+            <button class="smallBtn" onclick="openParts('${c.id}')">Parts</button>
+            ${vinVal ? `<button class="smallBtn ghost" onclick="copyText('${vehicleLine} • ${vinVal}')">Copy Line</button>` : ``}
+
+            ${isAdmin ? `
+              <button class="smallBtn primary" onclick="openEdit('${c.id}')">Edit</button>
+              <button class="smallBtn danger" onclick="removeCar('${c.id}')">Delete</button>
+            ` : ``}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  inventoryList.innerHTML = html;
+
+  // animate from previous positions
+  const nextEls = [...document.querySelectorAll("#inventoryList .vehicleCard[data-id]")];
+  nextEls.forEach(el=>{
+    const id = el.dataset.id;
+    const from = prev.get(id);
+    if(!from) {
+      // new element: fade/slide in
+      el.animate([{opacity:0, transform:"translateY(10px)"},{opacity:1, transform:"translateY(0px)"}], {duration:240, easing:"ease-out"});
+      return;
+    }
+    const to = el.getBoundingClientRect();
+    const dx = from.left - to.left;
+    const dy = from.top - to.top;
+    if(Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+    el.animate([
+      { transform: `translate(${dx}px, ${dy}px)` },
+      { transform: "translate(0px, 0px)" }
+    ], { duration: 260, easing: "cubic-bezier(.2,.8,.2,1)" });
+  });
+}
+
+
+/* ===== RIGHT PANEL (placeholder removed) ===== */
+function setSelected(id){
+  selectedId = id;
+  // highlight selected card
+  document.querySelectorAll(".vehicleCard.selected").forEach(el=>el.classList.remove("selected"));
+  const selEl = document.querySelector(`.vehicleCard[data-id="${id}"]`);
+  if(selEl) selEl.classList.add("selected");
+
+  if(!id){
+    dTitle.textContent = "Select a vehicle";
+    dMini.textContent = "";
+    dBody.innerHTML = "";  /* <<< removed the paragraph */
+    if(window.quickBar) quickBar.innerHTML = "";
+    return;
+  }
+
+  const c = liveCars.find(x=>x.id===id);
+  if(!c) return;
+
+  const vehicleLine = `${clean(c.year)} ${clean(c.make)} ${clean(c.model)}`.trim() || "Vehicle";
+  const stock = clean(c.stockNumber) || "—";
+  const vin = clean(c.vin) || "—";
+  const miles = fmtMiles(c.mileage) || "—";
+  const color = clean(c.color) || "—";
+  const engine = clean(c.engine) || "—";
+  const trans = clean(c.transmission) || "—";
+  const drive = clean(c.drivetrain) || "—";
+
+  dTitle.textContent = vehicleLine;
+  dMini.textContent = `Stock: ${stock}`;
+
+  // sticky quick actions
+  if(window.quickBar){
+    const canCopyVin = vin && vin !== "—";
+    const canCopyStock = stock && stock !== "—";
+    quickBar.innerHTML = `
+      <span class="qbLabel">Quick actions</span>
+      ${canCopyStock ? `<button class="smallBtn" onclick="copyText(\'${escHtml(stock)}\')">Copy Stock</button>` : ``}
+      ${canCopyVin ? `<button class="smallBtn ghost" onclick="copyText(\'${escHtml(vin)}\')">Copy VIN</button>` : ``}
+      <button class="smallBtn" onclick="openParts(\'${id}\')">Parts</button>
+      <span class="spacer"></span>
+      ${isAdmin ? `<button class="smallBtn primary" onclick="openEdit(\'${id}\')">Edit</button>
+                  <button class="smallBtn danger" onclick="removeCar(\'${id}\')">Delete</button>` : ``}
+    `;
+  }
+
+  const gm = (c.goodMotor===true) ? "Good ✅" : (c.goodMotor===false) ? "Bad ❌" : "—";
+  const gt = (c.goodTrans===true) ? "Good ✅" : (c.goodTrans===false) ? "Bad ❌" : "—";
+
+  dBody.innerHTML = `
+    <div class="dLine"><span>Stock</span><b>${escHtml(stock)}</b></div>
+    <div class="dLine" style="margin-top:8px"><span>VIN</span><b style="max-width:60%;text-align:right">${escHtml(vin)}</b></div>
+
+    <div class="dBlock">
+      <div class="dLine"><span>Mileage</span><b>${escHtml(miles)}</b></div>
+      <div class="dLine" style="margin-top:8px"><span>Color</span><b>${escHtml(color)}</b></div>
+      <div class="dLine" style="margin-top:8px"><span>Engine</span><b>${escHtml(engine)}</b></div>
+      <div class="dLine" style="margin-top:8px"><span>Transmission</span><b>${escHtml(trans)}</b></div>
+      <div class="dLine" style="margin-top:8px"><span>Drivetrain</span><b>${escHtml(drive)}</b></div>
+      <div class="dLine" style="margin-top:8px"><span>Motor</span><b>${escHtml(gm)}</b></div>
+      <div class="dLine" style="margin-top:8px"><span>Trans</span><b>${escHtml(gt)}</b></div>
+    </div>
+  `;
+  // animate detail update
+  try{ dBody.animate([{opacity:0, transform:"translateY(6px)"},{opacity:1, transform:"translateY(0)"}], {duration:220, easing:"ease-out"}); }catch(e){}
+}
+
+async function copyText(t){
+  try{
+    await navigator.clipboard.writeText(t);
+    showToast("Copied");
+  }catch{
+    const ta = document.createElement("textarea");
+    ta.value = t;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    showToast("Copied");
+  }
+}
+
+function clearSearch(){
+  searchEl.value = "";
+  queueApplyFilters();
+}
+
+/* init */
+(function init(){
+  hookVinAutoFill();
+  startListener();
+  setNote(invMsg, invMsgText, "Loading inventory…", "");
+  setNote(loginMsg, loginMsgText, "", "");
+  setNote(adminMsg, adminMsgText, "", "");
+  setSelected(null);
+})();
 </script>
 
 </body>
