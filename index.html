@@ -462,6 +462,74 @@ textarea{min-height:120px;resize:vertical}
 }
 .galleryItem:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.16)}
 .galleryItem img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Gallery polish (Pass 2) */
+.galleryItem{will-change:transform}
+.galleryItem img{opacity:0;transform:scale(1.01);transition:opacity .28s ease, transform .42s ease}
+.galleryItem.loaded img{opacity:1;transform:scale(1)}
+.galleryItem:focus-within{outline:2px solid rgba(255,255,255,.14);outline-offset:3px}
+
+/* Skeleton cards while loading */
+.galleryItem.skeleton{
+  cursor:default;
+  background:rgba(255,255,255,.03);
+  border-color:rgba(255,255,255,.08);
+}
+.galleryItem.skeleton::after{display:none}
+.galleryItem.skeleton::before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    linear-gradient(110deg,
+      rgba(255,255,255,.03) 0%,
+      rgba(255,255,255,.10) 45%,
+      rgba(255,255,255,.03) 80%);
+  transform:translateX(-60%);
+  animation:shimmer 1.2s linear infinite;
+}
+@keyframes shimmer{
+  to{transform:translateX(60%)}
+}
+.galleryItem.skeleton .cap{
+  left:12px;right:12px;bottom:12px;
+  height:18px;
+  color:transparent;
+  border-color:rgba(255,255,255,.08);
+}
+
+/* Empty + error state */
+.galleryEmpty{
+  min-width:320px;
+  max-width:520px;
+  padding:18px 18px 16px;
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  box-shadow:var(--shadow2);
+}
+.galleryEmpty h4{margin:0 0 6px;font-size:1.05rem}
+.galleryEmpty p{margin:0 0 12px;color:var(--muted);line-height:1.35}
+.galleryEmpty .row{display:flex;gap:10px;flex-wrap:wrap}
+.galleryEmpty .miniBtn{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:#fff;border-radius:14px;
+  padding:10px 12px;
+  font-weight:700;
+  cursor:pointer;
+}
+.galleryEmpty .miniBtn.primary{
+  border:none;color:#0b0f14;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #galleryGrid{scroll-behavior:auto}
+  .galleryItem, .tab{transition:none !important}
+  .galleryItem.skeleton::before{animation:none}
+}
+
 .galleryItem::after{
   content:"";
   position:absolute;inset:0;
@@ -1611,6 +1679,19 @@ const addMsg = document.getElementById("addMsg");
 const galleryGrid = document.getElementById("galleryGrid");
 const gPrev = document.getElementById("gPrev");
 const gNext = document.getElementById("gNext");
+
+// Make horizontal scrolling feel natural on desktop trackpads/mouse wheels
+galleryGrid.addEventListener("wheel", (e) => {
+  // If user is trying to scroll vertically over the gallery, translate it to horizontal scroll.
+  // (Don't fight genuine horizontal trackpad gestures or Shift+Wheel.)
+  const ax = Math.abs(e.deltaX || 0);
+  const ay = Math.abs(e.deltaY || 0);
+  if (e.shiftKey || ax > ay) return;
+  e.preventDefault();
+  galleryGrid.scrollLeft += e.deltaY;
+  requestAnimationFrame(updateGalleryNavButtons);
+}, { passive: false });
+
 const tabs = Array.from(document.querySelectorAll("#galleryTabs .tab"));
 let activeCat = "All";
 let galleryData = [];   // cached docs
@@ -1867,9 +1948,60 @@ async function submitJunkCar(){
 }
 
 /* ============ 6) Gallery ============ */
+function renderGallerySkeleton(count=10){
+  galleryGrid.innerHTML = "";
+  for(let i=0;i<count;i++){
+    const div = document.createElement("div");
+    div.className = "galleryItem skeleton";
+    const cap = document.createElement("div");
+    cap.className = "cap";
+    cap.textContent = "Loading";
+    div.appendChild(cap);
+    galleryGrid.appendChild(div);
+  }
+  // While loading, keep nav disabled until we know width.
+  gPrev.disabled = true;
+  gNext.disabled = true;
+}
+
+function renderGalleryEmpty(kind="empty", detail=""){
+  const title = kind === "error" ? "Couldn’t load photos" : "No photos yet";
+  const desc = kind === "error"
+    ? (detail || "Please refresh, or try again in a moment.")
+    : (activeCat === "All"
+        ? "We’ll keep adding new arrivals. Want something specific?"
+        : `No photos posted in “${activeCat}” yet. Want us to check inventory?`);
+
+  const wrap = document.createElement("div");
+  wrap.className = "galleryEmpty";
+  wrap.innerHTML = `
+    <h4>${title}</h4>
+    <p>${desc}</p>
+    <div class="row">
+      <button type="button" class="miniBtn primary" id="gEmptyRequest">Request a Part</button>
+      <button type="button" class="miniBtn" id="gEmptyReload">${kind === "error" ? "Try again" : "Refresh"}</button>
+      ${currentUser ? `<button type="button" class="miniBtn" id="gEmptyAdd">Add Photo</button>` : ``}
+    </div>
+  `;
+  galleryGrid.innerHTML = "";
+  galleryGrid.appendChild(wrap);
+
+  const req = wrap.querySelector("#gEmptyRequest");
+  const rel = wrap.querySelector("#gEmptyReload");
+  const add = wrap.querySelector("#gEmptyAdd");
+
+  req?.addEventListener("click", ()=>{
+    const el = document.querySelector("#requestCard") || document.querySelector("#request") || document.querySelector("[data-section='request']");
+    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+    showToast("Tell us what you need 👇");
+  });
+  rel?.addEventListener("click", loadGallery);
+  add?.addEventListener("click", ()=> openModal(addBackdrop, addModal));
+}
+
 function renderGallery(list){
-  if(!list.length){
-    galleryGrid.innerHTML = `<div class="galleryItem">No photos yet.</div>`;
+  if(!list || !list.length){
+    renderGalleryEmpty("empty");
     return;
   }
 
@@ -1878,11 +2010,21 @@ function renderGallery(list){
     const div = document.createElement("div");
     div.className = "galleryItem" + (currentUser ? " admin" : "");
     div.dataset.index = String(idx);
+    div.setAttribute("role","button");
+    div.setAttribute("tabindex","0");
+    div.setAttribute("aria-label", (it.caption || it.category || "Gallery photo"));
 
     const img = document.createElement("img");
-    img.loading="lazy";
+    img.loading = "lazy";
     img.alt = it.caption || it.category || "Gallery photo";
     img.src = it.url;
+
+    // Fade-in when loaded
+    img.addEventListener("load", ()=> div.classList.add("loaded"), { once:true });
+    img.addEventListener("error", ()=>{
+      div.classList.add("loaded");
+      div.innerHTML = `<div style="padding:14px;text-align:center;color:rgba(245,245,247,.75)">Image failed to load</div>`;
+    }, { once:true });
 
     const cap = document.createElement("div");
     cap.className="cap";
@@ -1910,7 +2052,12 @@ function renderGallery(list){
       div.appendChild(del);
     }
 
-    div.addEventListener("click", ()=> openLightbox(idx));
+    const open = ()=> openLightbox(idx);
+    div.addEventListener("click", open);
+    div.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); open(); }
+    });
+
     galleryGrid.appendChild(div);
   });
 
@@ -1919,9 +2066,12 @@ function renderGallery(list){
 
 async function loadGallery(){
   if(!db){
-    galleryGrid.innerHTML = `<div class="galleryItem">Gallery needs Firebase config</div>`;
+    renderGalleryEmpty("error", "Gallery needs Firebase config.");
     return;
   }
+
+  // Premium feel: show skeletons immediately
+  renderGallerySkeleton(10);
 
   const col = collection(db, "gallery");
   let q = null;
@@ -1931,13 +2081,17 @@ async function loadGallery(){
     q = query(col, where("category","==", activeCat), orderBy("createdAt","desc"), limit(60));
   }
 
-  const snaps = await getDocs(q);
-  galleryData = snaps.docs.map(d=>({ id:d.id, ...d.data() }))
-    .filter(x=>x.url);
+  try{
+    const snaps = await getDocs(q);
+    galleryData = snaps.docs.map(d=>({ id:d.id, ...d.data() }))
+      .filter(x=>x.url);
 
-  renderGallery(galleryData);
+    renderGallery(galleryData);
+  }catch(err){
+    console.error(err);
+    renderGalleryEmpty("error", "Network or permissions issue. Try again.");
+  }
 }
-
 async function addPhoto(){
   if(!currentUser) return;
   const url = (photoUrl.value || "").trim();
@@ -1970,8 +2124,17 @@ async function addPhoto(){
 }
 
 /* Gallery scroll */
+function galleryScrollStep(){
+  const first = galleryGrid.querySelector(".galleryItem");
+  if(!first) return 420;
+  const gap = parseFloat(getComputedStyle(galleryGrid).gap || "0") || 0;
+  const w = first.getBoundingClientRect().width;
+  return Math.max(240, Math.round(w + gap));
+}
 function scrollGallery(dx){
-  galleryGrid.scrollBy({ left: dx, behavior: "smooth" });
+  const dir = dx === 0 ? 0 : (dx > 0 ? 1 : -1);
+  const step = galleryScrollStep();
+  galleryGrid.scrollBy({ left: dir * step, behavior: "smooth" });
   setTimeout(updateGalleryNavButtons, 220);
 }
 function updateGalleryNavButtons(){
